@@ -1,0 +1,20 @@
+{
+  "name": "hoist-connect",
+  "version": "1.0.0",
+  "description": "Hoist connect client library",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoist/hoist-connect.git"
+  },
+  "author": "Hoist Apps Ltd",
+  "license": "None",
+  "bugs": {
+    "url": "https://github.com/hoist/hoist-connect/issues"
+  },
+  "homepage": "https://github.com/hoist/hoist-connect",
+  "private": "true"
+}
