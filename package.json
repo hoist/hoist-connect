@@ -16,5 +16,23 @@
     "url": "https://github.com/hoist/hoist-connect/issues"
   },
   "homepage": "https://github.com/hoist/hoist-connect",
-  "private": "true"
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "chai-as-promised": "^4.1.1",
+    "gulp": "^3.8.8",
+    "gulp-istanbul": "^0.3.0",
+    "gulp-istanbul-enforcer": "^1.0.3",
+    "gulp-jshint": "^1.8.4",
+    "gulp-mocha": "^1.1.0",
+    "jshint-growl-reporter": "^0.1.1",
+    "jshint-stylish": "^0.4.0",
+    "run-sequence": "^0.3.6",
+    "sinon": "^1.10.3",
+    "sinon-chai": "^2.5.0"
+  },
+  "private": "true",
+  "dependencies": {
+    "bluebird": "^2.3.6",
+    "hoist-data-pipeline": "git://github.com/hoist/hoist-data-pipeline"
+  }
 }
