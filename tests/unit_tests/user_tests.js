@@ -34,7 +34,7 @@ describe('Hoist', function () {
           Hoist.user.login('user', null);
         }).to.throw(HoistErrors.user.request.InvalidError, 'password is required');
       });
-      describe('successful login', function () {
+      describe('valid request', function () {
         var result;
         before(function () {
           return (result = Hoist.user.login('username', 'password'));
@@ -49,7 +49,31 @@ describe('Hoist', function () {
       });
     });
     describe('.invite', function () {
-
+      before(function () {
+        sinon.stub(UserPipeline.prototype, 'invite').returns(BBPromise.resolve(null));
+      });
+      after(function () {
+        UserPipeline.prototype.invite.restore();
+      });
+      it('requires user details', function () {
+        return expect(function () {
+          Hoist.user.invite(null);
+        }).to.throw(HoistErrors.user.request.InvalidError, 'user details are required');
+      });
+      describe('valid request', function () {
+        var result;
+        before(function () {
+          return (result = Hoist.user.invite({
+            username: 'username'
+          }));
+        });
+        it('passes details to pipeline', function () {
+          expect(UserPipeline.prototype.invite)
+            .to.have.been.calledWith({
+              username: 'username'
+            });
+        });
+      });
     });
     describe('.create', function () {
 
