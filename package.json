@@ -35,6 +35,8 @@
     "bluebird": "^2.3.6",
     "hoist-context": "git://github.com/hoist/hoist-context",
     "hoist-data-pipeline": "git://github.com/hoist/hoist-data-pipeline",
-    "hoist-errors": "git://github.com/hoist/hoist-errors"
+    "hoist-errors": "git://github.com/hoist/hoist-errors",
+    "hoist-model": "git://github.com/hoist/hoist-model",
+    "hoist-user-pipeline": "git://github.com/hoist/hoist-user-pipeline"
   }
 }
