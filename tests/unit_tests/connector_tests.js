@@ -14,7 +14,7 @@ describe('Hoist', function () {
     };
     var stubConnector = new StubConnector();
     before(function () {
-      sinon.stub(ConnectorPipeline.prototype, 'loadConnector').returns(stubConnector);
+      sinon.stub(ConnectorPipeline.prototype, 'loadConnector').returns(BBPromise.resolve(stubConnector));
       connector = Hoist.connector('xero', 'key');
     });
     it('loads the specified connector', function () {
