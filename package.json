@@ -37,6 +37,7 @@
     "hoist-context": "git://github.com/hoist/hoist-context",
     "hoist-data-pipeline": "git://github.com/hoist/hoist-data-pipeline",
     "hoist-errors": "git://github.com/hoist/hoist-errors",
+    "hoist-events-pipeline": "git://github.com/hoist/hoist-events-pipeline",
     "hoist-logger": "git://github.com/hoist/hoist-logger",
     "hoist-model": "git://github.com/hoist/hoist-model",
     "hoist-user-pipeline": "git://github.com/hoist/hoist-user-pipeline"
