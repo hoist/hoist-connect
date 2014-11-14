@@ -40,6 +40,7 @@
     "hoist-events-pipeline": "git://github.com/hoist/hoist-events-pipeline",
     "hoist-logger": "git://github.com/hoist/hoist-logger",
     "hoist-model": "git://github.com/hoist/hoist-model",
-    "hoist-user-pipeline": "git://github.com/hoist/hoist-user-pipeline"
+    "hoist-user-pipeline": "git://github.com/hoist/hoist-user-pipeline",
+    "loggly": "^1.0.6"
   }
 }
