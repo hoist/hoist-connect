@@ -4,21 +4,51 @@ This JS Library is exposed to every Hoist Module running on the Hoist Connect sy
 
 It's Exposed via a global variable called Hoist so you don't need to require anything.
 
-#API
+#API Documentation
 
-* [`Hoist.log`](#log)
-* [`Hoist.data`](#data)
-  * [`{DataTypeManager}`](#datatypemanager)
-  * [`.setType`](#settypetype)
-  * [`.save`](#savejsoncallback)
-  * [`.find`](#findquerycallback)
-  * [`.findOne`](#findonequerycallback)
-  * [`.findById`](#findbyidquerycallback)
-* [`Hoist.events`](#events)
-  * [`{HoistEventManager}`](#hoisteventmanger)
-  * [`.raise(event,payload)`](#raiseeventpayload)
+##[Log API](#logapi)
+####[`Hoist.log`](#log)
 
-## Log
+##[Data API](#dataapi)
+
+####[`Hoist.data(type)`](#hoistdatatype)
+* [`.setType(type)`](#settypetype)
+* [`.save(object, [callback])`](#saveobjectcallback)
+* [`.find(query, [callback])`](#findquerycallback)
+* [`.findOne(query, [callback])`](#findonequerycallback)
+* [`.findById(query, [callback])`](#findbyidquerycallback)
+
+##[Events API](#eventapi)
+
+#### [`Hoist.events`](#hoistevents)
+* [`.raise(event, payload)`](#raiseeventpayload)
+
+##[User API](#userapi)
+
+####[`Hoist.user`](#hoistuser)
+* [`.login(username, password, [callback])`](#loginusernamepasswordcallback)
+* [`.invite(userDetails, callback)`](#inviteuserdetailscallback)
+
+##[Connector API](#connectorapi)
+
+#### [`Hoist.connector(type, key)`](#connector)
+* [`{ConnectorManager}`](#connectormanager)
+* [`.get`](#getarguments)
+
+####[Unimplemented APIs](#unimplementedapis)
+####[`Hoist.connector`](#connector)
+* [`.post`](#postarguments)
+* [`.put`](#putarguments)
+* [`.delete`](#deletearguments)
+
+####[`Hoist.buckets`](#buckets)
+* [`.switch`](#switchbucketcallback)
+* [`.current`](#currentcallback)
+
+####[`Hoist.user`](#user)
+* [`.current`](#current)
+
+## Log API
 
 ##`Hoist.log(message)`
 Log a message to the applications instance of Loggly
@@ -40,7 +70,7 @@ Hoist.log('Hello World').then(function(){
 
 
 
-## Data
+## Data API
 
 ##`Hoist.data(type)`
 Create a data manager object for _type_
@@ -165,7 +195,7 @@ Fruits.find('Cucumber',function(err, cucumber){
 *Returns*
 - `{Promise}` a promise to return the saved object. use this instead of the callback if you want to use promise chains (.then .catch etc)
 
-## Events
+## Events API
 
 ##`Hoist.events`
 
@@ -175,6 +205,8 @@ Fruits.find('Cucumber',function(err, cucumber){
 ## `{HoistEventManager}`
 
 ##`.raise(event, payload)`
+
+Raise an event
 
 *example* (raises the new:invoice event)
 
@@ -190,3 +222,100 @@ Hoist.events.raise('new:invoice',{contact:'supplier', total:10.2})
 
 *Returns*
 - `{Promise}` a promise to have raised the event
+
+
+## User API
+
+##`Hoist.user`
+
+##`.login(username, password, callback)`
+
+switch the current session to be under the given user
+
+*example* (switches the current session to bob)
+
+```javascript
+Hoist.users.login('bob@hoi.io', 'password123', function(err){
+  if(err){
+    // bob has failed to log in
+  }
+  else{
+    // session is now running as bob
+  }
+});
+```
+
+*Parameters*
+  - `username` any email address registered against the user
+  - `password` the user's password
+  - `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
+
+*Returns*
+- `{Promise}` a promise to have logged the user in
+
+##`.invite(username, password, callback)`
+
+switch the current session to be under the given user
+
+*example* (switches the current session to bob)
+
+```javascript
+Hoist.users.login('bob@hoi.io', 'password123', function(err){
+if(err){
+  // bob has failed to log in
+}
+else{
+  // session is now running as bob
+}
+});
+```
+
+*Parameters*
+- `username` any email address registered against the user
+- `password` the user's password
+- `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
+
+*Returns*
+- `{Promise}` a promise to have logged the user in
+
+## Connector API
+
+##`Hoist.connector(type, key)`
+
+Create a connector manager object for the given type of connector and the settings represented by key
+
+_**note**: this API will likely change to just needing key_
+
+*example* (returns a `{Connector}` object of type Xero with the key `internal-xero`)
+
+```javascript
+var xeroInternal = Hoist.connector('Xero', 'internal-xero');
+```
+
+
+*Parameters*
+- `Type {String}` The type of connector to load
+- `Key {String}` The key for the connector settings to use
+
+*Returns*
+- `{Connector}` a connector to work with the specified API
+
+##`.get([arguments])`
+
+perform a get request agains the connector
+
+
+*example* (perform a get request against the given endpoint)
+
+```javascript
+xeroInternal.get('/invoices')
+.then(function(responseJson){
+  //response received
+})
+```
+
+*Parameters*
+- `[arguments] {array}` zero or more arguments to pass to the connector. _see individual connector documentation_
+
+*Returns*
+- `{Promise}` a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.
