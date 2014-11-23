@@ -6,13 +6,35 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 #API
 
-* [.data](#Data)
+* [`Hoist.log`](#log)
+* [`Hoist.data`](#data)
   * [`{DataTypeManager}`](#datatypemanager)
   * [`.setType`](#settypetype)
   * [`.save`](#savejsoncallback)
   * [`.find`](#findquerycallback)
   * [`.findOne`](#findonequerycallback)
   * [`.findById`](#findbyidquerycallback)
+
+## Log
+##`Hoist.log(message)`
+Log a message to the applications instance of Loggly
+
+- this requires Loggly to be setup, see instructions in the portal
+
+*example* (logs `Hello World` to the applications loggly account)
+```javascript
+Hoist.log('Hello World').then(function(){
+  //message is sent
+  done();
+});
+```
+*Parameters*
+- `message {string}` the message to send to loggly
+
+*Returns*
+- A `{Promise}` to have sent the message, it's currently important that you wait till the message is sent before returning from your Hoist module. We expect to fix this ASAP
+
+
 
 ## Data
 
