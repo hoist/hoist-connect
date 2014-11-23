@@ -14,8 +14,12 @@ It's Exposed via a global variable called Hoist so you don't need to require any
   * [`.find`](#findquerycallback)
   * [`.findOne`](#findonequerycallback)
   * [`.findById`](#findbyidquerycallback)
+* [`Hoist.events`](#events)
+  * [`{HoistEventManager}`](#hoisteventmanger)
+  * [`.raise(event,payload)`](#raiseeventpayload)
 
 ## Log
+
 ##`Hoist.log(message)`
 Log a message to the applications instance of Loggly
 
@@ -160,3 +164,29 @@ Fruits.find('Cucumber',function(err, cucumber){
 
 *Returns*
 - `{Promise}` a promise to return the saved object. use this instead of the callback if you want to use promise chains (.then .catch etc)
+
+## Events
+
+##`Hoist.events`
+
+*Returns*
+-`{HoistEventManager}`
+
+## `{HoistEventManager}`
+
+##`.raise(event, payload)`
+
+*example* (raises the new:invoice event)
+
+```javascript
+Hoist.events.raise('new:invoice',{contact:'supplier', total:10.2})
+.then(function(){
+  //new:invoice event raised
+})
+```
+*Parameters*
+- `event` the name of the event to raise
+- `payload` an optional JSON serialisable object to deliver as the `payload` parameter in the event
+
+*Returns*
+- `{Promise}` a promise to have raised the event
