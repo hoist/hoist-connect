@@ -11,6 +11,8 @@ describe('Hoist', function () {
     var connector;
     var StubConnector = function () {
       this.get = sinon.stub();
+      this.put = sinon.stub();
+      this.post = sinon.stub();
     };
     var stubConnector = new StubConnector();
     before(function () {
@@ -47,14 +49,38 @@ describe('Hoist', function () {
           .to.have.been.calledWith('/path?query');
       });
     });
-    describe('#post', function () {
-
+    describe('#put', function () {
+      var response;
+      var _promise = BBPromise.resolve(true);
+      before(function () {
+        stubConnector.put.returns(_promise);
+        response = connector.put('/path?query', 'data');
+      });
+      after(function () {
+        stubConnector.put.reset();
+      });
+      it('calls pipeline#put', function () {
+        expect(stubConnector.put)
+          .to.have.been.calledWith('/path?query', 'data');
+      });
     });
     describe('#del', function () {
 
     });
-    describe('#put', function () {
-
+    describe('#post', function () {
+      var response;
+      var _promise = BBPromise.resolve(true);
+      before(function () {
+        stubConnector.post.returns(_promise);
+        response = connector.post('/path?query', 'data');
+      });
+      after(function () {
+        stubConnector.post.reset();
+      });
+      it('calls pipeline#post', function () {
+        expect(stubConnector.post)
+          .to.have.been.calledWith('/path?query', 'data');
+      });
     });
   });
 });
