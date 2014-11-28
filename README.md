@@ -7,7 +7,7 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 #API Documentation
 
 ##[Log API](#logapi)
-####[`Hoist.log`](#log)
+####[`Hoist.log([args], [callback])`](#hoistlogargscallback)
 
 ##[Data API](#dataapi)
 
@@ -21,7 +21,7 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 ##[Events API](#eventapi)
 
 #### [`Hoist.events`](#hoistevents)
-* [`.raise(event, payload)`](#raiseeventpayload)
+* [`.raise(event, payload, [callback])`](#raiseeventpayloadcallback)
 
 ##[User API](#userapi)
 
@@ -50,20 +50,21 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 ## Log API
 
-##`Hoist.log(message)`
+##`Hoist.log([args], [callback])`
 Log a message to the applications instance of Loggly
 
 - this requires Loggly to be setup, see instructions in the portal
 
 *example* (logs `Hello World` to the applications loggly account)
 ```javascript
-Hoist.log('Hello World').then(function(){
+Hoist.log('Hello World', function(){
   //message is sent
   done();
 });
 ```
 *Parameters*
-- `message {string}` the message to send to loggly
+- `[args] {Array}` messages to output to the Dev Console and the accounts loggly account
+- `[callback]` an optional callback to call when the log has been sent
 
 *Returns*
 - A `{Promise}` to have sent the message, it's currently important that you wait till the message is sent before returning from your Hoist module. We expect to fix this ASAP
@@ -204,21 +205,21 @@ Fruits.find('Cucumber',function(err, cucumber){
 
 ## `{HoistEventManager}`
 
-##`.raise(event, payload)`
+##`.raise(event, payload, [callback])`
 
 Raise an event
 
 *example* (raises the new:invoice event)
 
 ```javascript
-Hoist.events.raise('new:invoice',{contact:'supplier', total:10.2})
-.then(function(){
+Hoist.events.raise('new:invoice',{contact:'supplier', total:10.2}, function(){
   //new:invoice event raised
 })
 ```
 *Parameters*
 - `event` the name of the event to raise
 - `payload` an optional JSON serialisable object to deliver as the `payload` parameter in the event
+- `[callback]` an optional callback to call after the event is raised with the first argument being `error` if an error occurred
 
 *Returns*
 - `{Promise}` a promise to have raised the event
