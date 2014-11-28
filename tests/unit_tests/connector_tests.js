@@ -6,7 +6,7 @@ var expect = require('chai').expect;
 var errors = require('hoist-errors');
 var BBPromise = require('bluebird');
 
-describe.only('Hoist', function () {
+describe('Hoist', function () {
   describe('.connector', function () {
     var StubConnector = function () {
       this.get = sinon.stub();
