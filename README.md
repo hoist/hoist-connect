@@ -7,7 +7,7 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 #API Documentation
 
 ##[Log API](#logapi)
-####[`Hoist.log([args], [callback])`](#logargscallback)
+####[`Hoist.log([args], [callback])`](#hoistlogargscallback)
 
 ##[Data API](#dataapi)
 
