@@ -15,17 +15,17 @@ describe('Hoist', function () {
     };
     var connector;
     var stubConnector = new StubConnector();
-    describe('with type and key', function (){
+    describe('with key', function (){
       before(function () {
         sinon.stub(ConnectorPipeline.prototype, 'loadConnector').returns(BBPromise.resolve(stubConnector));
-        connector = Hoist.connector('xero', 'key');
+        connector = Hoist.connector('key');
       });
       after(function(){
         ConnectorPipeline.prototype.loadConnector.restore();
       });
       it('loads the specified connector', function () {
         expect(ConnectorPipeline.prototype.loadConnector)
-          .to.have.been.calledWith('xero', 'key');
+          .to.have.been.calledWith('key');
       });
       describe('#get', function () {
         var response;
@@ -76,35 +76,7 @@ describe('Hoist', function () {
         });
       });
     });
-    describe('with key and null type', function () {
-      var connector;
-      before(function () {
-        sinon.stub(ConnectorPipeline.prototype, 'loadConnector').returns(BBPromise.resolve(stubConnector));
-        connector = Hoist.connector(null, 'key');
-      });
-      after(function(){
-        ConnectorPipeline.prototype.loadConnector.restore();
-      });
-      it('loads the specified connector', function () {
-        expect(ConnectorPipeline.prototype.loadConnector)
-          .to.have.been.calledWith(null, 'key');
-      });
-    });
-    describe('with one argument', function () {
-      var connector;
-      before(function () {
-        sinon.stub(ConnectorPipeline.prototype, 'loadConnector').returns(BBPromise.resolve(stubConnector));
-        connector = Hoist.connector('key');
-      });
-      after(function(){
-        ConnectorPipeline.prototype.loadConnector.restore();
-      });
-      it('loads the specified connector', function () {
-        expect(ConnectorPipeline.prototype.loadConnector)
-          .to.have.been.calledWith('key');
-      });
-    });
-    describe('with no type or key specified', function () {
+    describe('with no key specified', function () {
       it('rejects', function () {
         expect(function () {
           Hoist.connector();
