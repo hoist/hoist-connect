@@ -281,21 +281,17 @@ else{
 
 ## Connector API
 
-##`Hoist.connector(type, key)`
+##`Hoist.connector(key)`
 
-Create a connector manager object for the given type of connector and the settings represented by key
+Create a connector manager object for the type of connector and the settings represented by key.
 
-_**note**: this API will likely change to just needing key_
-
-*example* (returns a `{Connector}` object of type Xero with the key `internal-xero`)
+*example* (returns a `{Connector}` object with the key `internal-xero`)
 
 ```javascript
-var xeroInternal = Hoist.connector('Xero', 'internal-xero');
+var xeroInternal = Hoist.connector('internal-xero');
 ```
 
-
 *Parameters*
-- `Type {String}` The type of connector to load
 - `Key {String}` The key for the connector settings to use
 
 *Returns*
