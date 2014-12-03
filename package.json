@@ -34,6 +34,7 @@
   "dependencies": {
     "bluebird": "^2.3.6",
     "hoist-bucket-pipeline": "git://github.com/hoist/hoist-bucket-pipeline",
+    "config": "^1.8.1",
     "hoist-connector-pipeline": "git://github.com/hoist/hoist-connector-pipeline",
     "hoist-context": "git://github.com/hoist/hoist-context",
     "hoist-data-pipeline": "git://github.com/hoist/hoist-data-pipeline",
@@ -42,6 +43,9 @@
     "hoist-logger": "git://github.com/hoist/hoist-logger",
     "hoist-model": "git://github.com/hoist/hoist-model",
     "hoist-user-pipeline": "git://github.com/hoist/hoist-user-pipeline",
-    "loggly": "^1.0.6"
+    "lodash": "^2.4.1",
+    "loggly": "^1.0.6",
+    "redis": "^0.12.1",
+    "redis-lock": "0.0.8"
   }
 }

@@ -10,6 +10,10 @@
       "account": "awsaccount",
       "secret": "secret",
       "region": "awsregion"
+    },
+    "redis":{
+      "host": "localhost",
+      "port": 6379
     }
   }
 }
