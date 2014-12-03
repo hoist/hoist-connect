@@ -6,12 +6,16 @@ var expect = require('chai').expect;
 var BBPromise = require('bluebird');
 describe('Hoist', function () {
   var Hoist = require('../../lib');
+  var context = new Context();
+  context.application = {
+    _id:'appid'
+  };
   describe('.log', function () {
     it('exists', function () {
       expect(Hoist).to.respondTo('log');
     });
     before(function () {
-      sinon.stub(Context, 'get').returns(BBPromise.resolve(new Context()));
+      sinon.stub(Context, 'get').returns(BBPromise.resolve(context));
     });
     after(function () {
       Context.get.restore();

@@ -6,34 +6,33 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 #API Documentation
 
-##[Log API](#logapi)
-####[`Hoist.log([args], [callback])`](#hoistlogargscallback)
+##[Log API](#log-api-1)
+####[`Hoist.log([args], [callback])`](#hoistlogargs-callback-1)
 
-##[Data API](#dataapi)
+##[Data API](#data-api-1)
 
-####[`Hoist.data(type)`](#hoistdatatype)
+####[`Hoist.data(type)`](#hoistdatatype-1)
 * [`.setType(type)`](#settypetype)
-* [`.save(object, [callback])`](#saveobjectcallback)
-* [`.find(query, [callback])`](#findquerycallback)
-* [`.findOne(query, [callback])`](#findonequerycallback)
-* [`.findById(query, [callback])`](#findbyidquerycallback)
+* [`.save(object, [callback])`](#savejsoncallback)
+* [`.find(query, [callback])`](#findquery-callback)
+* [`.findOne(query, [callback])`](#findonequery-callback)
+* [`.findById(query, [callback])`](#findbyididvalue-callback)
 
-##[Events API](#eventapi)
+##[Events API](#events-api-1)
 
-#### [`Hoist.events`](#hoistevents)
-* [`.raise(event, payload, [callback])`](#raiseeventpayloadcallback)
+#### [`Hoist.events`](#hoistevents-1)
+* [`.raise(event, payload, [callback])`](#raiseevent-payload-callback)
 
-##[User API](#userapi)
+##[User API](#user-api-1)
 
 ####[`Hoist.user`](#hoistuser)
-* [`.login(username, password, [callback])`](#loginusernamepasswordcallback)
-* [`.invite(userDetails, callback)`](#inviteuserdetailscallback)
+* [`.login(username, password, [callback])`](#loginusername-password-callback)
+* [`.invite(userDetails, callback)`](#inviteusername-password-callback)
 
-##[Connector API](#connectorapi)
+##[Connector API](#connector-api-1)
 
 #### [`Hoist.connector(type, key)`](#connector)
-* [`{ConnectorManager}`](#connectormanager)
-* [`.get`](#getarguments)
+* [`.get([arguments])`](#getarguments)
 
 ####[Unimplemented APIs](#unimplementedapis)
 ####[`Hoist.connector`](#connector)
@@ -281,21 +280,17 @@ else{
 
 ## Connector API
 
-##`Hoist.connector(type, key)`
+##`Hoist.connector(key)`
 
-Create a connector manager object for the given type of connector and the settings represented by key
+Create a connector manager object for the type of connector and the settings represented by key.
 
-_**note**: this API will likely change to just needing key_
-
-*example* (returns a `{Connector}` object of type Xero with the key `internal-xero`)
+*example* (returns a `{Connector}` object with the key `internal-xero`)
 
 ```javascript
-var xeroInternal = Hoist.connector('Xero', 'internal-xero');
+var xeroInternal = Hoist.connector('internal-xero');
 ```
 
-
 *Parameters*
-- `Type {String}` The type of connector to load
 - `Key {String}` The key for the connector settings to use
 
 *Returns*
