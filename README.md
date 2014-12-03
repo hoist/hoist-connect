@@ -9,6 +9,9 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 ##[Log API](#log-api-1)
 ####[`Hoist.log([args], [callback])`](#hoistlogargs-callback-1)
 
+##[Lock API](#lock-api-1)
+####[`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback-1)
+
 ##[Data API](#data-api-1)
 
 ####[`Hoist.data(type)`](#hoistdatatype-1)
@@ -67,6 +70,29 @@ Hoist.log('Hello World', function(){
 
 *Returns*
 - A `{Promise}` to have sent the message, it's currently important that you wait till the message is sent before returning from your Hoist module. We expect to fix this ASAP
+
+## Lock API
+
+##`Hoist.lock(key, [timeout], [callback])`
+Aquire a lock to ensure that you have exclusive access to a function. Will only run the callback function (or proceed the promise) once the lock has been aquired.
+
+*example* (grabs the lock `example-lock` and proceeds once done)
+```javascript
+Hoist.lock('example-lock', function(lock){
+  //have the lock
+  //do work
+  //release the lock
+  lock.release();
+});
+```
+
+*Paremeters*
+- `key {String}` a key for the lock to have exclusive access to
+- `[timeout] {number}` a timeout in milliseconds, defaults to 500
+- `[callback] {function}` a callback to fire once lock has been aquired or timeout is reached. This callback should take one parameter `Lock` which has a release function you should call once the lock is to be released
+
+*Returns*
+- A `{Promise}` to return the `Lock` object to use promises instead of the callback syntax
 
 
 
