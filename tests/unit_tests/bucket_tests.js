@@ -79,4 +79,18 @@ describe('Hoist.bucket', function () {
         .to.have.been.calledWith();
     });
   });
+  describe('.each', function () {
+    var fn = function () {};
+    before(function () {
+      sinon.stub(bucketPipeline.prototype, 'each').returns(BBPromise.resolve());
+      return Hoist.bucket.each(fn);
+    });
+    after(function () {
+      bucketPipeline.prototype.each.restore();
+    });
+    it('calls bucketPipeline.each with correct key', function () {
+      expect(bucketPipeline.prototype.each)
+        .to.have.been.calledWith(fn);
+    });
+  });
 });
