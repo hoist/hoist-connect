@@ -27,7 +27,7 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 ##[Events API](#events-api-1)
 
 #### [`Hoist.events`](#hoistevents-1)
-* [`.raise(event, payload, [callback])`](#raiseevent-payload-callback)
+* [`.raise(event, [payload], [contextOveride] [callback])`](#raiseevent-payload-callback)
 
 ##[User API](#user-api-1)
 
@@ -250,7 +250,7 @@ Fruits.find('Cucumber',function(err, cucumber){
 
 ## `{HoistEventManager}`
 
-##`.raise(event, payload, [callback])`
+##`.raise(event, [payload], [contextOverride], [callback])`
 
 Raise an event
 
@@ -263,7 +263,8 @@ Hoist.events.raise('new:invoice',{contact:'supplier', total:10.2}, function(){
 ```
 *Parameters*
 - `event` the name of the event to raise
-- `payload` an optional JSON serialisable object to deliver as the `payload` parameter in the event
+- `[payload]` an optional JSON serialisable object to deliver as the `payload` parameter in the event
+- `[contextOveride]` an object allowing you to override the events bucket with the bucket that you specify ({bucket:bucketObject})
 - `[callback]` an optional callback to call after the event is raised with the first argument being `error` if an error occurred
 
 *Returns*
