@@ -12,6 +12,9 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 ##[Lock API](#lock-api-1)
 ####[`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback-1)
 
+##[Timeout API](#timeout-api-1)
+####[`Hoist.timeout.reset(milliseconds)`](#hoisttimeoutresetmilliseconds-1)
+
 ##[Data API](#data-api-1)
 
 ####[`Hoist.data(type)`](#hoistdatatype-1)
@@ -93,6 +96,23 @@ Hoist.lock('example-lock', function(lock){
 
 *Returns*
 - A `{Promise}` to return the `Lock` object to use promises instead of the callback syntax
+
+## Timeout API
+
+##`Hoist.timeout.reset(milliseconds)`
+resets the timeout on the current module to be in `milliseconds` time. (Module timeout is 5 seconds by default)
+
+*example* (extends the timeout for another 3 seconds)
+```javascript
+Hoist.timeout.reset(3000);
+```
+
+*Paremeters*
+- `milliseconds` the number of milliseconds to set the timeout to from now. Must be between 1 and 30000 (1-30 seconds)
+
+*Returns*
+- A `{Promise}` to have set the timeout, you don't need to chain this as it can run async and in the background.
+
 
 
 
