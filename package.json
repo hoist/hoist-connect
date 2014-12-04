@@ -33,7 +33,7 @@
   "private": "true",
   "dependencies": {
     "bluebird": "^2.3.6",
-    "hoist-bucket-pipeline": "git://github.com/hoist/hoist-bucket-pipeline#feature/bucket_api",
+    "hoist-bucket-pipeline": "git://github.com/hoist/hoist-bucket-pipeline",
     "config": "^1.8.1",
     "hoist-connector-pipeline": "git://github.com/hoist/hoist-connector-pipeline",
     "hoist-context": "git://github.com/hoist/hoist-context",

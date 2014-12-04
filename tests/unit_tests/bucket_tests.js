@@ -24,6 +24,9 @@ describe('Hoist.bucket', function () {
         expect(bucketPipeline.prototype.set)
           .to.have.been.calledWith(fakeKey, true);
       });
+      it('with callback', function (done) {
+        Hoist.bucket.set(fakeKey, true, done);
+      });
     });
     describe('with no key specified', function () {
       it('rejects', function () {
@@ -48,6 +51,9 @@ describe('Hoist.bucket', function () {
         expect(bucketPipeline.prototype.add)
           .to.have.been.calledWith(fakeKey, fakeMeta);
       });
+      it('with callback', function (done) {
+        Hoist.bucket.add(fakeKey, fakeMeta, done);
+      });
     });
   });
   describe('.get', function () {
@@ -64,6 +70,9 @@ describe('Hoist.bucket', function () {
         expect(bucketPipeline.prototype.get)
           .to.have.been.calledWith(fakeKey);
       });
+      it('with callback', function (done) {
+        Hoist.bucket.get(fakeKey, done);
+      });
     });
   });
   describe('.getAll', function () {
@@ -78,6 +87,9 @@ describe('Hoist.bucket', function () {
       expect(bucketPipeline.prototype.getAll)
         .to.have.been.calledWith();
     });
+    it('with callback', function (done) {
+      Hoist.bucket.getAll(done);
+    });
   });
   describe('.each', function () {
     var fn = function () {};
@@ -91,6 +103,9 @@ describe('Hoist.bucket', function () {
     it('calls bucketPipeline.each with correct key', function () {
       expect(bucketPipeline.prototype.each)
         .to.have.been.calledWith(fn);
+    });
+    it('with callback', function (done) {
+      Hoist.bucket.each(fn, done);
     });
   });
 });
