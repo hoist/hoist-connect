@@ -50,4 +50,20 @@ describe('Hoist.bucket', function () {
       });
     });
   });
+  describe('.get', function () {
+    describe('with key', function (){
+      var fakeKey = 'key';
+      before(function () {
+        sinon.stub(bucketPipeline.prototype, 'get').returns(BBPromise.resolve());
+        return Hoist.bucket.get(fakeKey);
+      });
+      after(function(){
+        bucketPipeline.prototype.get.restore();
+      });
+      it('calls bucketPipeline.get with correct key', function () {
+        expect(bucketPipeline.prototype.get)
+          .to.have.been.calledWith(fakeKey);
+      });
+    });
+  });
 });
