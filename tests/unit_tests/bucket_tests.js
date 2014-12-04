@@ -66,4 +66,17 @@ describe('Hoist.bucket', function () {
       });
     });
   });
+  describe('.getAll', function () {
+    before(function () {
+      sinon.stub(bucketPipeline.prototype, 'getAll').returns(BBPromise.resolve([]));
+      return Hoist.bucket.getAll();
+    });
+    after(function () {
+      bucketPipeline.prototype.getAll.restore();
+    });
+    it('calls bucketPipeline.get with correct key', function () {
+      expect(bucketPipeline.prototype.getAll)
+        .to.have.been.calledWith();
+    });
+  });
 });
