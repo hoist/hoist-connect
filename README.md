@@ -6,38 +6,38 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 #API Documentation
 
-##[Log API](#log-api-1)
-####[`Hoist.log([args], [callback])`](#hoistlogargs-callback-1)
+##[Log API](#log-api)
+####[`Hoist.log([args], [callback])`](#hoistlogargs-callback)
 
-##[Lock API](#lock-api-1)
-####[`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback-1)
+##[Lock API](#lock-api)
+####[`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback)
 
-##[Timeout API](#timeout-api-1)
-####[`Hoist.timeout.reset(milliseconds)`](#hoisttimeoutresetmilliseconds-1)
+##[Timeout API](#timeout-api)
+####[`Hoist.timeout.reset(milliseconds)`](#hoisttimeoutresetmilliseconds)
 
-##[Data API](#data-api-1)
+##[Data API](#data-api)
 
-####[`Hoist.data(type)`](#hoistdatatype-1)
+####[`Hoist.data(type)`](#hoistdatatype)
 * [`.setType(type)`](#settypetype)
 * [`.save(object, [callback])`](#savejsoncallback)
 * [`.find(query, [callback])`](#findquery-callback)
 * [`.findOne(query, [callback])`](#findonequery-callback)
 * [`.findById(query, [callback])`](#findbyididvalue-callback)
 
-##[Events API](#events-api-1)
+##[Events API](#events-api)
 
-#### [`Hoist.events`](#hoistevents-1)
+#### [`Hoist.events`](#hoistevents)
 * [`.raise(event, payload, [callback])`](#raiseevent-payload-callback)
 
-##[User API](#user-api-1)
+##[User API](#user-api)
 
 ####[`Hoist.user`](#hoistuser)
 * [`.login(username, password, [callback])`](#loginusername-password-callback)
 * [`.invite(userDetails, callback)`](#inviteusername-password-callback)
 
-##[Connector API](#connector-api-1)
+##[Connector API](#connector-api)
 
-#### [`Hoist.connector(type, key)`](#connector)
+#### [`Hoist.connector(key)`](#connector)
 * [`.get([arguments])`](#getarguments)
 
 ####[Unimplemented APIs](#unimplementedapis)
@@ -47,7 +47,7 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 * [`.delete`](#deletearguments)
 
 ####[`Hoist.buckets`](#buckets)
-* [`.switch`](#switchbucketcallback)
+* [`.add(`](#switchbucketcallback)
 * [`.current`](#currentcallback)
 
 ####[`Hoist.user`](#user)
