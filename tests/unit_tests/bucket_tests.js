@@ -10,25 +10,25 @@ describe('Hoist.bucket', function () {
   it('exists', function () {
     return expect(Hoist.bucket).to.exist;
   });
-  describe('.setCurrent', function () {
-    describe('with key', function (){
+  describe('.set', function () {
+    describe('with key and create', function (){
       var fakeKey = 'key';
       before(function () {
-        sinon.stub(bucketPipeline.prototype, 'setCurrent').returns(BBPromise.resolve());
-        return Hoist.bucket.setCurrent(fakeKey);
+        sinon.stub(bucketPipeline.prototype, 'set').returns(BBPromise.resolve());
+        return Hoist.bucket.set(fakeKey, true);
       });
       after(function(){
-        bucketPipeline.prototype.setCurrent.restore();
+        bucketPipeline.prototype.set.restore();
       });
-      it('calls bucketPipeline.setCurrent with correct key', function () {
-        expect(bucketPipeline.prototype.setCurrent)
-          .to.have.been.calledWith(fakeKey);
+      it('calls bucketPipeline.set with correct key', function () {
+        expect(bucketPipeline.prototype.set)
+          .to.have.been.calledWith(fakeKey, true);
       });
     });
     describe('with no key specified', function () {
       it('rejects', function () {
         expect(function () {
-          Hoist.bucket.setCurrent();
+          Hoist.bucket.set();
         }).to.throw(HoistErrors.bucket.InvalidError);
       });
     });
