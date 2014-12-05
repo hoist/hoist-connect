@@ -6,16 +6,16 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 #API Documentation
 
-##[Log API](#log-api)
+##[Log API](#log-api-1)
 ####[`Hoist.log([args], [callback])`](#hoistlogargs-callback)
 
-##[Lock API](#lock-api)
+##[Lock API](#lock-api-1)
 ####[`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback)
 
-##[Timeout API](#timeout-api)
+##[Timeout API](#timeout-api-1)
 ####[`Hoist.timeout.reset(milliseconds)`](#hoisttimeoutresetmilliseconds)
 
-##[Data API](#data-api)
+##[Data API](#data-api-1)
 
 ####[`Hoist.data(type)`](#hoistdatatype)
 * [`.setType(type)`](#settypetype)
@@ -24,23 +24,23 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 * [`.findOne(query, [callback])`](#findonequery-callback)
 * [`.findById(query, [callback])`](#findbyididvalue-callback)
 
-##[Events API](#events-api)
+##[Events API](#events-api-1)
 
 #### [`Hoist.events`](#hoistevents)
 * [`.raise(event, [payload], [contextOveride] [callback])`](#raiseevent-payload-callback)
 
-##[User API](#user-api)
+##[User API](#user-api-1)
 
 ####[`Hoist.user`](#hoistuser)
 * [`.login(username, password, [callback])`](#loginusername-password-callback)
 * [`.invite(userDetails, callback)`](#inviteusername-password-callback)
 
-##[Connector API](#connector-api)
+##[Connector API](#connector-api-1)
 
 #### [`Hoist.connector(type, key)`](#connector)
 * [`.get([arguments])`](#getarguments)
 
-##[Bucket API](#bucket-api)
+##[Bucket API](#bucket-api-1)
 
 ####[`Hoist.buckets`](#buckets)
 * [`.add`](#addbucketcallback)
@@ -387,9 +387,9 @@ Hoist.bucket.add('group one', {info: 'some info'})
 .then(function (bucket) {
   if (bucket) {
     // a bucket has been created with the specified key and meta data
-  } else {
-    // the bucket could not be created
-  }
+  }.catch(function(err) {
+    // error if the specified key already exists
+  });
 })
 ```
 
@@ -402,6 +402,44 @@ Hoist.bucket.add('group one', {info: 'some info'})
 *Returns*
 - `{Promise}` a promise to have created the bucket
 
+
+##`.set(key, [create], [callback])`
+
+set the current bucket to be the given bucket, or create a new bucket if it doesn't exist and set it to the current bucket
+
+*example* (switches the current bucket to the bucket with key 'group one')
+
+```javascript
+Hoist.bucket.set('group one')
+.then(function (bucket) {
+  if (bucket) {
+    // the current bucket has been set to the specified one
+  }.catch(function(err) {
+    // error does not exist
+  });
+})
+```
+
+*example* (switches the current bucket to the bucket with key 'group one')
+
+```javascript
+Hoist.bucket.set('group two', true)
+.then(function (bucket) {
+  if (bucket) {
+    // the specified bucket has been created and set to the current bucket 
+  }.catch(function(err) {
+    // error the specified bucket could not be saved 
+  });
+})
+```
+
+*Parameters*
+- `key` the key of the bucket to set 
+- `[create]` an optional boolean, when set to true if the specified bucket does not exist one will be created with the given key and set to the current context
+- `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
+
+*Returns*
+- `{Promise}` a promise to have set the bucket
 
 
 ##`.get([key], [callback])`
@@ -457,51 +495,13 @@ Hoist.bucket.getAll()
     // there are no buckets currently set in the current context
   }
 })
-
+```
 
 *Parameters*
 - `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
 
 *Returns*
 - `{Promise}` a promise to have retrieved all the buckets
-
-##`.set(key, [create], [callback])`
-
-set the current bucket to be the given bucket, or create a new bucket if it doesn't exist and set it to the current bucket
-
-*example* (switches the current bucket to the bucket with key 'group one')
-
-```javascript
-Hoist.bucket.set('group one')
-.then(function (bucket) {
-  if (bucket) {
-    // the current bucket has been set to the specified one
-  } else {
-    // the bucket with the specified key does not exist
-  }
-})
-```
-
-*example* (switches the current bucket to the bucket with key 'group one')
-
-```javascript
-Hoist.bucket.set('group two', true)
-.then(function (bucket) {
-  if (bucket) {
-    // the specified bucket has been created and set to the current bucket 
-  } else {
-    // the bucket couldn't be created
-  }
-})
-```
-
-*Parameters*
-- `key` the key of the bucket to set 
-- `[create]` an optional boolean, when set to true if the specified bucket does not exist one will be created with the given key and set to the current context
-- `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
-
-*Returns*
-- `{Promise}` a promise to have set the bucket
 
 
 ##`.each(fn, [callback])`
