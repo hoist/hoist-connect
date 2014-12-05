@@ -6,7 +6,7 @@ var BBPromise = require('bluebird');
 var bucketPipeline = require('hoist-bucket-pipeline').Pipeline;
 var HoistErrors = require('hoist-errors');
 
-describe.only('Hoist.bucket', function () {
+describe('Hoist.bucket', function () {
   it('exists', function () {
     return expect(Hoist.bucket).to.exist;
   });
