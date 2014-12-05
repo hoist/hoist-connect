@@ -6,7 +6,7 @@ var BBPromise = require('bluebird');
 var bucketPipeline = require('hoist-bucket-pipeline').Pipeline;
 var HoistErrors = require('hoist-errors');
 
-describe('Hoist.bucket', function () {
+describe.only('Hoist.bucket', function () {
   it('exists', function () {
     return expect(Hoist.bucket).to.exist;
   });
@@ -42,22 +42,15 @@ describe('Hoist.bucket', function () {
           .to.have.been.calledWith(fakeKey, null);
       });
     });
-    describe.skip('with no key specified', function () {
-      // var error;
-      before(function(){
-        Hoist.bucket.set();
-      });
-      
+    describe('with no key specified', function () {
       it('rejects', function () {
-        expect(function () {
+        expect(function(){
           Hoist.bucket.set();
         }).to.throw(HoistErrors.bucket.InvalidError);
       });
-    });
-    describe.skip('with only callback', function () {
-      it('rejects', function (done) {
-        expect(function () {
-          Hoist.bucket.set(done);
+      it('with callback', function () {
+        expect(function(){
+          Hoist.bucket.set(function () {});
         }).to.throw(HoistErrors.bucket.InvalidError);
       });
     });
@@ -127,6 +120,19 @@ describe('Hoist.bucket', function () {
         Hoist.bucket.get(fakeKey, done);
       });
     });
+    describe('with only callback', function (){
+      before(function (done) {
+        sinon.stub(bucketPipeline.prototype, 'get').returns(BBPromise.resolve());
+        Hoist.bucket.get(done);
+      });
+      after(function(){
+        bucketPipeline.prototype.get.restore();
+      });
+      it('calls bucketPipeline.get with no key', function () {
+        expect(bucketPipeline.prototype.get)
+          .to.have.been.calledWith();
+      });
+    });
   });
   describe('.getAll', function () {
     before(function () {
@@ -145,20 +151,29 @@ describe('Hoist.bucket', function () {
     });
   });
   describe('.each', function () {
-    var fn = function () {};
-    before(function () {
-      sinon.stub(bucketPipeline.prototype, 'each').returns(BBPromise.resolve());
-      return Hoist.bucket.each(fn);
+    describe('with a function', function () {
+      var fn = function () {};
+      before(function () {
+        sinon.stub(bucketPipeline.prototype, 'each').returns(BBPromise.resolve());
+        return Hoist.bucket.each(fn);
+      });
+      after(function () {
+        bucketPipeline.prototype.each.restore();
+      });
+      it('calls bucketPipeline.each with correct key', function () {
+        expect(bucketPipeline.prototype.each)
+          .to.have.been.calledWith(fn);
+      });
+      it('with callback', function (done) {
+        Hoist.bucket.each(fn, done);
+      });
     });
-    after(function () {
-      bucketPipeline.prototype.each.restore();
-    });
-    it('calls bucketPipeline.each with correct key', function () {
-      expect(bucketPipeline.prototype.each)
-        .to.have.been.calledWith(fn);
-    });
-    it('with callback', function (done) {
-      Hoist.bucket.each(fn, done);
+    describe('without function', function () {
+      it('rejects', function () {
+        expect(function(){
+          Hoist.bucket.each();
+        }).to.throw(HoistErrors.bucket.InvalidError);
+      });
     });
   });
 });
