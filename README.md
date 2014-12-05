@@ -6,49 +6,54 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 #API Documentation
 
-##[Log API](#log-api-1)
-####[`Hoist.log([args], [callback])`](#hoistlogargs-callback-1)
+##[Log API](#log-api)
+####[`Hoist.log([args], [callback])`](#hoistlogargs-callback)
 
-##[Lock API](#lock-api-1)
-####[`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback-1)
+##[Lock API](#lock-api)
+####[`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback)
 
-##[Timeout API](#timeout-api-1)
-####[`Hoist.timeout.reset(milliseconds)`](#hoisttimeoutresetmilliseconds-1)
+##[Timeout API](#timeout-api)
+####[`Hoist.timeout.reset(milliseconds)`](#hoisttimeoutresetmilliseconds)
 
-##[Data API](#data-api-1)
+##[Data API](#data-api)
 
-####[`Hoist.data(type)`](#hoistdatatype-1)
+####[`Hoist.data(type)`](#hoistdatatype)
 * [`.setType(type)`](#settypetype)
 * [`.save(object, [callback])`](#savejsoncallback)
 * [`.find(query, [callback])`](#findquery-callback)
 * [`.findOne(query, [callback])`](#findonequery-callback)
 * [`.findById(query, [callback])`](#findbyididvalue-callback)
 
-##[Events API](#events-api-1)
+##[Events API](#events-api)
 
-#### [`Hoist.events`](#hoistevents-1)
+#### [`Hoist.events`](#hoistevents)
 * [`.raise(event, [payload], [contextOveride] [callback])`](#raiseevent-payload-callback)
 
-##[User API](#user-api-1)
+##[User API](#user-api)
 
 ####[`Hoist.user`](#hoistuser)
 * [`.login(username, password, [callback])`](#loginusername-password-callback)
 * [`.invite(userDetails, callback)`](#inviteusername-password-callback)
 
-##[Connector API](#connector-api-1)
+##[Connector API](#connector-api)
 
 #### [`Hoist.connector(type, key)`](#connector)
 * [`.get([arguments])`](#getarguments)
+
+##[Bucket API](#bucket-api)
+
+####[`Hoist.buckets`](#buckets)
+* [`.add`](#addbucketcallback)
+* [`.set`](#addbucketcallback)
+* [`.get`](#addbucketcallback)
+* [`.getAll`](#currentcallback)
+* [`.each`](#addbucketcallback)
 
 ####[Unimplemented APIs](#unimplementedapis)
 ####[`Hoist.connector`](#connector)
 * [`.post`](#postarguments)
 * [`.put`](#putarguments)
 * [`.delete`](#deletearguments)
-
-####[`Hoist.buckets`](#buckets)
-* [`.switch`](#switchbucketcallback)
-* [`.current`](#currentcallback)
 
 ####[`Hoist.user`](#user)
 * [`.current`](#current)
@@ -107,7 +112,7 @@ resets the timeout on the current module to be in `milliseconds` time. (Module t
 Hoist.timeout.reset(3000);
 ```
 
-*Paremeters*
+*Parameters*
 - `milliseconds` the number of milliseconds to set the timeout to from now. Must be between 1 and 30000 (1-30 seconds)
 
 *Returns*
@@ -362,3 +367,163 @@ xeroInternal.get('/invoices')
 
 *Returns*
 - `{Promise}` a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.
+
+
+
+
+
+## Bucket API
+
+##`Hoist.bucket`
+
+##`.add([key], [meta], [callback])`
+
+create a new bucket (doesn't set it to the current bucket)
+
+*example* (creates a new bucket with key 'group one' and meta data {info: 'some info'})
+
+```javascript
+Hoist.bucket.add('group one', {info: 'some info'})
+.then(function (bucket) {
+  if (bucket) {
+    // a bucket has been created with the specified key and meta data
+  } else {
+    // the bucket could not be created
+  }
+})
+```
+
+
+*Parameters*
+- `[key]` an optional string, the key of the bucket to create, if no key is supplied a random key will be generated
+- `[meta]` an optional object, the meta data associated to the bucket
+- `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
+
+*Returns*
+- `{Promise}` a promise to have created the bucket
+
+
+
+##`.get([key], [callback])`
+
+retrieve a specific bucket or the current bucket
+
+*example* (retrieves the current bucket in the current application and environment)
+
+```javascript
+Hoist.bucket.get()
+.then(function (bucket) {
+  if (bucket) {
+    // bucket returned is the current bucket
+  } else {
+    // there is no bucket currently set in the current context
+  }
+})
+```
+
+*example* (retrieves the specified bucket in the current application and environment)
+
+```javascript
+Hoist.bucket.get('group one')
+.then(function (bucket) {
+  if (bucket) {
+    // bucket returned is the specified bucket 
+  } else {
+    // there is no bucket with the specified key
+  }
+})
+```
+
+*Parameters*
+- `[key]` an optional parameter, the key of the bucket to retrieve, if no bucket key specified the bucket in the current context will be retrieved if there is one
+- `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
+
+*Returns*
+- `{Promise}` a promise to have retrieved the bucket
+
+
+##`.getAll([callback])`
+
+retrieve all the buckets in the current context
+
+*example* (retrieves the all the buckets current application and environment)
+
+```javascript
+Hoist.bucket.getAll()
+.then(function (buckets) {
+  if (buckets) {
+    // all the buckets in the current context
+  } else {
+    // there are no buckets currently set in the current context
+  }
+})
+
+
+*Parameters*
+- `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
+
+*Returns*
+- `{Promise}` a promise to have retrieved all the buckets
+
+##`.set(key, [create], [callback])`
+
+set the current bucket to be the given bucket, or create a new bucket if it doesn't exist and set it to the current bucket
+
+*example* (switches the current bucket to the bucket with key 'group one')
+
+```javascript
+Hoist.bucket.set('group one')
+.then(function (bucket) {
+  if (bucket) {
+    // the current bucket has been set to the specified one
+  } else {
+    // the bucket with the specified key does not exist
+  }
+})
+```
+
+*example* (switches the current bucket to the bucket with key 'group one')
+
+```javascript
+Hoist.bucket.set('group two', true)
+.then(function (bucket) {
+  if (bucket) {
+    // the specified bucket has been created and set to the current bucket 
+  } else {
+    // the bucket couldn't be created
+  }
+})
+```
+
+*Parameters*
+- `key` the key of the bucket to set 
+- `[create]` an optional boolean, when set to true if the specified bucket does not exist one will be created with the given key and set to the current context
+- `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
+
+*Returns*
+- `{Promise}` a promise to have set the bucket
+
+
+##`.each(fn, [callback])`
+
+iterates through each bucket in the current context and calls the specified function
+
+*example* (log out each bucket in the current context)
+
+```javascript
+Hoist.bucket.each(function (bucket) {
+  if (bucket) {
+    console.log(bucket);
+  }
+})
+
+```
+
+*Parameters*
+- `fn` function to map to each bucket in the current context
+- `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
+
+*Returns*
+- `{Promise}` a promise to have returned all the buckets
+
+
