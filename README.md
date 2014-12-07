@@ -37,7 +37,7 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 ##[Connector API](#connector-api-1)
 
-#### [`Hoist.connector(type, key)`](#connector)
+#### [`Hoist.connector(key)`](#connector)
 * [`.get([arguments])`](#getarguments)
 
 ##[Bucket API](#bucket-api-1)
@@ -372,7 +372,7 @@ xeroInternal.get('/invoices')
 
 
 
-## Bucket API
+# Bucket API
 
 ##`Hoist.bucket`
 
@@ -387,10 +387,10 @@ Hoist.bucket.add('group one', {info: 'some info'})
 .then(function (bucket) {
   if (bucket) {
     // a bucket has been created with the specified key and meta data
-  }.catch(function(err) {
+  }
+}).catch(function(err) {
     // error if the specified key already exists
-  });
-})
+});
 ```
 
 
@@ -414,10 +414,10 @@ Hoist.bucket.set('group one')
 .then(function (bucket) {
   if (bucket) {
     // the current bucket has been set to the specified one
-  }.catch(function(err) {
+  }
+}).catch(function(err) {
     // error does not exist
-  });
-})
+});
 ```
 
 *example* (switches the current bucket to the bucket with key 'group one')
@@ -427,10 +427,10 @@ Hoist.bucket.set('group two', true)
 .then(function (bucket) {
   if (bucket) {
     // the specified bucket has been created and set to the current bucket 
-  }.catch(function(err) {
+  }
+}).catch(function(err) {
     // error the specified bucket could not be saved 
-  });
-})
+});
 ```
 
 *Parameters*
@@ -453,10 +453,10 @@ Hoist.bucket.get()
 .then(function (bucket) {
   if (bucket) {
     // bucket returned is the current bucket
-  } else {
-    // there is no bucket currently set in the current context
   }
-})
+}).catch(function(err) {
+    // error the current bucket is not set
+});
 ```
 
 *example* (retrieves the specified bucket in the current application and environment)
@@ -466,10 +466,10 @@ Hoist.bucket.get('group one')
 .then(function (bucket) {
   if (bucket) {
     // bucket returned is the specified bucket 
-  } else {
-    // there is no bucket with the specified key
   }
-})
+}).catch(function(err) {
+    // error the specified bucket does no exist
+});
 ```
 
 *Parameters*
@@ -486,15 +486,16 @@ retrieve all the buckets in the current context
 
 *example* (retrieves the all the buckets current application and environment)
 
+
 ```javascript
 Hoist.bucket.getAll()
 .then(function (buckets) {
-  if (buckets) {
+  if (buckets.length) {
     // all the buckets in the current context
   } else {
     // there are no buckets currently set in the current context
   }
-})
+});
 ```
 
 *Parameters*
@@ -516,7 +517,6 @@ Hoist.bucket.each(function (bucket) {
     console.log(bucket);
   }
 })
-
 ```
 
 *Parameters*
