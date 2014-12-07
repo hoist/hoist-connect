@@ -7,17 +7,17 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 #API Documentation
 
 ##[Log API](#log-api-1)
-####[`Hoist.log([args], [callback])`](#hoistlogargs-callback)
+####[`Hoist.log([args], [callback])`](#hoistlogargs-callback-1)
 
 ##[Lock API](#lock-api-1)
-####[`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback)
+####[`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback-1)
 
 ##[Timeout API](#timeout-api-1)
-####[`Hoist.timeout.reset(milliseconds)`](#hoisttimeoutresetmilliseconds)
+####[`Hoist.timeout.reset(milliseconds)`](#hoisttimeoutresetmilliseconds-1)
 
 ##[Data API](#data-api-1)
 
-####[`Hoist.data(type)`](#hoistdatatype)
+####[`Hoist.data(type)`](#hoistdatatype-1)
 * [`.setType(type)`](#settypetype)
 * [`.save(object, [callback])`](#savejsoncallback)
 * [`.find(query, [callback])`](#findquery-callback)
@@ -26,33 +26,33 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 ##[Events API](#events-api-1)
 
-#### [`Hoist.events`](#hoistevents)
-* [`.raise(event, [payload], [contextOveride] [callback])`](#raiseevent-payload-callback)
+#### [`Hoist.events`](#hoistevents-1)
+* [`.raise(event, [payload], [contextOverride], [callback])`](#raiseevent-payload-contextoverride-callback)
 
 ##[User API](#user-api-1)
 
 ####[`Hoist.user`](#hoistuser)
 * [`.login(username, password, [callback])`](#loginusername-password-callback)
-* [`.invite(userDetails, callback)`](#inviteusername-password-callback)
+* [`.invite(userDetails, callback)`](#inviteuserdetails-password-callback)
 
 ##[Connector API](#connector-api-1)
 
-#### [`Hoist.connector(key)`](#connector)
+#### [`Hoist.connector(key)`](#hoistconnectorkey-1)
 * [`.get([arguments])`](#getarguments)
+* [`.post([arguments])`](#postarguments)
+* [`.put([arguments])`](#putarguments)
 
 ##[Bucket API](#bucket-api-1)
 
-####[`Hoist.buckets`](#buckets)
-* [`.add`](#addbucketcallback)
-* [`.set`](#addbucketcallback)
-* [`.get`](#addbucketcallback)
-* [`.getAll`](#currentcallback)
-* [`.each`](#addbucketcallback)
+####[`Hoist.bucket`](#hoistbucket-1)
+* [`.add([key], [meta], [callback`](#addkey-meta-callback)
+* [`.set(key, [create], [callback])`](#setkey-create-callback)
+* [`.get([key], [callback]`](#getkey-callback)
+* [`.getAll([callback])`](#getallcallback)
+* [`.each(fn, [callback]`](#eachfn-callback)
 
 ####[Unimplemented APIs](#unimplementedapis)
 ####[`Hoist.connector`](#connector)
-* [`.post`](#postarguments)
-* [`.put`](#putarguments)
 * [`.delete`](#deletearguments)
 
 ####[`Hoist.user`](#user)
@@ -305,7 +305,7 @@ Hoist.users.login('bob@hoi.io', 'password123', function(err){
 *Returns*
 - `{Promise}` a promise to have logged the user in
 
-##`.invite(username, password, callback)`
+##`.invite(userDetails, password, callback)`
 
 switch the current session to be under the given user
 
@@ -368,7 +368,45 @@ xeroInternal.get('/invoices')
 *Returns*
 - `{Promise}` a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.
 
+##`.post([arguments])`
 
+perform a post request agains the connector
+
+
+*example* (perform a post request against the given endpoint)
+
+```javascript
+xeroInternal.post('/invoices', data)
+.then(function(responseJson){
+  //response received
+})
+```
+
+*Parameters*
+- `[arguments] {array}` zero or more arguments to pass to the connector. _see individual connector documentation_
+
+*Returns*
+- `{Promise}` a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.
+
+##`.put([arguments])`
+
+perform a put request agains the connector
+
+
+*example* (perform a put request against the given endpoint)
+
+```javascript
+xeroInternal.put('/invoices', data)
+.then(function(responseJson){
+  //response received
+})
+```
+
+*Parameters*
+- `[arguments] {array}` zero or more arguments to pass to the connector. _see individual connector documentation_
+
+*Returns*
+- `{Promise}` a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.
 
 
 
