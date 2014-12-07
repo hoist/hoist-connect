@@ -6,57 +6,43 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 #API Documentation
 
-##[Log API](#log-api-1)
-####[`Hoist.log([args], [callback])`](#hoistlogargs-callback-1)
-
-##[Lock API](#lock-api-1)
-####[`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback-1)
-
-##[Timeout API](#timeout-api-1)
-####[`Hoist.timeout.reset(milliseconds)`](#hoisttimeoutresetmilliseconds-1)
-
-##[Data API](#data-api-1)
-
-####[`Hoist.data(type)`](#hoistdatatype-1)
-* [`.setType(type)`](#settypetype)
-* [`.save(object, [callback])`](#savejsoncallback)
-* [`.find(query, [callback])`](#findquery-callback)
-* [`.findOne(query, [callback])`](#findonequery-callback)
-* [`.findById(query, [callback])`](#findbyididvalue-callback)
-
-##[Events API](#events-api-1)
-
-#### [`Hoist.events`](#hoistevents-1)
-* [`.raise(event, [payload], [contextOverride], [callback])`](#raiseevent-payload-contextoverride-callback)
-
-##[User API](#user-api-1)
-
-####[`Hoist.user`](#hoistuser)
-* [`.login(username, password, [callback])`](#loginusername-password-callback)
-* [`.invite(userDetails, callback)`](#inviteuserdetails-password-callback)
-
-##[Connector API](#connector-api-1)
-
-#### [`Hoist.connector(key)`](#hoistconnectorkey-1)
-* [`.get([arguments])`](#getarguments)
-* [`.post([arguments])`](#postarguments)
-* [`.put([arguments])`](#putarguments)
-
-##[Bucket API](#bucket-api-1)
-
-####[`Hoist.bucket`](#hoistbucket-1)
-* [`.add([key], [meta], [callback`](#addkey-meta-callback)
-* [`.set(key, [create], [callback])`](#setkey-create-callback)
-* [`.get([key], [callback]`](#getkey-callback)
-* [`.getAll([callback])`](#getallcallback)
-* [`.each(fn, [callback]`](#eachfn-callback)
-
-####[Unimplemented APIs](#unimplementedapis)
-####[`Hoist.connector`](#connector)
-* [`.delete`](#deletearguments)
-
-####[`Hoist.user`](#user)
-* [`.current`](#current)
++ [Log API](#log-api)
+  + [`Hoist.log([args], [callback])`](#hoistlogargs-callback)
++ [Lock API](#lock-api)
+  + [`Hoist.lock(key, [timeout], [callback])`](#hoistlockkey-timeout-callback)
++ [Timeout API](#timeout-api)
+  + [`Hoist.timeout.reset(milliseconds)`](#hoisttimeoutresetmilliseconds)
++ [Data API](#data-api)
+  + [`Hoist.data(type)`](#hoistdatatype)
+    + [`.setType(type)`](#settypetype)
+    + [`.save(object, [callback])`](#savejsoncallback)
+    + [`.find(query, [callback])`](#findquery-callback)
+    + [`.findOne(query, [callback])`](#findonequery-callback)
+    + [`.findById(query, [callback])`](#findbyididvalue-callback)
++ [Events API](#events-api)
+  + [`Hoist.events`](#hoistevents)
+    + [`.raise(event, [payload], [contextOverride], [callback])`](#raiseevent-payload-contextoverride-callback)
++ [User API](#user-api)
+  + [`Hoist.user`](#hoistuser)
+    + [`.login(username, password, [callback])`](#loginusername-password-callback)
+    + [`.invite(userDetails, callback)`](#inviteuserdetails-password-callback)
++ [Connector API](#connector-api)
+  + [`Hoist.connector(key)`](#hoistconnectorkey)
+    + [`.get([arguments])`](#getarguments)
+    + [`.post([arguments])`](#postarguments)
+    + [`.put([arguments])`](#putarguments)
++ [Bucket API](#bucket-api)
+  + [`Hoist.bucket`](#hoistbucket)
+    + [`.add([key], [meta], [callback])`](#addkey-meta-callback)
+    + [`.set(key, [create], [callback])`](#setkey-create-callback)
+    + [`.get([key], [callback]`](#getkey-callback)
+    + [`.getAll([callback])`](#getallcallback)
+    + [`.each(fn, [callback]`](#eachfn-callback)
++ [Unimplemented APIs](#unimplementedapis)
+  + [`Hoist.connector`](#connector)
+    + [`.delete`](#deletearguments)
+  + [`Hoist.user`](#user)
+    + [`.current`](#current)
 
 ## Log API
 
