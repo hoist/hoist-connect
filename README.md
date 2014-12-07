@@ -39,6 +39,8 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 #### [`Hoist.connector(key)`](#hoistconnectorkey-1)
 * [`.get([arguments])`](#getarguments)
+* [`.post([arguments])`](#postarguments)
+* [`.put([arguments])`](#putarguments)
 
 ##[Bucket API](#bucket-api-1)
 
@@ -51,8 +53,6 @@ It's Exposed via a global variable called Hoist so you don't need to require any
 
 ####[Unimplemented APIs](#unimplementedapis)
 ####[`Hoist.connector`](#connector)
-* [`.post`](#postarguments)
-* [`.put`](#putarguments)
 * [`.delete`](#deletearguments)
 
 ####[`Hoist.user`](#user)
@@ -368,7 +368,45 @@ xeroInternal.get('/invoices')
 *Returns*
 - `{Promise}` a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.
 
+##`.post([arguments])`
 
+perform a post request agains the connector
+
+
+*example* (perform a post request against the given endpoint)
+
+```javascript
+xeroInternal.post('/invoices', data)
+.then(function(responseJson){
+  //response received
+})
+```
+
+*Parameters*
+- `[arguments] {array}` zero or more arguments to pass to the connector. _see individual connector documentation_
+
+*Returns*
+- `{Promise}` a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.
+
+##`.put([arguments])`
+
+perform a put request agains the connector
+
+
+*example* (perform a put request against the given endpoint)
+
+```javascript
+xeroInternal.put('/invoices', data)
+.then(function(responseJson){
+  //response received
+})
+```
+
+*Parameters*
+- `[arguments] {array}` zero or more arguments to pass to the connector. _see individual connector documentation_
+
+*Returns*
+- `{Promise}` a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.
 
 
 
