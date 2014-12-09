@@ -20,7 +20,7 @@ It's Exposed via a global variable called Hoist so you don't need to require any
     + [`.findOne(query, [callback])`](#findonequery-callback)
     + [`.findById(query, [callback])`](#findbyididvalue-callback)
 + [Events API](#events-api)
-  + [`Hoist.events`](#hoistevents)
+  + [`Hoist.event`](#hoistevent)
     + [`.raise(event, [payload], [contextOverride], [callback])`](#raiseevent-payload-contextoverride-callback)
 + [User API](#user-api)
   + [`Hoist.user`](#hoistuser)
@@ -234,7 +234,7 @@ Fruits.find('Cucumber',function(err, cucumber){
 
 ## Events API
 
-##`Hoist.events`
+##`Hoist.event`
 
 *Returns*
 -`{HoistEventManager}`
@@ -248,7 +248,7 @@ Raise an event
 *example* (raises the new:invoice event)
 
 ```javascript
-Hoist.events.raise('new:invoice',{contact:'supplier', total:10.2}, function(){
+Hoist.event.raise('new:invoice',{contact:'supplier', total:10.2}, function(){
   //new:invoice event raised
 })
 ```
@@ -450,15 +450,15 @@ Hoist.bucket.set('group one')
 Hoist.bucket.set('group two', true)
 .then(function (bucket) {
   if (bucket) {
-    // the specified bucket has been created and set to the current bucket 
+    // the specified bucket has been created and set to the current bucket
   }
 }).catch(function(err) {
-    // error the specified bucket could not be saved 
+    // error the specified bucket could not be saved
 });
 ```
 
 *Parameters*
-- `key` the key of the bucket to set 
+- `key` the key of the bucket to set
 - `[create]` an optional boolean, when set to true if the specified bucket does not exist one will be created with the given key and set to the current context
 - `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
 
@@ -489,7 +489,7 @@ Hoist.bucket.get()
 Hoist.bucket.get('group one')
 .then(function (bucket) {
   if (bucket) {
-    // bucket returned is the specified bucket 
+    // bucket returned is the specified bucket
   }
 }).catch(function(err) {
     // error the specified bucket does no exist
@@ -549,5 +549,3 @@ Hoist.bucket.each(function (bucket) {
 
 *Returns*
 - `{Promise}` a promise to have returned all the buckets
-
-
