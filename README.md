@@ -43,6 +43,7 @@ It's Exposed via a global variable called Hoist so you don't need to require any
     + [`.delete`](#deletearguments)
   + [`Hoist.user`](#user)
     + [`.current`](#current)
+    + [`.invite`](#invite)
 
 ## Log API
 
@@ -273,7 +274,7 @@ switch the current session to be under the given user
 *example* (switches the current session to bob)
 
 ```javascript
-Hoist.users.login('bob@hoi.io', 'password123', function(err){
+Hoist.user.login('bob@hoi.io', 'password123', function(err){
   if(err){
     // bob has failed to log in
   }
@@ -291,30 +292,6 @@ Hoist.users.login('bob@hoi.io', 'password123', function(err){
 *Returns*
 - `{Promise}` a promise to have logged the user in
 
-##`.invite(userDetails, password, callback)`
-
-switch the current session to be under the given user
-
-*example* (switches the current session to bob)
-
-```javascript
-Hoist.users.login('bob@hoi.io', 'password123', function(err){
-if(err){
-  // bob has failed to log in
-}
-else{
-  // session is now running as bob
-}
-});
-```
-
-*Parameters*
-- `username` any email address registered against the user
-- `password` the user's password
-- `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
-
-*Returns*
-- `{Promise}` a promise to have logged the user in
 
 ## Connector API
 
