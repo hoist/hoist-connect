@@ -396,7 +396,7 @@ xeroInternal.put('/invoices', data)
 
 
 
-# Bucket API
+## Bucket API
 
 ##`Hoist.bucket`
 
