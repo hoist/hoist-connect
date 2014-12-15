@@ -12,6 +12,7 @@ describe('Hoist', function () {
       this.get = sinon.stub();
       this.put = sinon.stub();
       this.post = sinon.stub();
+      this.delete = sinon.stub();
     };
     var connector;
     var stubConnector = new StubConnector();
@@ -57,8 +58,20 @@ describe('Hoist', function () {
             .to.have.been.calledWith('/path?query', 'data');
         });
       });
-      describe('#del', function () {
-
+      describe('#delete', function () {
+        var response;
+        var _promise = BBPromise.resolve(true);
+        before(function () {
+          stubConnector.delete.returns(_promise);
+          response = connector.delete('/path');
+        });
+        after(function () {
+          stubConnector.delete.reset();
+        });
+        it('calls pipeline#delete', function () {
+          expect(stubConnector.delete)
+            .to.have.been.calledWith('/path');
+        });
       });
       describe('#post', function () {
         var response;
