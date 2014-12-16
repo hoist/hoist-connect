@@ -393,10 +393,10 @@ wfm.delete('/client.api/contact/1234')
 
 ##`.authorize(token, [callback])`
 
-perform a authorize request agains the connector
+authorize the connector with the given authorization token.
 
 
-*example* (perform a authorize request against the given endpoint)
+*example* (authorize the connector)
 
 ```javascript
 xeroInternal.authorize('123456abcdef')
