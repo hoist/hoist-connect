@@ -31,6 +31,8 @@ It's Exposed via a global variable called Hoist so you don't need to require any
     + [`.get([arguments])`](#getarguments)
     + [`.post([arguments])`](#postarguments)
     + [`.put([arguments])`](#putarguments)
+    + [`.delete([arguments])`](#deletearguments)
+    + [`.authorize(token, [callback])`](#authorizetoken-callback)
 + [Bucket API](#bucket-api)
   + [`Hoist.bucket`](#hoistbucket)
     + [`.add([key], [meta], [callback])`](#addkey-meta-callback)
@@ -39,8 +41,6 @@ It's Exposed via a global variable called Hoist so you don't need to require any
     + [`.getAll([callback])`](#getallcallback)
     + [`.each(fn, [callback]`](#eachfn-callback)
 + [Unimplemented APIs](#unimplementedapis)
-  + [`Hoist.connector`](#connector)
-    + [`.delete`](#deletearguments)
   + [`Hoist.user`](#user)
     + [`.current`](#current)
     + [`.invite`](#invite)
@@ -370,6 +370,47 @@ xeroInternal.put('/invoices', data)
 
 *Returns*
 - `{Promise}` a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.
+
+##`.delete([arguments])`
+
+perform a delete request agains the connector
+
+
+*example* (perform a delete request against the given endpoint)
+
+```javascript
+wfm.delete('/client.api/contact/1234')
+.then(function(responseJson){
+  //response received
+})
+```
+
+*Parameters*
+- `[arguments] {array}` zero or more arguments to pass to the connector. _see individual connector documentation_
+
+*Returns*
+- `{Promise}` a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.
+
+##`.authorize(token, [callback])`
+
+perform a authorize request agains the connector
+
+
+*example* (perform a authorize request against the given endpoint)
+
+```javascript
+xeroInternal.authorize('123456abcdef')
+.then(function(){
+  //do something
+})
+```
+
+*Parameters*
+- `token {String}` the authorization token for the user.
+- `[callback] {function}` an optional callback that will be called once the connector has been authorized, the first argument will be an error if one has occurred.
+
+*Returns*
+- `{Promise}` a promise to have authorized the connector.  It will resolve to null if authorization is not required for the connector. _see individual connector documentation_
 
 
 
