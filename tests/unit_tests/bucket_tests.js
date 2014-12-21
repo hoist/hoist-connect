@@ -176,4 +176,58 @@ describe('Hoist.bucket', function () {
       });
     });
   });
+  describe('.saveMeta', function () {
+    describe('with meta and key', function () {
+      var fakeMeta = {
+        key: 'value'
+      };
+      var fakeKey = 'key';
+      before(function () {
+        sinon.stub(bucketPipeline.prototype, 'saveMeta').returns(BBPromise.resolve());
+        return Hoist.bucket.saveMeta(fakeMeta, fakeKey);
+      });
+      after(function () {
+        bucketPipeline.prototype.saveMeta.restore();
+      });
+      it('calls bucketPipeline.saveMeta with correct key', function () {
+        expect(bucketPipeline.prototype.saveMeta)
+          .to.have.been.calledWith(fakeMeta, fakeKey);
+      });
+      it('with callback', function (done) {
+        Hoist.bucket.saveMeta(fakeMeta, fakeKey, done);
+      });
+    });
+    describe('with meta and no key', function () {
+      var fakeMeta = {
+        key: 'value'
+      };
+      before(function () {
+        sinon.stub(bucketPipeline.prototype, 'saveMeta').returns(BBPromise.resolve());
+        return Hoist.bucket.saveMeta(fakeMeta);
+      });
+      after(function () {
+        bucketPipeline.prototype.saveMeta.restore();
+      });
+      it('calls bucketPipeline.saveMeta with correct key', function () {
+        expect(bucketPipeline.prototype.saveMeta)
+          .to.have.been.calledWith(fakeMeta, undefined);
+      });
+    });
+    describe('with meta and no key and callback', function () {
+      var fakeMeta = {
+        key: 'value'
+      };
+      before(function (done) {
+        sinon.stub(bucketPipeline.prototype, 'saveMeta').returns(BBPromise.resolve());
+        return Hoist.bucket.saveMeta(fakeMeta, done);
+      });
+      after(function () {
+        bucketPipeline.prototype.saveMeta.restore();
+      });
+      it('calls bucketPipeline.saveMeta with correct key', function () {
+        expect(bucketPipeline.prototype.saveMeta)
+          .to.have.been.calledWith(fakeMeta, null);
+      });
+    });
+  });
 });
