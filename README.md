@@ -40,6 +40,7 @@ It's Exposed via a global variable called Hoist so you don't need to require any
     + [`.get([key], [callback]`](#getkey-callback)
     + [`.getAll([callback])`](#getallcallback)
     + [`.each(fn, [callback]`](#eachfn-callback)
+    + [`.saveMeta(meta, [key], [callback]`](#savemetameta-key-callback)
 + [Unimplemented APIs](#unimplementedapis)
   + [`Hoist.user`](#user)
     + [`.current`](#current)
@@ -510,7 +511,7 @@ Hoist.bucket.get('group one')
     // bucket returned is the specified bucket
   }
 }).catch(function(err) {
-    // error the specified bucket does no exist
+    // error the specified bucket does not exist
 });
 ```
 
@@ -567,3 +568,37 @@ Hoist.bucket.each(function (bucket) {
 
 *Returns*
 - `{Promise}` a promise to have returned all the buckets
+
+##`.saveMeta(meta, [key], [callback])`
+
+save metadata to a specific bucket or the current bucket.  Merges the new meta into the current meta.
+
+*example* (saves meta to the current bucket in the current application and environment)
+
+```javascript
+Hoist.bucket.saveMeta({key:'value'})
+.then(function (newMeta) {
+  // the updated meta
+}).catch(function(err) {
+    // error the current bucket is not set
+});
+```
+
+*example* (saves meta to the specified bucket in the current application and environment)
+
+```javascript
+Hoist.bucket.saveMeta({key:'value'}, 'group one')
+.then(function (newMeta) {
+  // the updated meta
+}).catch(function(err) {
+    // error the specified bucket does not exist
+});
+```
+
+*Parameters*
+- `meta` the metadata to save to the bucket
+- `[key]` an optional parameter, the key of the bucket to update, if no bucket key specified the bucket in the current context will be updated if there is one
+- `[callback]` an optional callback that will be called, the first argument will be an error if one has occurred
+
+*Returns*
+- `{Promise}` a promise to have updated the metadata.
