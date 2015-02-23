@@ -8,7 +8,7 @@ describe('Hoist', function () {
   var Hoist = require('../../lib');
   var context = new Context();
   context.application = {
-    _id:'appid'
+    _id: 'appid'
   };
   describe('.log', function () {
     it('exists', function () {
@@ -23,7 +23,6 @@ describe('Hoist', function () {
     describe('with no application', function () {
       var consoleLogs = [];
       before(function () {
-
         sinon.stub(console, 'log', function (message) {
           consoleLogs.push(message);
         });
@@ -32,27 +31,28 @@ describe('Hoist', function () {
         });
       });
       it('logs to console', function () {
-        expect(consoleLogs).to.eql(['message']);
+        expect(consoleLogs).to.eql(['{\"type\":\"appLog\",\"arguments\":[\"message\"]}']);
       });
 
     });
-    describe('called with a callback',function(){
-      var called = false;
+    describe('called with a callback', function () {
       var consoleLogs = [];
-      before(function(){
-         sinon.stub(console, 'log', function () {
+      var called;
+      before(function () {
+        sinon.stub(console, 'log', function () {
           consoleLogs.push(arguments);
         });
-        return Hoist.log('message','two','three',function(){
+        Hoist.log('message', 'two', 'three', function () {
           console.log.restore();
           called = true;
         });
+
       });
-      it('calls callback',function(){
+      it('should call log without callback', function () {
+        return expect(consoleLogs[0][0]).to.eql('{\"type\":\"appLog\",\"arguments\":[\"message\",\"two\",\"three\"]}');
+      });
+      it('should call the callback function', function () {
         return expect(called).to.be.true;
-      });
-      it('should call log without callback',function(){
-        return expect(consoleLogs[0][0]).to.eql('message two three');
       });
     });
   });
