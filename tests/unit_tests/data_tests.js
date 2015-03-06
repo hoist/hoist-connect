@@ -18,10 +18,13 @@ describe('Hoist', function () {
       it('defines #findOne', function () {
         expect(data).to.respondTo('findOne');
       });
-      it('defines #setType',function(){
+      it('defines #setType', function () {
         expect(data).to.respondTo('setType');
       });
-      it('setType sets the _type property',function(){
+      it('defines #remove', function () {
+        expect(data).to.respondTo('remove');
+      });
+      it('setType sets the _type property', function () {
         var originalType = data._type;
         data.setType('newType');
         var newType = data._type;
@@ -56,9 +59,14 @@ describe('Hoist', function () {
         return expect(data.findById('id'))
           .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');
       });
-      it('#save throws exception',function(){
+      it('#save throws exception', function () {
         return expect(data.save({}))
           .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');
+      });
+      it('#remove throws exeception', function () {
+        return expect(data.remove({}))
+          .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');
+
       });
     });
   });
