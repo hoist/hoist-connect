@@ -10,6 +10,19 @@ describe('Hoist.bucket', function () {
   it('exists', function () {
     return expect(Hoist.bucket).to.exist;
   });
+  describe('.remove',function(){
+    before(function(){
+      sinon.stub(bucketPipeline.prototype,'remove').returns(BBPromise.resolve(null));
+      return Hoist.bucket.remove('key');
+    });
+    after(function(){
+      bucketPipeline.prototype.remove.restore();
+    });
+    it('calls bucketPipeline.remove',function(){
+      return expect(bucketPipeline.prototype.remove)
+      .to.have.been.calledWith('key');
+    });
+  });
   describe('.set', function () {
     describe('with key and create', function (){
       var fakeKey = 'key';
