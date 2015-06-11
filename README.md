@@ -101,7 +101,7 @@ Hoist.timeout.reset(3000);
 ```
 
 *Parameters*
-- `milliseconds` the number of milliseconds to set the timeout to from now. Must be between 1 and 30000 (1-30 seconds)
+- `milliseconds` the number of milliseconds to set the timeout to from now. Must be between 1 and 120000 (1 millisecond- 2 minutes)
 
 *Returns*
 - A `{Promise}` to have set the timeout, you don't need to chain this as it can run async and in the background.
