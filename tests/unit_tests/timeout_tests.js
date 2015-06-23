@@ -2,7 +2,7 @@
 require('../bootstrap');
 var Hoist = require('../../lib');
 var expect = require('chai').expect;
-var Context = require('hoist-context');
+var Context = require('@hoist/context');
 var sinon = require('sinon');
 var BBPromise = require('bluebird');
 describe('Hoist.timeout', function () {

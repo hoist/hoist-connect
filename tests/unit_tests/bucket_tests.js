@@ -3,8 +3,8 @@ var Hoist = require('../../lib');
 var expect = require('chai').expect;
 var sinon = require('sinon');
 var BBPromise = require('bluebird');
-var bucketPipeline = require('hoist-bucket-pipeline').Pipeline;
-var HoistErrors = require('hoist-errors');
+var bucketPipeline = require('@hoist/bucket-pipeline').Pipeline;
+var HoistErrors = require('@hoist/errors');
 
 describe('Hoist.bucket', function () {
   it('exists', function () {

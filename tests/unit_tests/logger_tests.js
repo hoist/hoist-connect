@@ -1,6 +1,6 @@
 'use strict';
 require('../bootstrap');
-var Context = require('hoist-context');
+var Context = require('@hoist/context');
 var sinon = require('sinon');
 var expect = require('chai').expect;
 var BBPromise = require('bluebird');

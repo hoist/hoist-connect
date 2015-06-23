@@ -1,9 +1,9 @@
 'use strict';
-var ConnectorPipeline = require('hoist-connector-pipeline').Pipeline;
+var ConnectorPipeline = require('@hoist/connector-pipeline').Pipeline;
 var Hoist = require('../../lib');
 var sinon = require('sinon');
 var expect = require('chai').expect;
-var errors = require('hoist-errors');
+var errors = require('@hoist/errors');
 var BBPromise = require('bluebird');
 
 describe('Hoist', function () {

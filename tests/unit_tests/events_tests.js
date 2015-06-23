@@ -1,7 +1,7 @@
 'use strict';
 require('../bootstrap');
 var Hoist = require('../../lib');
-var Pipeline = require('hoist-events-pipeline').Pipeline;
+var Pipeline = require('@hoist/events-pipeline').Pipeline;
 var expect = require('chai').expect;
 var sinon = require('sinon');
 var BBPromise = require('bluebird');

@@ -4,7 +4,7 @@ var Hoist = require('../../lib');
 var expect = require('chai').expect;
 var sinon = require('sinon');
 var BBPromise = require('bluebird');
-var DataPipeline = require('hoist-data-pipeline').Pipeline;
+var DataPipeline = require('@hoist/data-pipeline').Pipeline;
 
 describe('Hoist', function () {
   describe('.data()', function () {

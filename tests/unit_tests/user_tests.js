@@ -1,9 +1,9 @@
 'use strict';
 var Hoist = require('../../lib');
 var expect = require('chai').expect;
-var HoistErrors = require('hoist-errors');
-var UserPipeline = require('hoist-user-pipeline').Pipeline;
-var AppUser = require('hoist-model').AppUser;
+var HoistErrors = require('@hoist/errors');
+var UserPipeline = require('@hoist/user-pipeline').Pipeline;
+var AppUser = require('@hoist/model').AppUser;
 var sinon = require('sinon');
 var BBPromise = require('bluebird');
 
