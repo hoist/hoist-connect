@@ -8,7 +8,7 @@ import sinon from 'sinon';
 import BucketPipeline from '@hoist/bucket-pipeline';
 import Errors from '@hoist/errors';
 
-describe.only('Hoist.bucket', function () {
+describe('Hoist.bucket', function () {
   it('exists', function () {
     return expect(Hoist.bucket).to.exist;
   });

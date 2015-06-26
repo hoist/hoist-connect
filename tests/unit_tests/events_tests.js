@@ -1,10 +1,12 @@
 'use strict';
-require('../bootstrap');
-var Hoist = require('../../lib');
-var Pipeline = require('@hoist/events-pipeline').Pipeline;
-var expect = require('chai').expect;
-var sinon = require('sinon');
-var BBPromise = require('bluebird');
+import Hoist from '../../lib';
+import Pipeline from '@hoist/events-pipeline';
+import {
+  expect
+}
+from 'chai';
+import sinon from 'sinon';
+
 describe('event', function () {
   it('exists', function () {
     return expect(Hoist.events).to.exist;
@@ -15,7 +17,7 @@ describe('event', function () {
       key: 'value'
     };
     before(function (done) {
-      sinon.stub(Pipeline.prototype, 'raise').returns(BBPromise.resolve(null));
+      sinon.stub(Pipeline.prototype, 'raise').returns(Promise.resolve(null));
       Hoist.events.raise(name, payload, done);
     });
     after(function () {
