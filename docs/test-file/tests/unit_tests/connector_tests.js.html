@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">tests/unit_tests/connector_tests.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+</head>
+<body class="layout-container">
+
+<header>
+  <a href="./">Home</a>
+  <a href="identifiers.html">Identifier</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/hoist/hoist-connect.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
+  <h2>Class</h2>
+  <ul>
+    
+  <li data-ice="classDoc"><span><a href="class/src/base_api.js~BaseAPI.html">BaseAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/bucket.js~BucketAPI.html">BucketAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/connector.js~ConnectorAPI.html">ConnectorAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/data.js~DataAPI.html">DataAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/events.js~EventsAPI.html">EventsAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/lock.js~HoistLockAPI.html">HoistLockAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/timeout.js~TimeoutAPI.html">TimeoutAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/user.js~UserAPI.html">UserAPI</a></span></li>
+</ul>
+</div>
+
+
+
+<div data-ice="functionWrap">
+  <h2><a href="function/">Function</a></h2>
+  <ul>
+    
+  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-Log">Log</a></span></li>
+</ul>
+</div>
+
+
+
+
+
+
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">tests/unit_tests/connector_tests.js</h1>
+<pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
+var ConnectorPipeline = require(&apos;@hoist/connector-pipeline&apos;).Pipeline;
+var Hoist = require(&apos;../../lib&apos;);
+var sinon = require(&apos;sinon&apos;);
+var expect = require(&apos;chai&apos;).expect;
+var errors = require(&apos;@hoist/errors&apos;);
+var BBPromise = require(&apos;bluebird&apos;);
+
+describe(&apos;Hoist&apos;, function () {
+  describe(&apos;.connector&apos;, function () {
+    var StubConnector = function () {
+      this.get = sinon.stub();
+      this.put = sinon.stub();
+      this.post = sinon.stub();
+      this.delete = sinon.stub();
+    };
+    var connector;
+    var stubConnector = new StubConnector();
+    describe(&apos;with key&apos;, function () {
+      before(function () {
+        sinon.stub(ConnectorPipeline.prototype, &apos;loadConnector&apos;).returns(BBPromise.resolve(stubConnector));
+        connector = Hoist.connector(&apos;key&apos;);
+      });
+      after(function () {
+        ConnectorPipeline.prototype.loadConnector.restore();
+      });
+      it(&apos;loads the specified connector&apos;, function () {
+        expect(ConnectorPipeline.prototype.loadConnector)
+          .to.have.been.calledWith(&apos;key&apos;);
+      });
+      describe(&apos;#get&apos;, function () {
+
+        var _promise = BBPromise.resolve(true);
+        before(function () {
+          stubConnector.get.returns(_promise);
+          return connector.get(&apos;/path?query&apos;);
+        });
+        after(function () {
+          stubConnector.get.reset();
+        });
+        it(&apos;calls pipeline#get&apos;, function () {
+          expect(stubConnector.get)
+            .to.have.been.calledWith(&apos;/path?query&apos;);
+        });
+      });
+      describe(&apos;#put&apos;, function () {
+
+        var _promise = BBPromise.resolve(true);
+        before(function () {
+          stubConnector.put.returns(_promise);
+          return connector.put(&apos;/path?query&apos;, &apos;data&apos;);
+        });
+        after(function () {
+          stubConnector.put.reset();
+        });
+        it(&apos;calls pipeline#put&apos;, function () {
+          expect(stubConnector.put)
+            .to.have.been.calledWith(&apos;/path?query&apos;, &apos;data&apos;);
+        });
+      });
+      describe(&apos;#delete&apos;, function () {
+
+        var _promise = BBPromise.resolve(true);
+        before(function () {
+          stubConnector.delete.returns(_promise);
+          return connector.delete(&apos;/path&apos;);
+        });
+        after(function () {
+          stubConnector.delete.reset();
+        });
+        it(&apos;calls pipeline#delete&apos;, function () {
+          expect(stubConnector.delete)
+            .to.have.been.calledWith(&apos;/path&apos;);
+        });
+      });
+      describe(&apos;#post&apos;, function () {
+
+        var _promise = BBPromise.resolve(true);
+        before(function () {
+          stubConnector.post.returns(_promise);
+          return connector.post(&apos;/path?query&apos;, &apos;data&apos;);
+        });
+        after(function () {
+          stubConnector.post.reset();
+        });
+        it(&apos;calls pipeline#post&apos;, function () {
+          expect(stubConnector.post)
+            .to.have.been.calledWith(&apos;/path?query&apos;, &apos;data&apos;);
+        });
+      });
+    });
+    describe(&apos;with no key specified&apos;, function () {
+      it(&apos;rejects&apos;, function () {
+        expect(function () {
+          Hoist.connector();
+        }).to.throw(errors.connector.request.InvalidError);
+      });
+    });
+  });
+});
+</code></pre>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.1.2)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

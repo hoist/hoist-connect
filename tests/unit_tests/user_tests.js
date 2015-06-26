@@ -61,9 +61,8 @@ describe('Hoist', function () {
         }).to.throw(HoistErrors.user.request.InvalidError, 'user details are required');
       });
       describe('valid request', function () {
-        var result;
         before(function () {
-          return (result = Hoist.user.invite({
+          return (Hoist.user.invite({
             username: 'username'
           }));
         });

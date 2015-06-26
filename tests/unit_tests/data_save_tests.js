@@ -33,14 +33,14 @@ describe('Hoist', function () {
 
         it('passes to pipeline save', function () {
           expect(DataPipeline.prototype.save)
-            .to.have.been.calledWith('person',objToSave);
+            .to.have.been.calledWith('person', objToSave);
         });
       });
       describe('with type set by object', function () {
         var data;
         before(function () {
           data = Hoist.data();
-          objToSave._type='person';
+          objToSave._type = 'person';
           data.save(objToSave);
         });
         after(function () {
@@ -50,7 +50,7 @@ describe('Hoist', function () {
 
         it('passes to pipeline save', function () {
           expect(DataPipeline.prototype.save)
-            .to.have.been.calledWith('person',objToSave);
+            .to.have.been.calledWith('person', objToSave);
         });
       });
     });

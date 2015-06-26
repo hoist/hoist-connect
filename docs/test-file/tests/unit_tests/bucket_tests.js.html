@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">tests/unit_tests/bucket_tests.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+</head>
+<body class="layout-container">
+
+<header>
+  <a href="./">Home</a>
+  <a href="identifiers.html">Identifier</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/hoist/hoist-connect.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
+  <h2>Class</h2>
+  <ul>
+    
+  <li data-ice="classDoc"><span><a href="class/src/base_api.js~BaseAPI.html">BaseAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/bucket.js~BucketAPI.html">BucketAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/connector.js~ConnectorAPI.html">ConnectorAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/data.js~DataAPI.html">DataAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/events.js~EventsAPI.html">EventsAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/lock.js~HoistLockAPI.html">HoistLockAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/timeout.js~TimeoutAPI.html">TimeoutAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/user.js~UserAPI.html">UserAPI</a></span></li>
+</ul>
+</div>
+
+
+
+<div data-ice="functionWrap">
+  <h2><a href="function/">Function</a></h2>
+  <ul>
+    
+  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-Log">Log</a></span></li>
+</ul>
+</div>
+
+
+
+
+
+
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">tests/unit_tests/bucket_tests.js</h1>
+<pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
+var Hoist = require(&apos;../../src&apos;);
+var expect = require(&apos;chai&apos;).expect;
+var sinon = require(&apos;sinon&apos;);
+var BBPromise = require(&apos;bluebird&apos;);
+var bucketPipeline = require(&apos;@hoist/bucket-pipeline&apos;).Pipeline;
+var HoistErrors = require(&apos;@hoist/errors&apos;);
+
+describe(&apos;Hoist.bucket&apos;, function () {
+  it(&apos;exists&apos;, function () {
+    return expect(Hoist.bucket).to.exist;
+  });
+  describe(&apos;.remove&apos;, function () {
+    before(function () {
+      sinon.stub(bucketPipeline.prototype, &apos;remove&apos;).returns(BBPromise.resolve(null));
+      return Hoist.bucket.remove(&apos;key&apos;);
+    });
+    after(function () {
+      bucketPipeline.prototype.remove.restore();
+    });
+    it(&apos;calls bucketPipeline.remove&apos;, function () {
+      return expect(bucketPipeline.prototype.remove)
+        .to.have.been.calledWith(&apos;key&apos;);
+    });
+  });
+  describe(&apos;.set&apos;, function () {
+    describe(&apos;with key and create&apos;, function () {
+      var fakeKey = &apos;key&apos;;
+      before(function () {
+        sinon.stub(bucketPipeline.prototype, &apos;set&apos;).returns(BBPromise.resolve());
+        return Hoist.bucket.set(fakeKey, true);
+      });
+      after(function () {
+        bucketPipeline.prototype.set.restore();
+      });
+      it(&apos;calls bucketPipeline.set with correct key&apos;, function () {
+        expect(bucketPipeline.prototype.set)
+          .to.have.been.calledWith(fakeKey, true);
+      });
+      it(&apos;with callback&apos;, function (done) {
+        Hoist.bucket.set(fakeKey, true, done);
+      });
+    });
+    describe(&apos;with key and callback&apos;, function () {
+      var fakeKey = &apos;key&apos;;
+      before(function (done) {
+        sinon.stub(bucketPipeline.prototype, &apos;set&apos;).returns(BBPromise.resolve());
+        return Hoist.bucket.set(fakeKey, done);
+      });
+      after(function () {
+        bucketPipeline.prototype.set.restore();
+      });
+      it(&apos;calls bucketPipeline.set with correct key and meta&apos;, function () {
+        expect(bucketPipeline.prototype.set)
+          .to.have.been.calledWith(fakeKey, null);
+      });
+    });
+    describe(&apos;with no key specified&apos;, function () {
+      it(&apos;rejects&apos;, function () {
+        expect(function () {
+          Hoist.bucket.set();
+        }).to.throw(HoistErrors.bucket.InvalidError);
+      });
+      it(&apos;with callback&apos;, function () {
+        expect(function () {
+          Hoist.bucket.set(function () {});
+        }).to.throw(HoistErrors.bucket.InvalidError);
+      });
+    });
+  });
+  describe(&apos;.add&apos;, function () {
+    describe(&apos;with key and meta&apos;, function () {
+      var fakeKey = &apos;key&apos;;
+      var fakeMeta = &apos;meta&apos;;
+      before(function () {
+        sinon.stub(bucketPipeline.prototype, &apos;add&apos;).returns(BBPromise.resolve());
+        return Hoist.bucket.add(fakeKey, fakeMeta);
+      });
+      after(function () {
+        bucketPipeline.prototype.add.restore();
+      });
+      it(&apos;calls bucketPipeline.add with correct key and meta&apos;, function () {
+        expect(bucketPipeline.prototype.add)
+          .to.have.been.calledWith(fakeKey, fakeMeta);
+      });
+      it(&apos;with callback&apos;, function (done) {
+        Hoist.bucket.add(fakeKey, fakeMeta, done);
+      });
+    });
+    describe(&apos;with key and callback&apos;, function () {
+      var fakeKey = &apos;key&apos;;
+      before(function (done) {
+        sinon.stub(bucketPipeline.prototype, &apos;add&apos;).returns(BBPromise.resolve());
+        return Hoist.bucket.add(fakeKey, done);
+      });
+      after(function () {
+        bucketPipeline.prototype.add.restore();
+      });
+      it(&apos;calls bucketPipeline.add with correct key and meta&apos;, function () {
+        expect(bucketPipeline.prototype.add)
+          .to.have.been.calledWith(fakeKey, null);
+      });
+    });
+    describe(&apos;with only callback&apos;, function () {
+      before(function (done) {
+        sinon.stub(bucketPipeline.prototype, &apos;add&apos;).returns(BBPromise.resolve());
+        return Hoist.bucket.add(done);
+      });
+      after(function () {
+        bucketPipeline.prototype.add.restore();
+      });
+      it(&apos;calls bucketPipeline.add with correct key and meta&apos;, function () {
+        expect(bucketPipeline.prototype.add)
+          .to.have.been.calledWith(null, null);
+      });
+    });
+  });
+  describe(&apos;.get&apos;, function () {
+    describe(&apos;with key&apos;, function () {
+      var fakeKey = &apos;key&apos;;
+      before(function () {
+        sinon.stub(bucketPipeline.prototype, &apos;get&apos;).returns(BBPromise.resolve());
+        return Hoist.bucket.get(fakeKey);
+      });
+      after(function () {
+        bucketPipeline.prototype.get.restore();
+      });
+      it(&apos;calls bucketPipeline.get with correct key&apos;, function () {
+        expect(bucketPipeline.prototype.get)
+          .to.have.been.calledWith(fakeKey);
+      });
+      it(&apos;with callback&apos;, function (done) {
+        Hoist.bucket.get(fakeKey, done);
+      });
+    });
+    describe(&apos;with only callback&apos;, function () {
+      before(function (done) {
+        sinon.stub(bucketPipeline.prototype, &apos;get&apos;).returns(BBPromise.resolve());
+        Hoist.bucket.get(done);
+      });
+      after(function () {
+        bucketPipeline.prototype.get.restore();
+      });
+      it(&apos;calls bucketPipeline.get with no key&apos;, function () {
+        expect(bucketPipeline.prototype.get)
+          .to.have.been.calledWith();
+      });
+    });
+  });
+  describe(&apos;.getAll&apos;, function () {
+    before(function () {
+      sinon.stub(bucketPipeline.prototype, &apos;getAll&apos;).returns(BBPromise.resolve([]));
+      return Hoist.bucket.getAll();
+    });
+    after(function () {
+      bucketPipeline.prototype.getAll.restore();
+    });
+    it(&apos;calls bucketPipeline.get with correct key&apos;, function () {
+      expect(bucketPipeline.prototype.getAll)
+        .to.have.been.calledWith();
+    });
+    it(&apos;with callback&apos;, function (done) {
+      Hoist.bucket.getAll(done);
+    });
+  });
+  describe(&apos;.each&apos;, function () {
+    describe(&apos;with a function&apos;, function () {
+      var fn = function () {};
+      before(function () {
+        sinon.stub(bucketPipeline.prototype, &apos;each&apos;).returns(BBPromise.resolve());
+        return Hoist.bucket.each(fn);
+      });
+      after(function () {
+        bucketPipeline.prototype.each.restore();
+      });
+      it(&apos;calls bucketPipeline.each with correct key&apos;, function () {
+        expect(bucketPipeline.prototype.each)
+          .to.have.been.calledWith(fn);
+      });
+      it(&apos;with callback&apos;, function (done) {
+        Hoist.bucket.each(fn, done);
+      });
+    });
+    describe(&apos;without function&apos;, function () {
+      it(&apos;rejects&apos;, function () {
+        expect(function () {
+          Hoist.bucket.each();
+        }).to.throw(HoistErrors.bucket.InvalidError);
+      });
+    });
+  });
+  describe(&apos;.saveMeta&apos;, function () {
+    describe(&apos;with meta and key&apos;, function () {
+      var fakeMeta = {
+        key: &apos;value&apos;
+      };
+      var fakeKey = &apos;key&apos;;
+      before(function () {
+        sinon.stub(bucketPipeline.prototype, &apos;saveMeta&apos;).returns(BBPromise.resolve());
+        return Hoist.bucket.saveMeta(fakeMeta, fakeKey);
+      });
+      after(function () {
+        bucketPipeline.prototype.saveMeta.restore();
+      });
+      it(&apos;calls bucketPipeline.saveMeta with correct key&apos;, function () {
+        expect(bucketPipeline.prototype.saveMeta)
+          .to.have.been.calledWith(fakeMeta, fakeKey);
+      });
+      it(&apos;with callback&apos;, function (done) {
+        Hoist.bucket.saveMeta(fakeMeta, fakeKey, done);
+      });
+    });
+    describe(&apos;with meta and no key&apos;, function () {
+      var fakeMeta = {
+        key: &apos;value&apos;
+      };
+      before(function () {
+        sinon.stub(bucketPipeline.prototype, &apos;saveMeta&apos;).returns(BBPromise.resolve());
+        return Hoist.bucket.saveMeta(fakeMeta);
+      });
+      after(function () {
+        bucketPipeline.prototype.saveMeta.restore();
+      });
+      it(&apos;calls bucketPipeline.saveMeta with correct key&apos;, function () {
+        expect(bucketPipeline.prototype.saveMeta)
+          .to.have.been.calledWith(fakeMeta, undefined);
+      });
+    });
+    describe(&apos;with meta and no key and callback&apos;, function () {
+      var fakeMeta = {
+        key: &apos;value&apos;
+      };
+      before(function (done) {
+        sinon.stub(bucketPipeline.prototype, &apos;saveMeta&apos;).returns(BBPromise.resolve());
+        return Hoist.bucket.saveMeta(fakeMeta, done);
+      });
+      after(function () {
+        bucketPipeline.prototype.saveMeta.restore();
+      });
+      it(&apos;calls bucketPipeline.saveMeta with correct key&apos;, function () {
+        expect(bucketPipeline.prototype.saveMeta)
+          .to.have.been.calledWith(fakeMeta, null);
+      });
+    });
+  });
+});
+</code></pre>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.1.2)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

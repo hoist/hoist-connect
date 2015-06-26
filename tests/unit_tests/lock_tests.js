@@ -58,11 +58,10 @@ describe('Hoist.lock', function () {
   });
   describe('with lock released', function () {
 
-    var result;
     var value;
     before(function () {
 
-      return (result = Hoist.lock('lock-key').then(function (lock1) {
+      return (Hoist.lock('lock-key').then(function (lock1) {
         value = 'lock aquired in 1';
         process.nextTick(function () {
           lock1.release();

@@ -16,12 +16,12 @@ describe('Hoist', function () {
     };
     var connector;
     var stubConnector = new StubConnector();
-    describe('with key', function (){
+    describe('with key', function () {
       before(function () {
         sinon.stub(ConnectorPipeline.prototype, 'loadConnector').returns(BBPromise.resolve(stubConnector));
         connector = Hoist.connector('key');
       });
-      after(function(){
+      after(function () {
         ConnectorPipeline.prototype.loadConnector.restore();
       });
       it('loads the specified connector', function () {
@@ -29,11 +29,11 @@ describe('Hoist', function () {
           .to.have.been.calledWith('key');
       });
       describe('#get', function () {
-        var response;
+
         var _promise = BBPromise.resolve(true);
         before(function () {
           stubConnector.get.returns(_promise);
-          response = connector.get('/path?query');
+          return connector.get('/path?query');
         });
         after(function () {
           stubConnector.get.reset();
@@ -44,11 +44,11 @@ describe('Hoist', function () {
         });
       });
       describe('#put', function () {
-        var response;
+
         var _promise = BBPromise.resolve(true);
         before(function () {
           stubConnector.put.returns(_promise);
-          response = connector.put('/path?query', 'data');
+          return connector.put('/path?query', 'data');
         });
         after(function () {
           stubConnector.put.reset();
@@ -59,11 +59,11 @@ describe('Hoist', function () {
         });
       });
       describe('#delete', function () {
-        var response;
+
         var _promise = BBPromise.resolve(true);
         before(function () {
           stubConnector.delete.returns(_promise);
-          response = connector.delete('/path');
+          return connector.delete('/path');
         });
         after(function () {
           stubConnector.delete.reset();
@@ -74,11 +74,11 @@ describe('Hoist', function () {
         });
       });
       describe('#post', function () {
-        var response;
+
         var _promise = BBPromise.resolve(true);
         before(function () {
           stubConnector.post.returns(_promise);
-          response = connector.post('/path?query', 'data');
+          return connector.post('/path?query', 'data');
         });
         after(function () {
           stubConnector.post.reset();

@@ -14,9 +14,9 @@ describe('event', function () {
     var payload = {
       key: 'value'
     };
-    before(function(done){
-      sinon.stub(Pipeline.prototype,'raise').returns(BBPromise.resolve(null));
-      Hoist.events.raise(name,payload,done);
+    before(function (done) {
+      sinon.stub(Pipeline.prototype, 'raise').returns(BBPromise.resolve(null));
+      Hoist.events.raise(name, payload, done);
     });
     after(function () {
       Pipeline.prototype.raise.restore();
