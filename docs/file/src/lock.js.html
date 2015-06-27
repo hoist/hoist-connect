@@ -67,20 +67,36 @@ import redis from &apos;redis&apos;;
 import BaseAPI from &apos;./base_api&apos;;
 
 let client;
-
+/**
+ * Hoists lock API
+ */
 class HoistLockAPI extends BaseAPI {
+
+  /**
+   * create new lock
+   */
   constructor() {
     super();
-    this.client = HoistLockAPI._getClient();
-    this.lock = redisLock(this.client);
   }
-  aquireLock(name, timeout) {
 
+  /**
+   * aquire a lock within the given timeout
+   * @param {string} name - the key for the lock
+   * @param {Number} [timeout=500] - the timeout to wait for the lock
+   * @returns {Promise} - promise to have aquired the lock
+   */
+  aquireLock(name, timeout) {
     timeout = timeout || 500;
+    client = HoistLockAPI._getClient();
+    let lock = redisLock(client);
     return new Promise((resolve) =&gt; {
-      this.lock(name, timeout, function (done) {
-        this.release = done;
-        resolve(this);
+      lock(name, timeout, (done) =&gt; {
+        /*
+         * release the current lock
+         */
+        resolve({
+          release: done
+        });
       });
     });
   }
@@ -89,6 +105,12 @@ class HoistLockAPI extends BaseAPI {
 
 HoistLockAPI._getClient = function () {
   return client || (client = redis.createClient(config.get(&apos;Hoist.redis.port&apos;), config.get(&apos;Hoist.redis.host&apos;)));
+};
+HoistLockAPI._clearClient = function () {
+  if (client) {
+    client.end();
+    client = null;
+  }
 };
 
 

@@ -1,7 +1,11 @@
 'use strict';
-var Hoist = require('../../lib');
-var expect = require('chai').expect;
-var sinon = require('sinon');
+import Hoist from '../../src';
+import {
+  expect
+}
+from 'chai';
+import sinon from 'sinon';
+import LockAPI from '../../src/lock';
 
 describe('Hoist.lock', function () {
   it('is a function', function () {
@@ -22,7 +26,7 @@ describe('Hoist.lock', function () {
     });
     after(function () {
       clock.restore();
-      Hoist.lock.clearClient();
+      LockAPI._clearClient();
     });
   });
   describe('with lock active', function () {
@@ -53,7 +57,7 @@ describe('Hoist.lock', function () {
     });
     after(function () {
       clock.restore();
-      Hoist.lock.clearClient();
+      LockAPI._clearClient();
     });
   });
   describe('with lock released', function () {
@@ -77,7 +81,7 @@ describe('Hoist.lock', function () {
     });
 
     after(function () {
-      Hoist.lock.clearClient();
+      LockAPI._clearClient();
     });
   });
 });

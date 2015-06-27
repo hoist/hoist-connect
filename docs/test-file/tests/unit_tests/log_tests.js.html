@@ -61,8 +61,9 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/unit_tests/log_tests.js</h1>
 <pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
-var log = require(&apos;../../lib/log&apos;);
-describe(&apos;.log&apos;, function () {
+import log from &apos;../../src/log&apos;;
+/** @test {Log} */
+describe(&apos;Hoist.log&apos;, function () {
   before(function () {
     var b = {
 

@@ -61,9 +61,13 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/unit_tests/lock_tests.js</h1>
 <pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
-var Hoist = require(&apos;../../lib&apos;);
-var expect = require(&apos;chai&apos;).expect;
-var sinon = require(&apos;sinon&apos;);
+import Hoist from &apos;../../src&apos;;
+import {
+  expect
+}
+from &apos;chai&apos;;
+import sinon from &apos;sinon&apos;;
+import LockAPI from &apos;../../src/lock&apos;;
 
 describe(&apos;Hoist.lock&apos;, function () {
   it(&apos;is a function&apos;, function () {
@@ -84,7 +88,7 @@ describe(&apos;Hoist.lock&apos;, function () {
     });
     after(function () {
       clock.restore();
-      Hoist.lock.clearClient();
+      LockAPI._clearClient();
     });
   });
   describe(&apos;with lock active&apos;, function () {
@@ -115,7 +119,7 @@ describe(&apos;Hoist.lock&apos;, function () {
     });
     after(function () {
       clock.restore();
-      Hoist.lock.clearClient();
+      LockAPI._clearClient();
     });
   });
   describe(&apos;with lock released&apos;, function () {
@@ -139,7 +143,7 @@ describe(&apos;Hoist.lock&apos;, function () {
     });
 
     after(function () {
-      Hoist.lock.clearClient();
+      LockAPI._clearClient();
     });
   });
 });

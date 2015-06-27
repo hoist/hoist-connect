@@ -1,15 +1,20 @@
 'use strict';
-require('../bootstrap');
-var Hoist = require('../../lib');
-var expect = require('chai').expect;
-var Context = require('@hoist/context');
-var sinon = require('sinon');
-var BBPromise = require('bluebird');
+import Hoist from '../../src';
+import {
+  expect
+}
+from 'chai';
+import Context from '@hoist/context';
+import sinon from 'sinon';
+
+/** @test {TimeoutAPI} */
 describe('Hoist.timeout', function () {
   it('exists', function () {
     return expect(Hoist).to.have.property('timeout');
   });
-  describe('#extend', function () {
+
+  /** @test {TimeoutAPI#reset} */
+  describe('#reset', function () {
     describe('with valid value', function () {
       var clock;
       var context;
@@ -27,7 +32,7 @@ describe('Hoist.timeout', function () {
         context.timeout.current = setTimeout(function () {
           result = 'this is original timeout';
         }, 300);
-        sinon.stub(Context, 'get').returns(BBPromise.resolve(context));
+        sinon.stub(Context, 'get').returns(Promise.resolve(context));
         clock.tick(200);
         return Hoist.timeout.reset(5000);
       });
@@ -62,7 +67,7 @@ describe('Hoist.timeout', function () {
         context.timeout.current = setTimeout(function () {
           result = 'this is original timeout';
         }, 300);
-        sinon.stub(Context, 'get').returns(BBPromise.resolve(context));
+        sinon.stub(Context, 'get').returns(Promise.resolve(context));
         clock.tick(200);
       });
       it('throws an error', function () {

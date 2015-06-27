@@ -61,17 +61,22 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/unit_tests/timeout_tests.js</h1>
 <pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
-require(&apos;../bootstrap&apos;);
-var Hoist = require(&apos;../../lib&apos;);
-var expect = require(&apos;chai&apos;).expect;
-var Context = require(&apos;@hoist/context&apos;);
-var sinon = require(&apos;sinon&apos;);
-var BBPromise = require(&apos;bluebird&apos;);
+import Hoist from &apos;../../src&apos;;
+import {
+  expect
+}
+from &apos;chai&apos;;
+import Context from &apos;@hoist/context&apos;;
+import sinon from &apos;sinon&apos;;
+
+/** @test {TimeoutAPI} */
 describe(&apos;Hoist.timeout&apos;, function () {
   it(&apos;exists&apos;, function () {
     return expect(Hoist).to.have.property(&apos;timeout&apos;);
   });
-  describe(&apos;#extend&apos;, function () {
+
+  /** @test {TimeoutAPI#reset} */
+  describe(&apos;#reset&apos;, function () {
     describe(&apos;with valid value&apos;, function () {
       var clock;
       var context;
@@ -89,7 +94,7 @@ describe(&apos;Hoist.timeout&apos;, function () {
         context.timeout.current = setTimeout(function () {
           result = &apos;this is original timeout&apos;;
         }, 300);
-        sinon.stub(Context, &apos;get&apos;).returns(BBPromise.resolve(context));
+        sinon.stub(Context, &apos;get&apos;).returns(Promise.resolve(context));
         clock.tick(200);
         return Hoist.timeout.reset(5000);
       });
@@ -124,7 +129,7 @@ describe(&apos;Hoist.timeout&apos;, function () {
         context.timeout.current = setTimeout(function () {
           result = &apos;this is original timeout&apos;;
         }, 300);
-        sinon.stub(Context, &apos;get&apos;).returns(BBPromise.resolve(context));
+        sinon.stub(Context, &apos;get&apos;).returns(Promise.resolve(context));
         clock.tick(200);
       });
       it(&apos;throws an error&apos;, function () {

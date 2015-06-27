@@ -61,23 +61,27 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/unit_tests/events_tests.js</h1>
 <pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
-require(&apos;../bootstrap&apos;);
-var Hoist = require(&apos;../../lib&apos;);
-var Pipeline = require(&apos;@hoist/events-pipeline&apos;).Pipeline;
-var expect = require(&apos;chai&apos;).expect;
-var sinon = require(&apos;sinon&apos;);
-var BBPromise = require(&apos;bluebird&apos;);
-describe(&apos;event&apos;, function () {
+import Hoist from &apos;../../lib&apos;;
+import Pipeline from &apos;@hoist/events-pipeline&apos;;
+import {
+  expect
+}
+from &apos;chai&apos;;
+import sinon from &apos;sinon&apos;;
+
+/** @test {EventsAPI} */
+describe(&apos;Hoist.events&apos;, function () {
   it(&apos;exists&apos;, function () {
     return expect(Hoist.events).to.exist;
   });
+  /** @test {EventsAPI#raise} */
   describe(&apos;.raise&apos;, function () {
     var name = &apos;name&apos;;
     var payload = {
       key: &apos;value&apos;
     };
     before(function (done) {
-      sinon.stub(Pipeline.prototype, &apos;raise&apos;).returns(BBPromise.resolve(null));
+      sinon.stub(Pipeline.prototype, &apos;raise&apos;).returns(Promise.resolve(null));
       Hoist.events.raise(name, payload, done);
     });
     after(function () {

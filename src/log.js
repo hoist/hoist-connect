@@ -5,7 +5,10 @@ import {
 }
 from 'lodash';
 
-export function Log() {
+/**
+ * log out the object to be captured by the executor process
+ */
+export default function Log() {
 
   let args = Array.prototype.slice.call(arguments);
   let callback;

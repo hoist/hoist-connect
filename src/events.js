@@ -7,11 +7,26 @@ from 'lodash';
 import Bluebird from 'bluebird';
 import BaseAPI from './base_api';
 
+/**
+ * Hoists event API
+ */
 class EventsAPI extends BaseAPI {
+  /**
+   * create a new instance of the event api
+   */
   constructor() {
     super();
-    this.pipeline = new Pipeline();
+    this._pipeline = new Pipeline();
   }
+
+  /**
+   * raise a new event
+   * @param {string} name - the name of the event
+   * @param {object} payload - the event payload
+   * @param {object} [contextOverride] - overides for the current context
+   * @param {function(error: Error, objects: Event)} [callback] - callback to call when event has been raised
+   * @returns {Promise<Event>} - a promise to have raised the Event
+   */
   raise(name, payload, contextOverride, callback) {
     if (!callback && isFunction(contextOverride)) {
       callback = contextOverride;
@@ -21,7 +36,7 @@ class EventsAPI extends BaseAPI {
       callback = payload;
       payload = {};
     }
-    return Bluebird.resolve(this.pipeline.raise(name, payload, contextOverride))
+    return Bluebird.resolve(this._pipeline.raise(name, payload, contextOverride))
       .nodeify(callback);
   }
 }

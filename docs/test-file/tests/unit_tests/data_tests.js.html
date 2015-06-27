@@ -63,73 +63,72 @@
 <pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
 require(&apos;../bootstrap&apos;);
 var expect = require(&apos;chai&apos;).expect;
-var Hoist = require(&apos;../../lib&apos;);
+var Hoist = require(&apos;../../src&apos;);
 
-describe(&apos;Hoist&apos;, function () {
-  describe(&apos;.data()&apos;, function () {
-    it(&apos;is a function&apos;, function () {
-      expect(Hoist)
-        .to.respondTo(&apos;data&apos;);
+/** @test {DataAPI} */
+describe(&apos;Hoist.data&apos;, function () {
+  it(&apos;is a function&apos;, function () {
+    expect(Hoist)
+      .to.respondTo(&apos;data&apos;);
+  });
+  var data;
+
+  function standardMethods() {
+    it(&apos;defines #find&apos;, function () {
+      expect(data).to.respondTo(&apos;find&apos;);
     });
-    var data;
-
-    function standardMethods() {
-      it(&apos;defines #find&apos;, function () {
-        expect(data).to.respondTo(&apos;find&apos;);
-      });
-      it(&apos;defines #findOne&apos;, function () {
-        expect(data).to.respondTo(&apos;findOne&apos;);
-      });
-      it(&apos;defines #setType&apos;, function () {
-        expect(data).to.respondTo(&apos;setType&apos;);
-      });
-      it(&apos;defines #remove&apos;, function () {
-        expect(data).to.respondTo(&apos;remove&apos;);
-      });
-      it(&apos;setType sets the _type property&apos;, function () {
-        var originalType = data._type;
-        data.setType(&apos;newType&apos;);
-        var newType = data._type;
-        data._type = originalType;
-        expect(newType).to.eql(&apos;newtype&apos;);
-      });
-
-    }
-    describe(&apos;constructed with type&apos;, function () {
-      before(function () {
-        data = Hoist.data(&apos;Person&apos;);
-      });
-      it(&apos;sets _type&apos;, function () {
-        expect(data._type).to.eql(&apos;person&apos;);
-      });
-      standardMethods(data);
+    it(&apos;defines #findOne&apos;, function () {
+      expect(data).to.respondTo(&apos;findOne&apos;);
     });
-    describe(&apos;constructed without type&apos;, function () {
-      before(function () {
-        data = Hoist.data();
-      });
-      standardMethods(data);
-      it(&apos;#find throws exception&apos;, function () {
-        return expect(data.find())
-          .to.be.rejectedWith(&apos;you need to specify a type for the retrieval, call #setType([typename]) first&apos;);
-      });
-      it(&apos;#findOne throws exception&apos;, function () {
-        return expect(data.findOne({}))
-          .to.be.rejectedWith(&apos;you need to specify a type for the retrieval, call #setType([typename]) first&apos;);
-      });
-      it(&apos;#findById throws exception&apos;, function () {
-        return expect(data.findById(&apos;id&apos;))
-          .to.be.rejectedWith(&apos;you need to specify a type for the retrieval, call #setType([typename]) first&apos;);
-      });
-      it(&apos;#save throws exception&apos;, function () {
-        return expect(data.save({}))
-          .to.be.rejectedWith(&apos;you need to specify a type for the retrieval, call #setType([typename]) first&apos;);
-      });
-      it(&apos;#remove throws exeception&apos;, function () {
-        return expect(data.remove({}))
-          .to.be.rejectedWith(&apos;you need to specify a type for the retrieval, call #setType([typename]) first&apos;);
+    it(&apos;defines #setType&apos;, function () {
+      expect(data).to.respondTo(&apos;setType&apos;);
+    });
+    it(&apos;defines #remove&apos;, function () {
+      expect(data).to.respondTo(&apos;remove&apos;);
+    });
+    it(&apos;setType sets the _type property&apos;, function () {
+      var originalType = data._type;
+      data.setType(&apos;newType&apos;);
+      var newType = data._type;
+      data._type = originalType;
+      expect(newType).to.eql(&apos;newtype&apos;);
+    });
 
-      });
+  }
+  describe(&apos;constructed with type&apos;, function () {
+    before(function () {
+      data = Hoist.data(&apos;Person&apos;);
+    });
+    it(&apos;sets _type&apos;, function () {
+      expect(data._type).to.eql(&apos;person&apos;);
+    });
+    standardMethods(data);
+  });
+  describe(&apos;constructed without type&apos;, function () {
+    before(function () {
+      data = Hoist.data();
+    });
+    standardMethods(data);
+    it(&apos;#find throws exception&apos;, function () {
+      return expect(data.find())
+        .to.be.rejectedWith(&apos;you need to specify a type for the retrieval, call #setType([typename]) first&apos;);
+    });
+    it(&apos;#findOne throws exception&apos;, function () {
+      return expect(data.findOne({}))
+        .to.be.rejectedWith(&apos;you need to specify a type for the retrieval, call #setType([typename]) first&apos;);
+    });
+    it(&apos;#findById throws exception&apos;, function () {
+      return expect(data.findById(&apos;id&apos;))
+        .to.be.rejectedWith(&apos;you need to specify a type for the retrieval, call #setType([typename]) first&apos;);
+    });
+    it(&apos;#save throws exception&apos;, function () {
+      return expect(data.save({}))
+        .to.be.rejectedWith(&apos;you need to specify a type for the retrieval, call #setType([typename]) first&apos;);
+    });
+    it(&apos;#remove throws exeception&apos;, function () {
+      return expect(data.remove({}))
+        .to.be.rejectedWith(&apos;you need to specify a type for the retrieval, call #setType([typename]) first&apos;);
+
     });
   });
 });

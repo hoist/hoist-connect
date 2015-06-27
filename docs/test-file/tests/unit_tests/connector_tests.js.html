@@ -61,102 +61,106 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/unit_tests/connector_tests.js</h1>
 <pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
-var ConnectorPipeline = require(&apos;@hoist/connector-pipeline&apos;).Pipeline;
-var Hoist = require(&apos;../../lib&apos;);
-var sinon = require(&apos;sinon&apos;);
-var expect = require(&apos;chai&apos;).expect;
-var errors = require(&apos;@hoist/errors&apos;);
-var BBPromise = require(&apos;bluebird&apos;);
+import ConnectorPipeline from &apos;@hoist/connector-pipeline&apos;;
+import Hoist from &apos;../../src&apos;;
+import sinon from &apos;sinon&apos;;
+import {
+  expect
+}
+from &apos;chai&apos;;
+import errors from &apos;@hoist/errors&apos;;
 
-describe(&apos;Hoist&apos;, function () {
-  describe(&apos;.connector&apos;, function () {
-    var StubConnector = function () {
-      this.get = sinon.stub();
-      this.put = sinon.stub();
-      this.post = sinon.stub();
-      this.delete = sinon.stub();
-    };
-    var connector;
-    var stubConnector = new StubConnector();
-    describe(&apos;with key&apos;, function () {
+/** @test {ConnectorAPI} */
+describe(&apos;Hoist.connector&apos;, function () {
+  var StubConnector = function () {
+    this.get = sinon.stub();
+    this.put = sinon.stub();
+    this.post = sinon.stub();
+    this.delete = sinon.stub();
+  };
+  var connector;
+  var stubConnector = new StubConnector();
+  describe(&apos;with key&apos;, function () {
+    before(function () {
+      sinon.stub(ConnectorPipeline.prototype, &apos;loadConnector&apos;).returns(Promise.resolve(stubConnector));
+      connector = Hoist.connector(&apos;key&apos;);
+    });
+    after(function () {
+      ConnectorPipeline.prototype.loadConnector.restore();
+    });
+    it(&apos;loads the specified connector&apos;, function () {
+      expect(ConnectorPipeline.prototype.loadConnector)
+        .to.have.been.calledWith(&apos;key&apos;);
+    });
+    /** @test {ConnectorAPI#get} */
+    describe(&apos;Hoist.connector#get&apos;, function () {
+      var _promise = Promise.resolve(true);
       before(function () {
-        sinon.stub(ConnectorPipeline.prototype, &apos;loadConnector&apos;).returns(BBPromise.resolve(stubConnector));
-        connector = Hoist.connector(&apos;key&apos;);
+        stubConnector.get.returns(_promise);
+        return connector.get(&apos;/path?query&apos;);
       });
       after(function () {
-        ConnectorPipeline.prototype.loadConnector.restore();
+        stubConnector.get.reset();
       });
-      it(&apos;loads the specified connector&apos;, function () {
-        expect(ConnectorPipeline.prototype.loadConnector)
-          .to.have.been.calledWith(&apos;key&apos;);
-      });
-      describe(&apos;#get&apos;, function () {
-
-        var _promise = BBPromise.resolve(true);
-        before(function () {
-          stubConnector.get.returns(_promise);
-          return connector.get(&apos;/path?query&apos;);
-        });
-        after(function () {
-          stubConnector.get.reset();
-        });
-        it(&apos;calls pipeline#get&apos;, function () {
-          expect(stubConnector.get)
-            .to.have.been.calledWith(&apos;/path?query&apos;);
-        });
-      });
-      describe(&apos;#put&apos;, function () {
-
-        var _promise = BBPromise.resolve(true);
-        before(function () {
-          stubConnector.put.returns(_promise);
-          return connector.put(&apos;/path?query&apos;, &apos;data&apos;);
-        });
-        after(function () {
-          stubConnector.put.reset();
-        });
-        it(&apos;calls pipeline#put&apos;, function () {
-          expect(stubConnector.put)
-            .to.have.been.calledWith(&apos;/path?query&apos;, &apos;data&apos;);
-        });
-      });
-      describe(&apos;#delete&apos;, function () {
-
-        var _promise = BBPromise.resolve(true);
-        before(function () {
-          stubConnector.delete.returns(_promise);
-          return connector.delete(&apos;/path&apos;);
-        });
-        after(function () {
-          stubConnector.delete.reset();
-        });
-        it(&apos;calls pipeline#delete&apos;, function () {
-          expect(stubConnector.delete)
-            .to.have.been.calledWith(&apos;/path&apos;);
-        });
-      });
-      describe(&apos;#post&apos;, function () {
-
-        var _promise = BBPromise.resolve(true);
-        before(function () {
-          stubConnector.post.returns(_promise);
-          return connector.post(&apos;/path?query&apos;, &apos;data&apos;);
-        });
-        after(function () {
-          stubConnector.post.reset();
-        });
-        it(&apos;calls pipeline#post&apos;, function () {
-          expect(stubConnector.post)
-            .to.have.been.calledWith(&apos;/path?query&apos;, &apos;data&apos;);
-        });
+      it(&apos;calls pipeline#get&apos;, function () {
+        expect(stubConnector.get)
+          .to.have.been.calledWith(&apos;/path?query&apos;);
       });
     });
-    describe(&apos;with no key specified&apos;, function () {
-      it(&apos;rejects&apos;, function () {
-        expect(function () {
-          Hoist.connector();
-        }).to.throw(errors.connector.request.InvalidError);
+    /** @test {ConnectorAPI#put} */
+    describe(&apos;Hoist.connector#put&apos;, function () {
+
+      var _promise = Promise.resolve(true);
+      before(function () {
+        stubConnector.put.returns(_promise);
+        return connector.put(&apos;/path?query&apos;, &apos;data&apos;);
       });
+      after(function () {
+        stubConnector.put.reset();
+      });
+      it(&apos;calls pipeline#put&apos;, function () {
+        expect(stubConnector.put)
+          .to.have.been.calledWith(&apos;/path?query&apos;, &apos;data&apos;);
+      });
+    });
+    /** @test {ConnectorAPI#delete} */
+    describe(&apos;Hoist.connector#delete&apos;, function () {
+
+      var _promise = Promise.resolve(true);
+      before(function () {
+        stubConnector.delete.returns(_promise);
+        return connector.delete(&apos;/path&apos;);
+      });
+      after(function () {
+        stubConnector.delete.reset();
+      });
+      it(&apos;calls pipeline#delete&apos;, function () {
+        expect(stubConnector.delete)
+          .to.have.been.calledWith(&apos;/path&apos;);
+      });
+    });
+    /** @test {ConnectorAPI#post} */
+    describe(&apos;Hoist.connector#post&apos;, function () {
+
+      var _promise = Promise.resolve(true);
+      before(function () {
+        stubConnector.post.returns(_promise);
+        return connector.post(&apos;/path?query&apos;, &apos;data&apos;);
+      });
+      after(function () {
+        stubConnector.post.reset();
+      });
+      it(&apos;calls pipeline#post&apos;, function () {
+        expect(stubConnector.post)
+          .to.have.been.calledWith(&apos;/path?query&apos;, &apos;data&apos;);
+      });
+    });
+  });
+  describe(&apos;with no key specified&apos;, function () {
+    it(&apos;rejects&apos;, function () {
+      expect(function () {
+        Hoist.connector();
+      }).to.throw(errors.connector.request.InvalidError);
     });
   });
 });

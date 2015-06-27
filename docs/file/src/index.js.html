@@ -83,7 +83,9 @@ let index = {
   },
   user: new UserAPI(),
   events: new EventsAPI(),
-  connector: new ConnectorAPI(),
+  connector: function (key) {
+    return new ConnectorAPI(key);
+  },
   log: log,
   lock: function CreateLock(name, timeout, callback) {
     let hoistLock = new LockAPI();

@@ -1,17 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "",
-    "test-file/tests/unit_tests/log_tests.js.html#lineNumber3",
-    ".log",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/log_tests.js.html#lineNumber20",
-    ".log should log circular structure",
-    "test"
-  ],
-  [
     "@hoist/connect/src/base_api.js~baseapi",
     "class/src/base_api.js~BaseAPI.html",
     "<span>BaseAPI</span> <span class=\"search-result-import-path\">@hoist/connect/src/base_api.js</span>",
@@ -391,404 +379,8 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber9",
-    "Hoist",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber7",
-    "Hoist",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber6",
-    "Hoist",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber9",
-    "Hoist",
-    "test"
-  ],
-  [
-    "",
     "test-file/tests/unit_tests/user_tests.js.html#lineNumber10",
     "Hoist",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber9",
-    "Hoist",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber10",
-    "Hoist .connector",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber19",
-    "Hoist .connector with key",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber61",
-    "Hoist .connector with key #delete",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber71",
-    "Hoist .connector with key #delete calls pipeline#delete",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber31",
-    "Hoist .connector with key #get",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber41",
-    "Hoist .connector with key #get calls pipeline#get",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber76",
-    "Hoist .connector with key #post",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber86",
-    "Hoist .connector with key #post calls pipeline#post",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber46",
-    "Hoist .connector with key #put",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber56",
-    "Hoist .connector with key #put calls pipeline#put",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber27",
-    "Hoist .connector with key loads the specified connector",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber92",
-    "Hoist .connector with no key specified",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber93",
-    "Hoist .connector with no key specified rejects",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber10",
-    "Hoist .data()",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber7",
-    "Hoist .data()",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber10",
-    "Hoist .data()",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber11",
-    "Hoist .data() #find",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber42",
-    "Hoist .data() #find with a query defined",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber51",
-    "Hoist .data() #find with a query defined retrieves data specifying correct type",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber57",
-    "Hoist .data() #find with a query defined returns correct data",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber27",
-    "Hoist .data() #find with no query",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber34",
-    "Hoist .data() #find with no query retrieves data specifying correct type, and basic query",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber38",
-    "Hoist .data() #find with no query returns correct data",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber111",
-    "Hoist .data() #findById",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber140",
-    "Hoist .data() #findById with an id defined",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber147",
-    "Hoist .data() #findById with an id defined retrieves data specifying correct type",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber153",
-    "Hoist .data() #findById with an id defined returns correct data",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber127",
-    "Hoist .data() #findById with no id",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber134",
-    "Hoist .data() #findById with no id throws an error",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber62",
-    "Hoist .data() #findOne",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber91",
-    "Hoist .data() #findOne with a query defined",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber100",
-    "Hoist .data() #findOne with a query defined retrieves data specifying correct type",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber106",
-    "Hoist .data() #findOne with a query defined returns correct data",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber78",
-    "Hoist .data() #findOne with no query",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber85",
-    "Hoist .data() #findOne with no query throws an error",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber17",
-    "Hoist .data() #save",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber24",
-    "Hoist .data() #save with type set by class",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber34",
-    "Hoist .data() #save with type set by class passes to pipeline save",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber39",
-    "Hoist .data() #save with type set by object",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber51",
-    "Hoist .data() #save with type set by object passes to pipeline save",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber36",
-    "Hoist .data() constructed with type",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber40",
-    "Hoist .data() constructed with type sets _type",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber45",
-    "Hoist .data() constructed without type",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber50",
-    "Hoist .data() constructed without type #find throws exception",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber58",
-    "Hoist .data() constructed without type #findById throws exception",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber54",
-    "Hoist .data() constructed without type #findOne throws exception",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber66",
-    "Hoist .data() constructed without type #remove throws exeception",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber62",
-    "Hoist .data() constructed without type #save throws exception",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber15",
-    "Hoist .data() defines #find",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber18",
-    "Hoist .data() defines #findOne",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber24",
-    "Hoist .data() defines #remove",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber21",
-    "Hoist .data() defines #setType",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber8",
-    "Hoist .data() is a function",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber27",
-    "Hoist .data() setType sets the _type property",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber13",
-    "Hoist .log",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber38",
-    "Hoist .log called with a callback",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber51",
-    "Hoist .log called with a callback should call log without callback",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber54",
-    "Hoist .log called with a callback should call the callback function",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber14",
-    "Hoist .log exists",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber23",
-    "Hoist .log with no application",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber33",
-    "Hoist .log with no application logs to console",
     "test"
   ],
   [
@@ -888,399 +480,777 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber9",
+    "bucketapi src/bucket.js~bucketapi,bucketapi",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber12",
     "Hoist.bucket",
     "test"
   ],
   [
-    "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber71",
+    "bucketapi#add bucketapi#add,bucketapi#add",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber78",
     "Hoist.bucket .add",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber90",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber97",
     "Hoist.bucket .add with key and callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber99",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber106",
     "Hoist.bucket .add with key and callback calls bucketPipeline.add with correct key and meta",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber72",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber79",
     "Hoist.bucket .add with key and meta",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber82",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber89",
     "Hoist.bucket .add with key and meta calls bucketPipeline.add with correct key and meta",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber86",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber93",
     "Hoist.bucket .add with key and meta with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber104",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber111",
     "Hoist.bucket .add with only callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber112",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber119",
     "Hoist.bucket .add with only callback calls bucketPipeline.add with correct key and meta",
     "test"
   ],
   [
-    "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber166",
+    "bucketapi#each bucketapi#each,bucketapi#each",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber179",
     "Hoist.bucket .each",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber167",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber180",
     "Hoist.bucket .each with a function",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber176",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber189",
     "Hoist.bucket .each with a function calls bucketPipeline.each with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber180",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber193",
     "Hoist.bucket .each with a function with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber184",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber197",
     "Hoist.bucket .each without function",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber185",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber198",
     "Hoist.bucket .each without function rejects",
     "test"
   ],
   [
-    "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber118",
+    "bucketapi#get bucketapi#get,bucketapi#get",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber127",
     "Hoist.bucket .get",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber119",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber128",
     "Hoist.bucket .get with key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber128",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber137",
     "Hoist.bucket .get with key calls bucketPipeline.get with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber132",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber141",
     "Hoist.bucket .get with key with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber136",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber145",
     "Hoist.bucket .get with only callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber144",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber153",
     "Hoist.bucket .get with only callback calls bucketPipeline.get with no key",
     "test"
   ],
   [
-    "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber150",
+    "bucketapi#getall bucketapi#getall,bucketapi#getall",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber161",
     "Hoist.bucket .getAll",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber158",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber169",
     "Hoist.bucket .getAll calls bucketPipeline.get with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber162",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber173",
     "Hoist.bucket .getAll with callback",
     "test"
   ],
   [
-    "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber13",
+    "bucketapi#remove bucketapi#remove,bucketapi#remove",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber17",
     "Hoist.bucket .remove",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber21",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber25",
     "Hoist.bucket .remove calls bucketPipeline.remove",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber192",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber205",
     "Hoist.bucket .saveMeta",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber193",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber206",
     "Hoist.bucket .saveMeta with meta and key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber205",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber218",
     "Hoist.bucket .saveMeta with meta and key calls bucketPipeline.saveMeta with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber209",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber222",
     "Hoist.bucket .saveMeta with meta and key with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber213",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber226",
     "Hoist.bucket .saveMeta with meta and no key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber229",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber242",
     "Hoist.bucket .saveMeta with meta and no key and callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber240",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber253",
     "Hoist.bucket .saveMeta with meta and no key and callback calls bucketPipeline.saveMeta with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber224",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber237",
     "Hoist.bucket .saveMeta with meta and no key calls bucketPipeline.saveMeta with correct key",
     "test"
   ],
   [
-    "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber26",
+    "bucketapi#set bucketapi#set,bucketapi#set",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber31",
     "Hoist.bucket .set",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber44",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber49",
     "Hoist.bucket .set with key and callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber53",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber58",
     "Hoist.bucket .set with key and callback calls bucketPipeline.set with correct key and meta",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber27",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber32",
     "Hoist.bucket .set with key and create",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber36",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber41",
     "Hoist.bucket .set with key and create calls bucketPipeline.set with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber40",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber45",
     "Hoist.bucket .set with key and create with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber58",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber63",
     "Hoist.bucket .set with no key specified",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber59",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber64",
     "Hoist.bucket .set with no key specified rejects",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber64",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber69",
     "Hoist.bucket .set with no key specified with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber10",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber13",
     "Hoist.bucket exists",
     "test"
   ],
   [
-    "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber6",
-    "Hoist.lock",
+    "connectorapi src/connector.js~connectorapi,connectorapi",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber12",
+    "Hoist.connector",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber7",
-    "Hoist.lock is a function",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber21",
+    "Hoist.connector with key",
+    "test"
+  ],
+  [
+    "connectorapi#delete connectorapi#delete,connectorapi#delete",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber65",
+    "Hoist.connector with key Hoist.connector#delete",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber28",
-    "Hoist.lock with lock active",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber75",
+    "Hoist.connector with key Hoist.connector#delete calls pipeline#delete",
+    "test"
+  ],
+  [
+    "connectorapi#get connectorapi#get,connectorapi#get",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber34",
+    "Hoist.connector with key Hoist.connector#get",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber45",
-    "Hoist.lock with lock active gets lock",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber43",
+    "Hoist.connector with key Hoist.connector#get calls pipeline#get",
+    "test"
+  ],
+  [
+    "connectorapi#post connectorapi#post,connectorapi#post",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber81",
+    "Hoist.connector with key Hoist.connector#post",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber48",
-    "Hoist.lock with lock active lock aquired after 500 milliseconds",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber91",
+    "Hoist.connector with key Hoist.connector#post calls pipeline#post",
+    "test"
+  ],
+  [
+    "connectorapi#put connectorapi#put,connectorapi#put",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber49",
+    "Hoist.connector with key Hoist.connector#put",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber59",
-    "Hoist.lock with lock released",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber59",
+    "Hoist.connector with key Hoist.connector#put calls pipeline#put",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber75",
-    "Hoist.lock with lock released gets lock",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber29",
+    "Hoist.connector with key loads the specified connector",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber10",
-    "Hoist.lock with no lock active",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber97",
+    "Hoist.connector with no key specified",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber20",
-    "Hoist.lock with no lock active gets lock",
+    "test-file/tests/unit_tests/connector_tests.js.html#lineNumber98",
+    "Hoist.connector with no key specified rejects",
+    "test"
+  ],
+  [
+    "dataapi src/data.js~dataapi,dataapi",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber10",
+    "Hoist.data",
+    "test"
+  ],
+  [
+    "dataapi src/data.js~dataapi,dataapi",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber7",
+    "Hoist.data",
+    "test"
+  ],
+  [
+    "dataapi src/data.js~dataapi,dataapi",
+    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber10",
+    "Hoist.data",
+    "test"
+  ],
+  [
+    "bucketapi#find bucketapi#find,bucketapi#find",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber12",
+    "Hoist.data Hoist.data#find",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber8",
-    "Hoist.timeout",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber43",
+    "Hoist.data Hoist.data#find with a query defined",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber12",
-    "Hoist.timeout #extend",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber52",
+    "Hoist.data Hoist.data#find with a query defined retrieves data specifying correct type",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber48",
-    "Hoist.timeout #extend with invalid value",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber58",
+    "Hoist.data Hoist.data#find with a query defined returns correct data",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber71",
-    "Hoist.timeout #extend with invalid value maintains original timeout",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber28",
+    "Hoist.data Hoist.data#find with no query",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber68",
-    "Hoist.timeout #extend with invalid value throws an error",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber35",
+    "Hoist.data Hoist.data#find with no query retrieves data specifying correct type, and basic query",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber13",
-    "Hoist.timeout #extend with valid value",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber39",
+    "Hoist.data Hoist.data#find with no query returns correct data",
+    "test"
+  ],
+  [
+    "bucketapi#findbyid bucketapi#findbyid,bucketapi#findbyid",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber117",
+    "Hoist.data Hoist.data#findById",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber34",
-    "Hoist.timeout #extend with valid value replaces timeout",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber149",
+    "Hoist.data Hoist.data#findById with an id defined",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber38",
-    "Hoist.timeout #extend with valid value sets new timeout",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber156",
+    "Hoist.data Hoist.data#findById with an id defined retrieves data specifying correct type",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber9",
-    "Hoist.timeout exists",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber162",
+    "Hoist.data Hoist.data#findById with an id defined returns correct data",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/events_tests.js.html#lineNumber8",
-    "event",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber133",
+    "Hoist.data Hoist.data#findById with no id",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber143",
+    "Hoist.data Hoist.data#findById with no id throws an error",
+    "test"
+  ],
+  [
+    "bucketapi#findone bucketapi#findone,bucketapi#findone",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber64",
+    "Hoist.data Hoist.data#findOne",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber96",
+    "Hoist.data Hoist.data#findOne with a query defined",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber105",
+    "Hoist.data Hoist.data#findOne with a query defined retrieves data specifying correct type",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber111",
+    "Hoist.data Hoist.data#findOne with a query defined returns correct data",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber80",
+    "Hoist.data Hoist.data#findOne with no query",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber90",
+    "Hoist.data Hoist.data#findOne with no query throws an error",
+    "test"
+  ],
+  [
+    "dataapi#save src/data.js~dataapi#save,dataapi#save",
+    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber18",
+    "Hoist.data Hoist.data.#save",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber25",
+    "Hoist.data Hoist.data.#save with type set by class",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber35",
+    "Hoist.data Hoist.data.#save with type set by class passes to pipeline save",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber40",
+    "Hoist.data Hoist.data.#save with type set by object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber52",
+    "Hoist.data Hoist.data.#save with type set by object passes to pipeline save",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber36",
+    "Hoist.data constructed with type",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber40",
+    "Hoist.data constructed with type sets _type",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber45",
+    "Hoist.data constructed without type",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber50",
+    "Hoist.data constructed without type #find throws exception",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber58",
+    "Hoist.data constructed without type #findById throws exception",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber54",
+    "Hoist.data constructed without type #findOne throws exception",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber66",
+    "Hoist.data constructed without type #remove throws exeception",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber62",
+    "Hoist.data constructed without type #save throws exception",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber15",
+    "Hoist.data defines #find",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber18",
+    "Hoist.data defines #findOne",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber24",
+    "Hoist.data defines #remove",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber21",
+    "Hoist.data defines #setType",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber8",
+    "Hoist.data is a function",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber27",
+    "Hoist.data setType sets the _type property",
+    "test"
+  ],
+  [
+    "eventsapi src/events.js~eventsapi,eventsapi",
+    "test-file/tests/unit_tests/events_tests.js.html#lineNumber11",
+    "Hoist.events",
+    "test"
+  ],
+  [
+    "eventsapi#raise src/events.js~eventsapi#raise,eventsapi#raise",
+    "test-file/tests/unit_tests/events_tests.js.html#lineNumber16",
+    "Hoist.events .raise",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/events_tests.js.html#lineNumber28",
+    "Hoist.events .raise calls raise on pipeline",
     "test"
   ],
   [
     "",
     "test-file/tests/unit_tests/events_tests.js.html#lineNumber12",
-    "event .raise",
+    "Hoist.events exists",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/events_tests.js.html#lineNumber24",
-    "event .raise calls raise on pipeline",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber10",
+    "Hoist.lock",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/events_tests.js.html#lineNumber9",
-    "event exists",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber11",
+    "Hoist.lock is a function",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber32",
+    "Hoist.lock with lock active",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber49",
+    "Hoist.lock with lock active gets lock",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber52",
+    "Hoist.lock with lock active lock aquired after 500 milliseconds",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber63",
+    "Hoist.lock with lock released",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber79",
+    "Hoist.lock with lock released gets lock",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber14",
+    "Hoist.lock with no lock active",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber24",
+    "Hoist.lock with no lock active gets lock",
+    "test"
+  ],
+  [
+    "log src/log.js~log,log",
+    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber10",
+    "Hoist.log",
+    "test"
+  ],
+  [
+    "log src/log.js~log,log",
+    "test-file/tests/unit_tests/log_tests.js.html#lineNumber4",
+    "Hoist.log",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber40",
+    "Hoist.log called with a callback",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber53",
+    "Hoist.log called with a callback should call log without callback",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber56",
+    "Hoist.log called with a callback should call the callback function",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber16",
+    "Hoist.log exists",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/log_tests.js.html#lineNumber21",
+    "Hoist.log should log circular structure",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber25",
+    "Hoist.log with no application",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber35",
+    "Hoist.log with no application logs to console",
+    "test"
+  ],
+  [
+    "timeoutapi src/timeout.js~timeoutapi,timeoutapi",
+    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber11",
+    "Hoist.timeout",
+    "test"
+  ],
+  [
+    "timeoutapi#reset src/timeout.js~timeoutapi#reset,timeoutapi#reset",
+    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber17",
+    "Hoist.timeout #reset",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber53",
+    "Hoist.timeout #reset with invalid value",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber76",
+    "Hoist.timeout #reset with invalid value maintains original timeout",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber73",
+    "Hoist.timeout #reset with invalid value throws an error",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber18",
+    "Hoist.timeout #reset with valid value",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber39",
+    "Hoist.timeout #reset with valid value replaces timeout",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber43",
+    "Hoist.timeout #reset with valid value sets new timeout",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/timeout_tests.js.html#lineNumber12",
+    "Hoist.timeout exists",
     "test"
   ],
   [
@@ -1356,39 +1326,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/connector.js~connectorapi#authorize",
-    "class/src/connector.js~ConnectorAPI.html#instance-method-authorize",
-    "src/connector.js~ConnectorAPI#authorize",
-    "method"
-  ],
-  [
     "src/connector.js~connectorapi#constructor",
     "class/src/connector.js~ConnectorAPI.html#instance-constructor-constructor",
     "src/connector.js~ConnectorAPI#constructor",
-    "method"
-  ],
-  [
-    "src/connector.js~connectorapi#delete",
-    "class/src/connector.js~ConnectorAPI.html#instance-method-delete",
-    "src/connector.js~ConnectorAPI#delete",
-    "method"
-  ],
-  [
-    "src/connector.js~connectorapi#get",
-    "class/src/connector.js~ConnectorAPI.html#instance-method-get",
-    "src/connector.js~ConnectorAPI#get",
-    "method"
-  ],
-  [
-    "src/connector.js~connectorapi#post",
-    "class/src/connector.js~ConnectorAPI.html#instance-method-post",
-    "src/connector.js~ConnectorAPI#post",
-    "method"
-  ],
-  [
-    "src/connector.js~connectorapi#put",
-    "class/src/connector.js~ConnectorAPI.html#instance-method-put",
-    "src/connector.js~ConnectorAPI#put",
     "method"
   ],
   [
@@ -1458,12 +1398,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/events.js~eventsapi#pipeline",
-    "class/src/events.js~EventsAPI.html#instance-member-pipeline",
-    "src/events.js~EventsAPI#pipeline",
-    "member"
-  ],
-  [
     "src/events.js~eventsapi#raise",
     "class/src/events.js~EventsAPI.html#instance-method-raise",
     "src/events.js~EventsAPI#raise",
@@ -1488,28 +1422,10 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/lock.js~hoistlockapi#client",
-    "class/src/lock.js~HoistLockAPI.html#instance-member-client",
-    "src/lock.js~HoistLockAPI#client",
-    "member"
-  ],
-  [
     "src/lock.js~hoistlockapi#constructor",
     "class/src/lock.js~HoistLockAPI.html#instance-constructor-constructor",
     "src/lock.js~HoistLockAPI#constructor",
     "method"
-  ],
-  [
-    "src/lock.js~hoistlockapi#lock",
-    "class/src/lock.js~HoistLockAPI.html#instance-member-lock",
-    "src/lock.js~HoistLockAPI#lock",
-    "member"
-  ],
-  [
-    "src/lock.js~hoistlockapi#release",
-    "class/src/lock.js~HoistLockAPI.html#instance-member-release",
-    "src/lock.js~HoistLockAPI#release",
-    "member"
   ],
   [
     "src/log.js",
@@ -1552,12 +1468,6 @@ window.esdocSearchIndex = [
     "class/src/user.js~UserAPI.html#instance-method-login",
     "src/user.js~UserAPI#login",
     "method"
-  ],
-  [
-    "src/user.js~userapi#pipeline",
-    "class/src/user.js~UserAPI.html#instance-member-pipeline",
-    "src/user.js~UserAPI#pipeline",
-    "member"
   ],
   [
     "tests/unit_tests/bucket_tests.js",

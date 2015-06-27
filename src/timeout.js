@@ -7,7 +7,15 @@ import {
 from 'lodash';
 import BaseAPI from './base_api';
 
+/**
+ * the Hoist Timeout API
+ */
 class TimeoutAPI extends BaseAPI {
+  /**
+   * reset the timeout from now
+   * @param {Number} milliseconds - the amount of time to timeout from now (between 1 and 120000)
+   * @returns {Promise}
+   */
   reset(milliseconds) {
     //upper bound at 2m
     //lower bound at 1s

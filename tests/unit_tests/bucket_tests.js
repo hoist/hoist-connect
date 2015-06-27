@@ -8,10 +8,12 @@ import sinon from 'sinon';
 import BucketPipeline from '@hoist/bucket-pipeline';
 import Errors from '@hoist/errors';
 
+/** @test {BucketAPI} */
 describe('Hoist.bucket', function () {
   it('exists', function () {
     return expect(Hoist.bucket).to.exist;
   });
+  /** @test {BucketAPI#remove} */
   describe('.remove', function () {
     before(function () {
       sinon.stub(BucketPipeline.prototype, 'remove').returns(Promise.resolve(null));
@@ -25,6 +27,7 @@ describe('Hoist.bucket', function () {
         .to.have.been.calledWith('key');
     });
   });
+  /** @test {BucketAPI#set} */
   describe('.set', function () {
     describe('with key and create', function () {
       var fakeKey = 'key';
@@ -70,6 +73,8 @@ describe('Hoist.bucket', function () {
       });
     });
   });
+
+  /** @test {BucketAPI#add} */
   describe('.add', function () {
     describe('with key and meta', function () {
       var fakeKey = 'key';
@@ -117,6 +122,8 @@ describe('Hoist.bucket', function () {
       });
     });
   });
+
+  /** @test {BucketAPI#get} */
   describe('.get', function () {
     describe('with key', function () {
       var fakeKey = 'key';
@@ -149,6 +156,8 @@ describe('Hoist.bucket', function () {
       });
     });
   });
+
+  /** @test {BucketAPI#getAll} */
   describe('.getAll', function () {
     before(function () {
       sinon.stub(BucketPipeline.prototype, 'getAll').returns(Promise.resolve([]));
@@ -165,6 +174,8 @@ describe('Hoist.bucket', function () {
       Hoist.bucket.getAll(done);
     });
   });
+
+  /** @test {BucketAPI#each} */
   describe('.each', function () {
     describe('with a function', function () {
       var fn = function () {};

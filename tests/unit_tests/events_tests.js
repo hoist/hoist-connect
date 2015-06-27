@@ -7,10 +7,12 @@ import {
 from 'chai';
 import sinon from 'sinon';
 
-describe('event', function () {
+/** @test {EventsAPI} */
+describe('Hoist.events', function () {
   it('exists', function () {
     return expect(Hoist.events).to.exist;
   });
+  /** @test {EventsAPI#raise} */
   describe('.raise', function () {
     var name = 'name';
     var payload = {
