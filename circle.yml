@@ -2,11 +2,13 @@ machine:
   ruby:
     version: 2.1.2
   node:
-    version: v0.10.31
+    version: iojs-v1.8
+dependencies:
+  pre:
+    - echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
 general:
   artifacts:
     - coverage/*
     - coverage/**/*
     - log/*.log
     - npm-debug.log
-
