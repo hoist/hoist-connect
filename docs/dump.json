@@ -3736,7 +3736,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport Hoist from '../../lib';\nimport Pipeline from '@hoist/events-pipeline';\nimport {\n  expect\n}\nfrom 'chai';\nimport sinon from 'sinon';\n\n/** @test {EventsAPI} */\ndescribe('Hoist.events', function () {\n  it('exists', function () {\n    return expect(Hoist.events).to.exist;\n  });\n  /** @test {EventsAPI#raise} */\n  describe('.raise', function () {\n    var name = 'name';\n    var payload = {\n      key: 'value'\n    };\n    before(function (done) {\n      sinon.stub(Pipeline.prototype, 'raise').returns(Promise.resolve(null));\n      Hoist.events.raise(name, payload, done);\n    });\n    after(function () {\n      Pipeline.prototype.raise.restore();\n    });\n    it('calls raise on pipeline', function () {\n      return expect(Pipeline.prototype.raise).to.have.been.calledWith(name, payload);\n    });\n  });\n\n});\n"
+    "content": "'use strict';\nimport Hoist from '../../src';\nimport Pipeline from '@hoist/events-pipeline';\nimport {\n  expect\n}\nfrom 'chai';\nimport sinon from 'sinon';\n\n/** @test {EventsAPI} */\ndescribe('Hoist.events', function () {\n  it('exists', function () {\n    return expect(Hoist.events).to.exist;\n  });\n  /** @test {EventsAPI#raise} */\n  describe('.raise', function () {\n    var name = 'name';\n    var payload = {\n      key: 'value'\n    };\n    before(function (done) {\n      sinon.stub(Pipeline.prototype, 'raise').returns(Promise.resolve(null));\n      Hoist.events.raise(name, payload, done);\n    });\n    after(function () {\n      Pipeline.prototype.raise.restore();\n    });\n    it('calls raise on pipeline', function () {\n      return expect(Pipeline.prototype.raise).to.have.been.calledWith(name, payload);\n    });\n  });\n\n});\n"
   },
   {
     "kind": "testDescribe",
@@ -4253,7 +4253,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nvar Hoist = require('../../lib');\nvar expect = require('chai').expect;\nvar HoistErrors = require('@hoist/errors');\nvar UserPipeline = require('@hoist/user-pipeline').Pipeline;\nvar AppUser = require('@hoist/model').AppUser;\nvar sinon = require('sinon');\nvar BBPromise = require('bluebird');\n\ndescribe('Hoist', function () {\n  describe('.user', function () {\n    var appUser;\n    before(function () {\n      appUser = new AppUser();\n    });\n\n    it('exists', function () {\n      return expect(Hoist.user).to.exist;\n    });\n    describe('.login', function () {\n      before(function () {\n        sinon.stub(UserPipeline.prototype, 'login').returns(BBPromise.resolve(appUser));\n      });\n      after(function () {\n        UserPipeline.prototype.login.restore();\n      });\n      it('requires username', function () {\n        return expect(function () {\n          Hoist.user.login(null, 'password');\n        }).to.throw(HoistErrors.user.request.InvalidError, 'username is required');\n      });\n      it('requires password', function () {\n        return expect(function () {\n          Hoist.user.login('user', null);\n        }).to.throw(HoistErrors.user.request.InvalidError, 'password is required');\n      });\n      describe('valid request', function () {\n        var result;\n        before(function () {\n          return (result = Hoist.user.login('username', 'password'));\n        });\n        it('returns app user', function () {\n          return expect(result).to.become(appUser);\n        });\n        it('passes username and password to pipeline', function () {\n          expect(UserPipeline.prototype.login)\n            .to.have.been.calledWith('username', 'password');\n        });\n      });\n    });\n    describe('.invite', function () {\n      before(function () {\n        sinon.stub(UserPipeline.prototype, 'invite').returns(BBPromise.resolve(null));\n      });\n      after(function () {\n        UserPipeline.prototype.invite.restore();\n      });\n      it('requires user details', function () {\n        return expect(function () {\n          Hoist.user.invite(null);\n        }).to.throw(HoistErrors.user.request.InvalidError, 'user details are required');\n      });\n      describe('valid request', function () {\n        before(function () {\n          return (Hoist.user.invite({\n            username: 'username'\n          }));\n        });\n        it('passes details to pipeline', function () {\n          expect(UserPipeline.prototype.invite)\n            .to.have.been.calledWith({\n              username: 'username'\n            });\n        });\n      });\n    });\n    describe('.create', function () {\n\n    });\n    describe('.find', function () {\n\n    });\n    describe('.delete', function () {\n\n    });\n    describe('.resetPassword', function () {\n\n    });\n  });\n});\n"
+    "content": "'use strict';\nimport Hoist from '../../src';\nimport {expect} from 'chai';\nimport HoistErrors from '@hoist/errors';\nimport {Pipeline as UserPipeline} from '@hoist/user-pipeline';\nimport {AppUser} from '@hoist/model';\nimport sinon from 'sinon';\n\ndescribe('Hoist', function () {\n  describe('.user', function () {\n    var appUser;\n    before(function () {\n      appUser = new AppUser();\n    });\n\n    it('exists', function () {\n      return expect(Hoist.user).to.exist;\n    });\n    describe('.login', function () {\n      before(function () {\n        sinon.stub(UserPipeline.prototype, 'login').returns(Promise.resolve(appUser));\n      });\n      after(function () {\n        UserPipeline.prototype.login.restore();\n      });\n      it('requires username', function () {\n        return expect(function () {\n          Hoist.user.login(null, 'password');\n        }).to.throw(HoistErrors.user.request.InvalidError, 'username is required');\n      });\n      it('requires password', function () {\n        return expect(function () {\n          Hoist.user.login('user', null);\n        }).to.throw(HoistErrors.user.request.InvalidError, 'password is required');\n      });\n      describe('valid request', function () {\n        var result;\n        before(function () {\n          return (result = Hoist.user.login('username', 'password'));\n        });\n        it('returns app user', function () {\n          return expect(result).to.become(appUser);\n        });\n        it('passes username and password to pipeline', function () {\n          expect(UserPipeline.prototype.login)\n            .to.have.been.calledWith('username', 'password');\n        });\n      });\n    });\n    describe('.invite', function () {\n      before(function () {\n        sinon.stub(UserPipeline.prototype, 'invite').returns(Promise.resolve(null));\n      });\n      after(function () {\n        UserPipeline.prototype.invite.restore();\n      });\n      it('requires user details', function () {\n        return expect(function () {\n          Hoist.user.invite(null);\n        }).to.throw(HoistErrors.user.request.InvalidError, 'user details are required');\n      });\n      describe('valid request', function () {\n        before(function () {\n          return (Hoist.user.invite({\n            username: 'username'\n          }));\n        });\n        it('passes details to pipeline', function () {\n          expect(UserPipeline.prototype.invite)\n            .to.have.been.calledWith({\n              username: 'username'\n            });\n        });\n      });\n    });\n    describe('.create', function () {\n\n    });\n    describe('.find', function () {\n\n    });\n    describe('.delete', function () {\n\n    });\n    describe('.resetPassword', function () {\n\n    });\n  });\n});\n"
   },
   {
     "kind": "testDescribe",
@@ -4266,7 +4266,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129",
     "access": null,
     "description": "Hoist",
-    "lineNumber": 10
+    "lineNumber": 9
   },
   {
     "kind": "testDescribe",
@@ -4279,7 +4279,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130",
     "access": null,
     "description": ".user",
-    "lineNumber": 11
+    "lineNumber": 10
   },
   {
     "kind": "testIt",
@@ -4292,7 +4292,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.it131",
     "access": null,
     "description": "exists",
-    "lineNumber": 17
+    "lineNumber": 16
   },
   {
     "kind": "testDescribe",
@@ -4305,7 +4305,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe132",
     "access": null,
     "description": ".login",
-    "lineNumber": 20
+    "lineNumber": 19
   },
   {
     "kind": "testIt",
@@ -4318,7 +4318,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe132.it133",
     "access": null,
     "description": "requires username",
-    "lineNumber": 27
+    "lineNumber": 26
   },
   {
     "kind": "testIt",
@@ -4331,7 +4331,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe132.it134",
     "access": null,
     "description": "requires password",
-    "lineNumber": 32
+    "lineNumber": 31
   },
   {
     "kind": "testDescribe",
@@ -4344,7 +4344,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe132.describe135",
     "access": null,
     "description": "valid request",
-    "lineNumber": 37
+    "lineNumber": 36
   },
   {
     "kind": "testIt",
@@ -4357,7 +4357,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe132.describe135.it136",
     "access": null,
     "description": "returns app user",
-    "lineNumber": 42
+    "lineNumber": 41
   },
   {
     "kind": "testIt",
@@ -4370,7 +4370,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe132.describe135.it137",
     "access": null,
     "description": "passes username and password to pipeline",
-    "lineNumber": 45
+    "lineNumber": 44
   },
   {
     "kind": "testDescribe",
@@ -4383,7 +4383,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe138",
     "access": null,
     "description": ".invite",
-    "lineNumber": 51
+    "lineNumber": 50
   },
   {
     "kind": "testIt",
@@ -4396,7 +4396,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe138.it139",
     "access": null,
     "description": "requires user details",
-    "lineNumber": 58
+    "lineNumber": 57
   },
   {
     "kind": "testDescribe",
@@ -4409,7 +4409,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe138.describe140",
     "access": null,
     "description": "valid request",
-    "lineNumber": 63
+    "lineNumber": 62
   },
   {
     "kind": "testIt",
@@ -4422,7 +4422,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe138.describe140.it141",
     "access": null,
     "description": "passes details to pipeline",
-    "lineNumber": 69
+    "lineNumber": 68
   },
   {
     "kind": "testDescribe",
@@ -4435,7 +4435,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe142",
     "access": null,
     "description": ".create",
-    "lineNumber": 77
+    "lineNumber": 76
   },
   {
     "kind": "testDescribe",
@@ -4448,7 +4448,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe143",
     "access": null,
     "description": ".find",
-    "lineNumber": 80
+    "lineNumber": 79
   },
   {
     "kind": "testDescribe",
@@ -4461,7 +4461,7 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe144",
     "access": null,
     "description": ".delete",
-    "lineNumber": 83
+    "lineNumber": 82
   },
   {
     "kind": "testDescribe",
@@ -4474,6 +4474,6 @@
     "longname": "tests/unit_tests/user_tests.js~describe129.describe130.describe145",
     "access": null,
     "description": ".resetPassword",
-    "lineNumber": 86
+    "lineNumber": 85
   }
 ]

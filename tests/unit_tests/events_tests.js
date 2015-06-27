@@ -1,5 +1,5 @@
 'use strict';
-import Hoist from '../../lib';
+import Hoist from '../../src';
 import Pipeline from '@hoist/events-pipeline';
 import {
   expect

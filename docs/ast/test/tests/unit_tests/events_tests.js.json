@@ -78,8 +78,8 @@
       ],
       "source": {
         "type": "Literal",
-        "value": "../../lib",
-        "raw": "'../../lib'",
+        "value": "../../src",
+        "raw": "'../../src'",
         "range": [
           32,
           43

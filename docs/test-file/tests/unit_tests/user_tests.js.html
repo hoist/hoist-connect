@@ -61,13 +61,12 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/unit_tests/user_tests.js</h1>
 <pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
-var Hoist = require(&apos;../../lib&apos;);
-var expect = require(&apos;chai&apos;).expect;
-var HoistErrors = require(&apos;@hoist/errors&apos;);
-var UserPipeline = require(&apos;@hoist/user-pipeline&apos;).Pipeline;
-var AppUser = require(&apos;@hoist/model&apos;).AppUser;
-var sinon = require(&apos;sinon&apos;);
-var BBPromise = require(&apos;bluebird&apos;);
+import Hoist from &apos;../../src&apos;;
+import {expect} from &apos;chai&apos;;
+import HoistErrors from &apos;@hoist/errors&apos;;
+import {Pipeline as UserPipeline} from &apos;@hoist/user-pipeline&apos;;
+import {AppUser} from &apos;@hoist/model&apos;;
+import sinon from &apos;sinon&apos;;
 
 describe(&apos;Hoist&apos;, function () {
   describe(&apos;.user&apos;, function () {
@@ -81,7 +80,7 @@ describe(&apos;Hoist&apos;, function () {
     });
     describe(&apos;.login&apos;, function () {
       before(function () {
-        sinon.stub(UserPipeline.prototype, &apos;login&apos;).returns(BBPromise.resolve(appUser));
+        sinon.stub(UserPipeline.prototype, &apos;login&apos;).returns(Promise.resolve(appUser));
       });
       after(function () {
         UserPipeline.prototype.login.restore();
@@ -112,7 +111,7 @@ describe(&apos;Hoist&apos;, function () {
     });
     describe(&apos;.invite&apos;, function () {
       before(function () {
-        sinon.stub(UserPipeline.prototype, &apos;invite&apos;).returns(BBPromise.resolve(null));
+        sinon.stub(UserPipeline.prototype, &apos;invite&apos;).returns(Promise.resolve(null));
       });
       after(function () {
         UserPipeline.prototype.invite.restore();

@@ -379,103 +379,103 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber10",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber9",
     "Hoist",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber11",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber10",
     "Hoist .user",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber77",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber76",
     "Hoist .user .create",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber83",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber82",
     "Hoist .user .delete",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber80",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber79",
     "Hoist .user .find",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber51",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber50",
     "Hoist .user .invite",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber58",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber57",
     "Hoist .user .invite requires user details",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber63",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber62",
     "Hoist .user .invite valid request",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber69",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber68",
     "Hoist .user .invite valid request passes details to pipeline",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber20",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber19",
     "Hoist .user .login",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber32",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber31",
     "Hoist .user .login requires password",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber27",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber26",
     "Hoist .user .login requires username",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber37",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber36",
     "Hoist .user .login valid request",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber45",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber44",
     "Hoist .user .login valid request passes username and password to pipeline",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber42",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber41",
     "Hoist .user .login valid request returns app user",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber86",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber85",
     "Hoist .user .resetPassword",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/user_tests.js.html#lineNumber17",
+    "test-file/tests/unit_tests/user_tests.js.html#lineNumber16",
     "Hoist .user exists",
     "test"
   ],
