@@ -66,7 +66,6 @@ import {
   expect
 }
 from &apos;chai&apos;;
-import sinon from &apos;sinon&apos;;
 import LockAPI from &apos;../../src/lock&apos;;
 
 describe(&apos;Hoist.lock&apos;, function () {
@@ -74,10 +73,8 @@ describe(&apos;Hoist.lock&apos;, function () {
     return expect(Hoist).to.respondTo(&apos;lock&apos;);
   });
   describe(&apos;with no lock active&apos;, function () {
-    var clock;
     var result;
     before(function () {
-      clock = sinon.useFakeTimers();
       return (result = Hoist.lock(&apos;lock-key&apos;).then(function (lock) {
         lock.release();
         return &apos;lock aquired&apos;;
@@ -87,16 +84,14 @@ describe(&apos;Hoist.lock&apos;, function () {
       return expect(result).to.be.become(&apos;lock aquired&apos;);
     });
     after(function () {
-      clock.restore();
       LockAPI._clearClient();
     });
   });
   describe(&apos;with lock active&apos;, function () {
-    var clock;
+    this.timeout(5000);
     var result;
     var value;
     before(function (done) {
-      clock = sinon.useFakeTimers();
       result = Hoist.lock(&apos;lock-key&apos;).then(function () {
         value = &apos;lock aquired in 1&apos;;
         process.nextTick(function () {
@@ -104,6 +99,7 @@ describe(&apos;Hoist.lock&apos;, function () {
         });
         return Hoist.lock(&apos;lock-key&apos;).then(function (lock) {
           value = &apos;lock aquired in 2&apos;;
+          console.log(&apos;releasing&apos;);
           lock.release();
         });
       });
@@ -111,14 +107,17 @@ describe(&apos;Hoist.lock&apos;, function () {
     it(&apos;gets lock&apos;, function () {
       expect(value).to.eql(&apos;lock aquired in 1&apos;);
     });
-    it(&apos;lock aquired after 500 milliseconds&apos;, function () {
-      clock.tick(501);
-      return result.then(function () {
-        expect(value).to.eql(&apos;lock aquired in 2&apos;);
-      });
+    it(&apos;lock aquired after 500 milliseconds&apos;, function (done) {
+      setTimeout(() =&gt; {
+        result.then(function () {
+          return expect(value).to.eql(&apos;lock aquired in 2&apos;);
+        }).then(() =&gt; {
+          done();
+        });
+      }, 501);
+
     });
     after(function () {
-      clock.restore();
       LockAPI._clearClient();
     });
   });

@@ -626,7 +626,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport Pipeline from '@hoist/data-pipeline';\nimport errors from '@hoist/errors';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\n\n/**\n * Hoists Data API\n */\nclass DataAPI extends BaseAPI {\n  /**\n   * create a new data API\n   * @param {string} [type] - the object type for this data api instance\n   */\n  constructor(type) {\n    super();\n    if (type) {\n      this.setType(type);\n    }\n    this._pipeline = new Pipeline();\n  }\n\n  _verify() {\n    return Promise.resolve().then(() => {\n      if (!this._type) {\n        throw new errors.data.request.InvalidError('you need to specify a type for the retrieval, call #setType([typename]) first');\n      }\n    });\n  };\n\n  /**\n   * set the type of this Data API instance\n   * @param {string} type - the object type for this data api instance\n   */\n  setType(type) {\n    this._type = type.toLowerCase();\n  }\n\n  /**\n   * find objects matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error, objects: Array<object>)} [callback] - callback to call when objects have been found\n   * @returns {Promise<Array<object>>} - a promise to have retrieved the objects\n   */\n  find(query, callback) {\n    return Bluebird.resolve(\n        this._verify()\n        .then(() => {\n          return this._pipeline.find(this._type, query || {});\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * find a single object with the matching id\n   * @param {string} id - the object id\n   * @param {function(error: Error, object: object)} [callback] - callback to call when object has been found\n   * @returns {Promise<object>} - a promise to have retrieved the object\n   */\n  findById(id, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!id) {\n            throw new errors.data.request.InvalidError('you need to specify an id for #findById');\n          }\n        })\n        .then(() => {\n          return this.findOne({\n            _id: id\n          });\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * find a single object matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error, object: object)} [callback] - callback to call when object has been found\n   * @returns {Promise<object>} - a promise to have retrieved the object\n   */\n  findOne(query, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!query) {\n            throw new errors.data.request.InvalidError('you need to specify a query for #findOne');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.findOne(this._type, query);\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove objects matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error)} [callback] - callback to call when objects have been removed\n   * @returns {Promise} - a promise to have removed the objects\n   */\n  remove(query, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!query) {\n            throw new errors.data.request.InvalidError('you need to specify a query for #remove');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.remove(this._type, query);\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove a single object with a given id\n   * @param {string} id - the object id\n   * @param {function(error: Error)} [callback] - callback to call when object has been removed\n   * @returns {Promise} - a promise to have removed the object\n   */\n  removeOneById(id, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!id) {\n            throw new errors.data.request.InvalidError('you need to specify an id for #removeOneById');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.remove(this._type, {\n            _id: id\n          });\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * save an object\n   * @param {object} json - raw object to save\n   * @param {function(error: Error, object: object)} [callback] - callback to call when objects has been saved\n   * @returns {Promise<object>} - a promise to have saved the object\n   */\n  save(json, callback) {\n    if (!this._type && json._type) {\n      this.setType(json._type);\n    }\n    return Bluebird.resolve(\n      this._verify()\n      .then(() => {\n        return this._pipeline.save(this._type, json);\n      })).nodeify(callback);\n  }\n}\n\n\nexport default DataAPI;\n"
+    "content": "'use strict';\nimport Pipeline from '@hoist/data-pipeline';\nimport errors from '@hoist/errors';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\n\n/**\n * Hoists Data API\n */\nclass DataAPI extends BaseAPI {\n  /**\n   * create a new data API\n   * @param {string} [type] - the object type for this data api instance\n   */\n  constructor(type) {\n    super();\n    if (type) {\n      this.setType(type);\n    }\n    this._pipeline = new Pipeline();\n  }\n\n  _verify() {\n    return Promise.resolve().then(() => {\n      if (!this._type) {\n        throw new errors.data.request.InvalidError('you need to specify a type for the retrieval, call #setType([typename]) first');\n      }\n    });\n  }\n\n  /**\n   * set the type of this Data API instance\n   * @param {string} type - the object type for this data api instance\n   */\n  setType(type) {\n    this._type = type.toLowerCase();\n  }\n\n  /**\n   * find objects matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error, objects: Array<object>)} [callback] - callback to call when objects have been found\n   * @returns {Promise<Array<object>>} - a promise to have retrieved the objects\n   */\n  find(query, callback) {\n    return Bluebird.resolve(\n        this._verify()\n        .then(() => {\n          return this._pipeline.find(this._type, query || {});\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * find a single object with the matching id\n   * @param {string} id - the object id\n   * @param {function(error: Error, object: object)} [callback] - callback to call when object has been found\n   * @returns {Promise<object>} - a promise to have retrieved the object\n   */\n  findById(id, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!id) {\n            throw new errors.data.request.InvalidError('you need to specify an id for #findById');\n          }\n        })\n        .then(() => {\n          return this.findOne({\n            _id: id\n          });\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * find a single object matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error, object: object)} [callback] - callback to call when object has been found\n   * @returns {Promise<object>} - a promise to have retrieved the object\n   */\n  findOne(query, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!query) {\n            throw new errors.data.request.InvalidError('you need to specify a query for #findOne');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.findOne(this._type, query);\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove objects matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error)} [callback] - callback to call when objects have been removed\n   * @returns {Promise} - a promise to have removed the objects\n   */\n  remove(query, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!query) {\n            throw new errors.data.request.InvalidError('you need to specify a query for #remove');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.remove(this._type, query);\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove a single object with a given id\n   * @param {string} id - the object id\n   * @param {function(error: Error)} [callback] - callback to call when object has been removed\n   * @returns {Promise} - a promise to have removed the object\n   */\n  removeOneById(id, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!id) {\n            throw new errors.data.request.InvalidError('you need to specify an id for #removeOneById');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.remove(this._type, {\n            _id: id\n          });\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * save an object\n   * @param {object} json - raw object to save\n   * @param {function(error: Error, object: object)} [callback] - callback to call when objects has been saved\n   * @returns {Promise<object>} - a promise to have saved the object\n   */\n  save(json, callback) {\n    if (!this._type && json._type) {\n      this.setType(json._type);\n    }\n    return Bluebird.resolve(\n      this._verify()\n      .then(() => {\n        return this._pipeline.save(this._type, json);\n      })).nodeify(callback);\n  }\n}\n\n\nexport default DataAPI;\n"
   },
   {
     "kind": "class",
@@ -1205,7 +1205,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport config from 'config';\nimport redisLock from 'redis-lock';\nimport redis from 'redis';\nimport BaseAPI from './base_api';\n\nlet client;\n/**\n * Hoists lock API\n */\nclass HoistLockAPI extends BaseAPI {\n\n  /**\n   * create new lock\n   */\n  constructor() {\n    super();\n  }\n\n  /**\n   * aquire a lock within the given timeout\n   * @param {string} name - the key for the lock\n   * @param {Number} [timeout=500] - the timeout to wait for the lock\n   * @returns {Promise} - promise to have aquired the lock\n   */\n  aquireLock(name, timeout) {\n    timeout = timeout || 500;\n    client = HoistLockAPI._getClient();\n    let lock = redisLock(client);\n    return new Promise((resolve) => {\n      lock(name, timeout, (done) => {\n        /*\n         * release the current lock\n         */\n        resolve({\n          release: done\n        });\n      });\n    });\n  }\n}\n\n\nHoistLockAPI._getClient = function () {\n  return client || (client = redis.createClient(config.get('Hoist.redis.port'), config.get('Hoist.redis.host')));\n};\nHoistLockAPI._clearClient = function () {\n  if (client) {\n    client.end();\n    client = null;\n  }\n};\n\n\n\nexport default HoistLockAPI;\n"
+    "content": "'use strict';\nimport config from 'config';\nimport redisLock from 'redis-lock';\nimport redis from 'redis';\nimport BaseAPI from './base_api';\n\nlet client;\n/**\n * Hoists lock API\n */\nclass HoistLockAPI extends BaseAPI {\n\n  /**\n   * create new lock\n   */\n  constructor() {\n    super();\n  }\n\n  /**\n   * aquire a lock within the given timeout\n   * @param {string} name - the key for the lock\n   * @param {Number} [timeout=500] - the timeout to wait for the lock\n   * @returns {Promise} - promise to have aquired the lock\n   */\n  aquireLock(name, timeout) {\n    timeout = timeout || 500;\n    client = HoistLockAPI._getClient();\n    let lock = redisLock(client);\n    return new Promise((resolve) => {\n      console.log(timeout);\n      lock(name, timeout, (done) => {\n        /*\n         * release the current lock\n         */\n        resolve({\n          release: done\n        });\n      });\n    });\n  }\n}\n\n\nHoistLockAPI._getClient = function () {\n  return client || (client = redis.createClient(config.get('Hoist.redis.port'), config.get('Hoist.redis.host')));\n};\nHoistLockAPI._clearClient = function () {\n  if (client) {\n    client.end();\n    client = null;\n  }\n};\n\n\n\nexport default HoistLockAPI;\n"
   },
   {
     "kind": "function",
@@ -1219,7 +1219,7 @@
     "importPath": "@hoist/connect/src/lock.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 44,
+    "lineNumber": 45,
     "undocument": true,
     "params": [],
     "return": {
@@ -1241,7 +1241,7 @@
     "importPath": "@hoist/connect/src/lock.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 47,
+    "lineNumber": 48,
     "undocument": true,
     "params": [],
     "generator": false
@@ -3818,7 +3818,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport Hoist from '../../src';\nimport {\n  expect\n}\nfrom 'chai';\nimport sinon from 'sinon';\nimport LockAPI from '../../src/lock';\n\ndescribe('Hoist.lock', function () {\n  it('is a function', function () {\n    return expect(Hoist).to.respondTo('lock');\n  });\n  describe('with no lock active', function () {\n    var clock;\n    var result;\n    before(function () {\n      clock = sinon.useFakeTimers();\n      return (result = Hoist.lock('lock-key').then(function (lock) {\n        lock.release();\n        return 'lock aquired';\n      }));\n    });\n    it('gets lock', function () {\n      return expect(result).to.be.become('lock aquired');\n    });\n    after(function () {\n      clock.restore();\n      LockAPI._clearClient();\n    });\n  });\n  describe('with lock active', function () {\n    var clock;\n    var result;\n    var value;\n    before(function (done) {\n      clock = sinon.useFakeTimers();\n      result = Hoist.lock('lock-key').then(function () {\n        value = 'lock aquired in 1';\n        process.nextTick(function () {\n          done();\n        });\n        return Hoist.lock('lock-key').then(function (lock) {\n          value = 'lock aquired in 2';\n          lock.release();\n        });\n      });\n    });\n    it('gets lock', function () {\n      expect(value).to.eql('lock aquired in 1');\n    });\n    it('lock aquired after 500 milliseconds', function () {\n      clock.tick(501);\n      return result.then(function () {\n        expect(value).to.eql('lock aquired in 2');\n      });\n    });\n    after(function () {\n      clock.restore();\n      LockAPI._clearClient();\n    });\n  });\n  describe('with lock released', function () {\n\n    var value;\n    before(function () {\n\n      return (Hoist.lock('lock-key').then(function (lock1) {\n        value = 'lock aquired in 1';\n        process.nextTick(function () {\n          lock1.release();\n        });\n        return Hoist.lock('lock-key').then(function (lock2) {\n          value = 'lock aquired in 2';\n          lock2.release();\n        });\n      }));\n    });\n    it('gets lock', function () {\n      expect(value).to.eql('lock aquired in 2');\n    });\n\n    after(function () {\n      LockAPI._clearClient();\n    });\n  });\n});\n"
+    "content": "'use strict';\nimport Hoist from '../../src';\nimport {\n  expect\n}\nfrom 'chai';\nimport LockAPI from '../../src/lock';\n\ndescribe('Hoist.lock', function () {\n  it('is a function', function () {\n    return expect(Hoist).to.respondTo('lock');\n  });\n  describe('with no lock active', function () {\n    var result;\n    before(function () {\n      return (result = Hoist.lock('lock-key').then(function (lock) {\n        lock.release();\n        return 'lock aquired';\n      }));\n    });\n    it('gets lock', function () {\n      return expect(result).to.be.become('lock aquired');\n    });\n    after(function () {\n      LockAPI._clearClient();\n    });\n  });\n  describe('with lock active', function () {\n    this.timeout(5000);\n    var result;\n    var value;\n    before(function (done) {\n      result = Hoist.lock('lock-key').then(function () {\n        value = 'lock aquired in 1';\n        process.nextTick(function () {\n          done();\n        });\n        return Hoist.lock('lock-key').then(function (lock) {\n          value = 'lock aquired in 2';\n          console.log('releasing');\n          lock.release();\n        });\n      });\n    });\n    it('gets lock', function () {\n      expect(value).to.eql('lock aquired in 1');\n    });\n    it('lock aquired after 500 milliseconds', function (done) {\n      setTimeout(() => {\n        result.then(function () {\n          return expect(value).to.eql('lock aquired in 2');\n        }).then(() => {\n          done();\n        });\n      }, 501);\n\n    });\n    after(function () {\n      LockAPI._clearClient();\n    });\n  });\n  describe('with lock released', function () {\n\n    var value;\n    before(function () {\n\n      return (Hoist.lock('lock-key').then(function (lock1) {\n        value = 'lock aquired in 1';\n        process.nextTick(function () {\n          lock1.release();\n        });\n        return Hoist.lock('lock-key').then(function (lock2) {\n          value = 'lock aquired in 2';\n          lock2.release();\n        });\n      }));\n    });\n    it('gets lock', function () {\n      expect(value).to.eql('lock aquired in 2');\n    });\n\n    after(function () {\n      LockAPI._clearClient();\n    });\n  });\n});\n"
   },
   {
     "kind": "testDescribe",
@@ -3831,7 +3831,7 @@
     "longname": "tests/unit_tests/lock_tests.js~describe102",
     "access": null,
     "description": "Hoist.lock",
-    "lineNumber": 10
+    "lineNumber": 9
   },
   {
     "kind": "testIt",
@@ -3844,7 +3844,7 @@
     "longname": "tests/unit_tests/lock_tests.js~describe102.it103",
     "access": null,
     "description": "is a function",
-    "lineNumber": 11
+    "lineNumber": 10
   },
   {
     "kind": "testDescribe",
@@ -3857,7 +3857,7 @@
     "longname": "tests/unit_tests/lock_tests.js~describe102.describe104",
     "access": null,
     "description": "with no lock active",
-    "lineNumber": 14
+    "lineNumber": 13
   },
   {
     "kind": "testIt",
@@ -3870,7 +3870,7 @@
     "longname": "tests/unit_tests/lock_tests.js~describe102.describe104.it105",
     "access": null,
     "description": "gets lock",
-    "lineNumber": 24
+    "lineNumber": 21
   },
   {
     "kind": "testDescribe",
@@ -3883,7 +3883,7 @@
     "longname": "tests/unit_tests/lock_tests.js~describe102.describe106",
     "access": null,
     "description": "with lock active",
-    "lineNumber": 32
+    "lineNumber": 28
   },
   {
     "kind": "testIt",
@@ -3896,7 +3896,7 @@
     "longname": "tests/unit_tests/lock_tests.js~describe102.describe106.it107",
     "access": null,
     "description": "gets lock",
-    "lineNumber": 49
+    "lineNumber": 45
   },
   {
     "kind": "testIt",
@@ -3909,7 +3909,7 @@
     "longname": "tests/unit_tests/lock_tests.js~describe102.describe106.it108",
     "access": null,
     "description": "lock aquired after 500 milliseconds",
-    "lineNumber": 52
+    "lineNumber": 48
   },
   {
     "kind": "testDescribe",
@@ -3922,7 +3922,7 @@
     "longname": "tests/unit_tests/lock_tests.js~describe102.describe109",
     "access": null,
     "description": "with lock released",
-    "lineNumber": 63
+    "lineNumber": 62
   },
   {
     "kind": "testIt",
@@ -3935,7 +3935,7 @@
     "longname": "tests/unit_tests/lock_tests.js~describe102.describe109.it110",
     "access": null,
     "description": "gets lock",
-    "lineNumber": 79
+    "lineNumber": 78
   },
   {
     "kind": "testFile",

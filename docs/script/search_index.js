@@ -1093,55 +1093,55 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber10",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber9",
     "Hoist.lock",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber11",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber10",
     "Hoist.lock is a function",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber32",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber28",
     "Hoist.lock with lock active",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber49",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber45",
     "Hoist.lock with lock active gets lock",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber52",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber48",
     "Hoist.lock with lock active lock aquired after 500 milliseconds",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber63",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber62",
     "Hoist.lock with lock released",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber79",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber78",
     "Hoist.lock with lock released gets lock",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber14",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber13",
     "Hoist.lock with no lock active",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber24",
+    "test-file/tests/unit_tests/lock_tests.js.html#lineNumber21",
     "Hoist.lock with no lock active gets lock",
     "test"
   ],

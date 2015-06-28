@@ -26,7 +26,7 @@ class DataAPI extends BaseAPI {
         throw new errors.data.request.InvalidError('you need to specify a type for the retrieval, call #setType([typename]) first');
       }
     });
-  };
+  }
 
   /**
    * set the type of this Data API instance
