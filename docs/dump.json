@@ -1205,7 +1205,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport config from 'config';\nimport redisLock from 'redis-lock';\nimport redis from 'redis';\nimport BaseAPI from './base_api';\n\nlet client;\n/**\n * Hoists lock API\n */\nclass HoistLockAPI extends BaseAPI {\n\n  /**\n   * create new lock\n   */\n  constructor() {\n    super();\n  }\n\n  /**\n   * aquire a lock within the given timeout\n   * @param {string} name - the key for the lock\n   * @param {Number} [timeout=500] - the timeout to wait for the lock\n   * @returns {Promise} - promise to have aquired the lock\n   */\n  aquireLock(name, timeout) {\n    timeout = timeout || 500;\n    client = HoistLockAPI._getClient();\n    let lock = redisLock(client);\n    return new Promise((resolve) => {\n      console.log(timeout);\n      lock(name, timeout, (done) => {\n        /*\n         * release the current lock\n         */\n        resolve({\n          release: done\n        });\n      });\n    });\n  }\n}\n\n\nHoistLockAPI._getClient = function () {\n  return client || (client = redis.createClient(config.get('Hoist.redis.port'), config.get('Hoist.redis.host')));\n};\nHoistLockAPI._clearClient = function () {\n  if (client) {\n    client.end();\n    client = null;\n  }\n};\n\n\n\nexport default HoistLockAPI;\n"
+    "content": "'use strict';\nimport config from 'config';\nimport redisLock from 'redis-lock';\nimport redis from 'redis';\nimport BaseAPI from './base_api';\n\nlet client;\n/**\n * Hoists lock API\n */\nclass HoistLockAPI extends BaseAPI {\n\n  /**\n   * create new lock\n   */\n  constructor() {\n    super();\n  }\n\n  /**\n   * aquire a lock within the given timeout\n   * @param {string} name - the key for the lock\n   * @param {Number} [timeout=500] - the timeout to wait for the lock\n   * @returns {Promise} - promise to have aquired the lock\n   */\n  aquireLock(name, timeout) {\n    timeout = timeout || 500;\n    client = HoistLockAPI._getClient();\n    let lock = redisLock(client);\n    return new Promise((resolve) => {\n      lock(name, timeout, (done) => {\n        /*\n         * release the current lock\n         */\n        resolve({\n          release: done\n        });\n      });\n    });\n  }\n}\n\n\nHoistLockAPI._getClient = function () {\n  return client || (client = redis.createClient(config.get('Hoist.redis.port'), config.get('Hoist.redis.host')));\n};\nHoistLockAPI._clearClient = function () {\n  if (client) {\n    client.end();\n    client = null;\n  }\n};\n\n\n\nexport default HoistLockAPI;\n"
   },
   {
     "kind": "function",
@@ -1219,7 +1219,7 @@
     "importPath": "@hoist/connect/src/lock.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 45,
+    "lineNumber": 44,
     "undocument": true,
     "params": [],
     "return": {
@@ -1241,7 +1241,7 @@
     "importPath": "@hoist/connect/src/lock.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 48,
+    "lineNumber": 47,
     "undocument": true,
     "params": [],
     "generator": false
