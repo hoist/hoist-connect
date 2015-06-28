@@ -1,4 +1,6 @@
 'use strict';
+// need this for the Promise API
+require("babel/polyfill");
 import {
   isFunction
 }

@@ -1173,7 +1173,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport {\n  isFunction\n}\nfrom 'lodash';\nimport LockAPI from './lock';\nimport Bluebird from 'bluebird';\nimport DataAPI from './data';\nimport UserAPI from './user';\nimport EventsAPI from './events';\nimport ConnectorAPI from './connector';\nimport log from './log';\nimport TimeoutAPI from './timeout';\nimport Context from '@hoist/context';\nimport Model from '@hoist/model';\nimport BucketAPI from './bucket';\n\nlet index = {\n  data: function (type) {\n    return new DataAPI(type);\n  },\n  user: new UserAPI(),\n  events: new EventsAPI(),\n  connector: function (key) {\n    return new ConnectorAPI(key);\n  },\n  log: log,\n  lock: function CreateLock(name, timeout, callback) {\n    let hoistLock = new LockAPI();\n    if (!callback && isFunction(timeout)) {\n      callback = timeout;\n      timeout = null;\n    }\n    return Bluebird.resolve(hoistLock.aquireLock(name, timeout))\n      .nodeify(callback);\n  },\n  timeout: new TimeoutAPI(),\n  Context: Context,\n  _model: Model,\n  bucket: new BucketAPI()\n};\n\nindex.event = index.events;\n\nexport default index;\n"
+    "content": "'use strict';\n// need this for the Promise API\nrequire(\"babel/polyfill\");\nimport {\n  isFunction\n}\nfrom 'lodash';\nimport LockAPI from './lock';\nimport Bluebird from 'bluebird';\nimport DataAPI from './data';\nimport UserAPI from './user';\nimport EventsAPI from './events';\nimport ConnectorAPI from './connector';\nimport log from './log';\nimport TimeoutAPI from './timeout';\nimport Context from '@hoist/context';\nimport Model from '@hoist/model';\nimport BucketAPI from './bucket';\n\nlet index = {\n  data: function (type) {\n    return new DataAPI(type);\n  },\n  user: new UserAPI(),\n  events: new EventsAPI(),\n  connector: function (key) {\n    return new ConnectorAPI(key);\n  },\n  log: log,\n  lock: function CreateLock(name, timeout, callback) {\n    let hoistLock = new LockAPI();\n    if (!callback && isFunction(timeout)) {\n      callback = timeout;\n      timeout = null;\n    }\n    return Bluebird.resolve(hoistLock.aquireLock(name, timeout))\n      .nodeify(callback);\n  },\n  timeout: new TimeoutAPI(),\n  Context: Context,\n  _model: Model,\n  bucket: new BucketAPI()\n};\n\nindex.event = index.events;\n\nexport default index;\n"
   },
   {
     "kind": "variable",
@@ -1187,7 +1187,7 @@
     "importPath": "@hoist/connect/src/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 18,
+    "lineNumber": 20,
     "undocument": true,
     "type": {
       "types": [

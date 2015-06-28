@@ -61,6 +61,8 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/index.js</h1>
 <pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
+// need this for the Promise API
+require(&quot;babel/polyfill&quot;);
 import {
   isFunction
 }
