@@ -1,6 +1,6 @@
 {
   "name": "@hoist/connect",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Hoist connect client library",
   "main": "lib/index.js",
   "scripts": {
@@ -16,10 +16,6 @@
     "url": "https://github.com/hoist/hoist-connect/issues"
   },
   "homepage": "https://github.com/hoist/hoist-connect",
-  "peerDependencies": {
-    "@hoist/context": "^1.0.1",
-    "@hoist/model": "^1.0.2"
-  },
   "devDependencies": {
     "babel": "^5.5.8",
     "babel-eslint": "^3.1.15",
@@ -51,6 +47,8 @@
     "sinon-chai": "^2.8.0"
   },
   "dependencies": {
+    "@hoist/context": "^1.0.1",
+    "@hoist/model": "^1.0.2",
     "@hoist/bucket-pipeline": "^1.0.0",
     "@hoist/connector-pipeline": "^1.0.1",
     "@hoist/data-pipeline": "^1.0.0",
