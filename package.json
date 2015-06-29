@@ -16,6 +16,10 @@
     "url": "https://github.com/hoist/hoist-connect/issues"
   },
   "homepage": "https://github.com/hoist/hoist-connect",
+  "peerDependencies": {
+    "@hoist/context": "^1.0.1",
+    "@hoist/model": "^1.0.2"
+  },
   "devDependencies": {
     "babel": "^5.5.8",
     "babel-eslint": "^3.1.15",
@@ -49,12 +53,10 @@
   "dependencies": {
     "@hoist/bucket-pipeline": "^1.0.0",
     "@hoist/connector-pipeline": "^1.0.1",
-    "@hoist/context": "^1.0.1",
     "@hoist/data-pipeline": "^1.0.0",
     "@hoist/errors": "^1.0.1",
     "@hoist/events-pipeline": "^1.0.0",
     "@hoist/logger": "^1.0.0",
-    "@hoist/model": "^1.0.2",
     "@hoist/user-pipeline": "^1.0.0",
     "babel": "^5.6.9",
     "bluebird": "^2.9.30",
