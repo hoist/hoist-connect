@@ -1,6 +1,6 @@
 {
   "name": "@hoist/connect",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Hoist connect client library",
   "main": "lib/index.js",
   "scripts": {
@@ -51,7 +51,7 @@
     "@hoist/model": "^1.0.2",
     "@hoist/bucket-pipeline": "^1.0.0",
     "@hoist/connector-pipeline": "^1.0.1",
-    "@hoist/data-pipeline": "^1.0.0",
+    "@hoist/data-pipeline": "^1.0.1",
     "@hoist/errors": "^1.0.1",
     "@hoist/events-pipeline": "^1.0.0",
     "@hoist/logger": "^1.0.0",
