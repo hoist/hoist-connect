@@ -50,7 +50,7 @@
     "@hoist/context": "^1.0.1",
     "@hoist/model": "^1.0.2",
     "@hoist/bucket-pipeline": "^1.0.0",
-    "@hoist/connector-pipeline": "^1.0.1",
+    "@hoist/connector-pipeline": "^1.0.3",
     "@hoist/data-pipeline": "^1.0.1",
     "@hoist/errors": "^1.0.1",
     "@hoist/events-pipeline": "^1.0.0",
