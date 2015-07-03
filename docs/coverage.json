@@ -1,6 +1,6 @@
 {
-  "coverage": "97.14%",
-  "expectCount": 35,
+  "coverage": "85%",
+  "expectCount": 40,
   "actualCount": 34,
   "files": {
     "src/base_api.js": {
@@ -12,7 +12,7 @@
       "actualCount": 9
     },
     "src/connector.js": {
-      "expectCount": 2,
+      "expectCount": 7,
       "actualCount": 2
     },
     "src/data.js": {

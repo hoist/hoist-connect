@@ -756,7 +756,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "connectorapi#delete connectorapi#delete,connectorapi#delete",
+    "connectorapi#delete src/connector.js~connectorapi#delete,connectorapi#delete",
     "test-file/tests/unit_tests/connector_tests.js.html#lineNumber65",
     "Hoist.connector with key Hoist.connector#delete",
     "test"
@@ -768,7 +768,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "connectorapi#get connectorapi#get,connectorapi#get",
+    "connectorapi#get src/connector.js~connectorapi#get,connectorapi#get",
     "test-file/tests/unit_tests/connector_tests.js.html#lineNumber34",
     "Hoist.connector with key Hoist.connector#get",
     "test"
@@ -780,7 +780,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "connectorapi#post connectorapi#post,connectorapi#post",
+    "connectorapi#post src/connector.js~connectorapi#post,connectorapi#post",
     "test-file/tests/unit_tests/connector_tests.js.html#lineNumber81",
     "Hoist.connector with key Hoist.connector#post",
     "test"
@@ -792,7 +792,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "connectorapi#put connectorapi#put,connectorapi#put",
+    "connectorapi#put src/connector.js~connectorapi#put,connectorapi#put",
     "test-file/tests/unit_tests/connector_tests.js.html#lineNumber49",
     "Hoist.connector with key Hoist.connector#put",
     "test"
@@ -823,7 +823,7 @@ window.esdocSearchIndex = [
   ],
   [
     "dataapi src/data.js~dataapi,dataapi",
-    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber10",
+    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber10",
     "Hoist.data",
     "test"
   ],
@@ -835,7 +835,7 @@ window.esdocSearchIndex = [
   ],
   [
     "dataapi src/data.js~dataapi,dataapi",
-    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber10",
+    "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber10",
     "Hoist.data",
     "test"
   ],
@@ -1147,13 +1147,13 @@ window.esdocSearchIndex = [
   ],
   [
     "log src/log.js~log,log",
-    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber10",
+    "test-file/tests/unit_tests/log_tests.js.html#lineNumber4",
     "Hoist.log",
     "test"
   ],
   [
     "log src/log.js~log,log",
-    "test-file/tests/unit_tests/log_tests.js.html#lineNumber4",
+    "test-file/tests/unit_tests/logger_tests.js.html#lineNumber10",
     "Hoist.log",
     "test"
   ],
@@ -1329,6 +1329,36 @@ window.esdocSearchIndex = [
     "src/connector.js~connectorapi#constructor",
     "class/src/connector.js~ConnectorAPI.html#instance-constructor-constructor",
     "src/connector.js~ConnectorAPI#constructor",
+    "method"
+  ],
+  [
+    "src/connector.js~connectorapi#delete",
+    "class/src/connector.js~ConnectorAPI.html#instance-method-delete",
+    "src/connector.js~ConnectorAPI#delete",
+    "method"
+  ],
+  [
+    "src/connector.js~connectorapi#get",
+    "class/src/connector.js~ConnectorAPI.html#instance-method-get",
+    "src/connector.js~ConnectorAPI#get",
+    "method"
+  ],
+  [
+    "src/connector.js~connectorapi#init",
+    "class/src/connector.js~ConnectorAPI.html#instance-method-init",
+    "src/connector.js~ConnectorAPI#init",
+    "method"
+  ],
+  [
+    "src/connector.js~connectorapi#post",
+    "class/src/connector.js~ConnectorAPI.html#instance-method-post",
+    "src/connector.js~ConnectorAPI#post",
+    "method"
+  ],
+  [
+    "src/connector.js~connectorapi#put",
+    "class/src/connector.js~ConnectorAPI.html#instance-method-put",
+    "src/connector.js~ConnectorAPI#put",
     "method"
   ],
   [

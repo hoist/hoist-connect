@@ -9,7 +9,7 @@ gulp.task('watch', function (callback) {
     if (!watching) {
       console.log('running watch');
       gulp.watch(globs.js.Gulpfile, ['eslint']);
-      gulp.watch(globs.specs.concat(globs.js.lib), ['mocha-server-continue', 'esdoc']);
+      gulp.watch(globs.specs.concat(globs.js.src), ['mocha-server-continue', 'esdoc']);
       callback();
     }
   });

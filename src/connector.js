@@ -31,13 +31,17 @@ class ConnectorAPI extends BaseAPI {
   _loadConnector() {
     if (!this._connector) {
       this._connector = this._pipeline.loadConnector(this._key).then((c) => {
+
         let methods = filter(functions(c), (property) => {
+
           if (property.startsWith('_') || property === 'receiveBounce' || this[property]) {
             return false;
           } else {
             return true;
           }
         });
+        //we should always show the rest params but they might return an error
+        methods = methods.concat(['get', 'post', 'put', 'delete']);
         methods.forEach((method) => {
           /**
            * also has all methods of underlying connector
@@ -61,6 +65,34 @@ class ConnectorAPI extends BaseAPI {
 
     }
     return this._connector;
+  }
+  init() {
+    return this._loadConnector();
+  }
+  get(...params) {
+    return this.loadConnector()
+      .then(() => {
+        return this.get.apply(this, params);
+      });
+  }
+  put(...params) {
+    return this.loadConnector()
+      .then(() => {
+        return this.put.apply(this, params);
+      });
+
+  }
+  post(...params) {
+    return this.loadConnector()
+      .then(() => {
+        return this.post.apply(this, params);
+      });
+  }
+  delete(...params) {
+    return this.loadConnector()
+      .then(() => {
+        return this.delete.apply(this, params);
+      });
   }
 }
 
