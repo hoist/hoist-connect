@@ -51,7 +51,7 @@
     "@hoist/model": "^1.0.2",
     "@hoist/bucket-pipeline": "^1.0.0",
     "@hoist/connector-pipeline": "^1.0.3",
-    "@hoist/data-pipeline": "^1.0.4",
+    "@hoist/data-pipeline": "^1.0.5",
     "@hoist/errors": "^1.0.1",
     "@hoist/events-pipeline": "^1.0.0",
     "@hoist/logger": "^1.0.0",
