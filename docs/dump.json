@@ -1172,7 +1172,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport Pipeline from '@hoist/events-pipeline';\nimport {\n  isFunction\n}\nfrom 'lodash';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\n\n/**\n * Hoists event API\n */\nclass EventsAPI extends BaseAPI {\n  /**\n   * create a new instance of the event api\n   */\n  constructor() {\n    super();\n    this._pipeline = new Pipeline();\n  }\n\n  /**\n   * raise a new event\n   * @param {string} name - the name of the event\n   * @param {object} payload - the event payload\n   * @param {object} [contextOverride] - overides for the current context\n   * @param {function(error: Error, objects: Event)} [callback] - callback to call when event has been raised\n   * @returns {Promise<Event>} - a promise to have raised the Event\n   */\n  raise(name, payload, contextOverride, callback) {\n    if (!callback && isFunction(contextOverride)) {\n      callback = contextOverride;\n      contextOverride = null;\n    }\n    if (!callback && isFunction(payload)) {\n      callback = payload;\n      payload = {};\n    }\n    return Bluebird.resolve(this._pipeline.raise(name, payload, contextOverride))\n      .nodeify(callback);\n  }\n}\n\nexport default EventsAPI;\n"
+    "content": "'use strict';\nimport Pipeline from '@hoist/events-pipeline';\nimport {\n  isFunction\n}\nfrom 'lodash';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\nimport Context from '@hoist/context';\n\n/**\n * Hoists event API\n */\nclass EventsAPI extends BaseAPI {\n  /**\n   * create a new instance of the event api\n   */\n  constructor() {\n    super();\n    this._pipeline = new Pipeline();\n  }\n\n  /**\n   * raise a new event\n   * @param {string} name - the name of the event\n   * @param {object} payload - the event payload\n   * @param {object} [contextOverride] - overides for the current context\n   * @param {function(error: Error, objects: Event)} [callback] - callback to call when event has been raised\n   * @returns {Promise<Event>} - a promise to have raised the Event\n   */\n  raise(name, payload, contextOverride, callback) {\n    if (!callback && isFunction(contextOverride)) {\n      callback = contextOverride;\n      contextOverride = null;\n    }\n    if (!callback && isFunction(payload)) {\n      callback = payload;\n      payload = {};\n    }\n    return Bluebird.resolve(\n      Context.get().then((context) => {\n        return this._pipeline.raise(context, name, payload, contextOverride);\n      })\n    ).nodeify(callback);\n  }\n}\n\nexport default EventsAPI;\n"
   },
   {
     "kind": "class",
@@ -1186,7 +1186,7 @@
     "importPath": "@hoist/connect/src/events.js",
     "importStyle": "EventsAPI",
     "description": "Hoists event API",
-    "lineNumber": 13,
+    "lineNumber": 14,
     "interface": false,
     "extends": [
       "src/base_api~BaseAPI"
@@ -1201,7 +1201,7 @@
     "longname": "src/events.js~EventsAPI#constructor",
     "access": null,
     "description": "create a new instance of the event api",
-    "lineNumber": 17,
+    "lineNumber": 18,
     "params": [],
     "generator": false
   },
@@ -1214,7 +1214,7 @@
     "longname": "src/events.js~EventsAPI#_pipeline",
     "access": null,
     "description": null,
-    "lineNumber": 19,
+    "lineNumber": 20,
     "undocument": true,
     "type": {
       "types": [
@@ -1231,7 +1231,7 @@
     "longname": "src/events.js~EventsAPI#raise",
     "access": null,
     "description": "raise a new event",
-    "lineNumber": 30,
+    "lineNumber": 31,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3863,7 +3863,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport Hoist from '../../src';\nimport Pipeline from '@hoist/events-pipeline';\nimport {\n  expect\n}\nfrom 'chai';\nimport sinon from 'sinon';\n\n/** @test {EventsAPI} */\ndescribe('Hoist.events', function () {\n  it('exists', function () {\n    return expect(Hoist.events).to.exist;\n  });\n  /** @test {EventsAPI#raise} */\n  describe('.raise', function () {\n    var name = 'name';\n    var payload = {\n      key: 'value'\n    };\n    before(function (done) {\n      sinon.stub(Pipeline.prototype, 'raise').returns(Promise.resolve(null));\n      Hoist.events.raise(name, payload, done);\n    });\n    after(function () {\n      Pipeline.prototype.raise.restore();\n    });\n    it('calls raise on pipeline', function () {\n      return expect(Pipeline.prototype.raise).to.have.been.calledWith(name, payload);\n    });\n  });\n\n});\n"
+    "content": "'use strict';\nimport Hoist from '../../src';\nimport Pipeline from '@hoist/events-pipeline';\nimport {\n  expect\n}\nfrom 'chai';\nimport sinon from 'sinon';\nimport Context from '@hoist/context';\n\n/** @test {EventsAPI} */\ndescribe('Hoist.events', function () {\n  it('exists', function () {\n    return expect(Hoist.events).to.exist;\n  });\n  /** @test {EventsAPI#raise} */\n  describe('.raise', function () {\n    var name = 'name';\n    var payload = {\n      key: 'value'\n    };\n    let context = new Context();\n    before(function (done) {\n      sinon.stub(Pipeline.prototype, 'raise').returns(Promise.resolve(null));\n      Context.set(context).then(() => {\n        Hoist.events.raise(name, payload, done);\n      });\n    });\n    after(function () {\n      Pipeline.prototype.raise.restore();\n    });\n    it('calls raise on pipeline', function () {\n      return expect(Pipeline.prototype.raise).to.have.been.calledWith(context, name, payload);\n    });\n  });\n\n});\n"
   },
   {
     "kind": "testDescribe",
@@ -3876,7 +3876,7 @@
     "longname": "tests/unit_tests/events_tests.js~describe98",
     "access": null,
     "description": "Hoist.events",
-    "lineNumber": 11,
+    "lineNumber": 12,
     "unknown": [
       {
         "tagName": "@test",
@@ -3898,7 +3898,7 @@
     "longname": "tests/unit_tests/events_tests.js~describe98.it99",
     "access": null,
     "description": "exists",
-    "lineNumber": 12
+    "lineNumber": 13
   },
   {
     "kind": "testDescribe",
@@ -3911,7 +3911,7 @@
     "longname": "tests/unit_tests/events_tests.js~describe98.describe100",
     "access": null,
     "description": ".raise",
-    "lineNumber": 16,
+    "lineNumber": 17,
     "unknown": [
       {
         "tagName": "@test",
@@ -3933,7 +3933,7 @@
     "longname": "tests/unit_tests/events_tests.js~describe98.describe100.it101",
     "access": null,
     "description": "calls raise on pipeline",
-    "lineNumber": 28
+    "lineNumber": 32
   },
   {
     "kind": "testFile",

@@ -68,6 +68,7 @@ import {
 from &apos;lodash&apos;;
 import Bluebird from &apos;bluebird&apos;;
 import BaseAPI from &apos;./base_api&apos;;
+import Context from &apos;@hoist/context&apos;;
 
 /**
  * Hoists event API
@@ -98,8 +99,11 @@ class EventsAPI extends BaseAPI {
       callback = payload;
       payload = {};
     }
-    return Bluebird.resolve(this._pipeline.raise(name, payload, contextOverride))
-      .nodeify(callback);
+    return Bluebird.resolve(
+      Context.get().then((context) =&gt; {
+        return this._pipeline.raise(context, name, payload, contextOverride);
+      })
+    ).nodeify(callback);
   }
 }
 

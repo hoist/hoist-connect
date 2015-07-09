@@ -68,6 +68,7 @@ import {
 }
 from &apos;chai&apos;;
 import sinon from &apos;sinon&apos;;
+import Context from &apos;@hoist/context&apos;;
 
 /** @test {EventsAPI} */
 describe(&apos;Hoist.events&apos;, function () {
@@ -80,15 +81,18 @@ describe(&apos;Hoist.events&apos;, function () {
     var payload = {
       key: &apos;value&apos;
     };
+    let context = new Context();
     before(function (done) {
       sinon.stub(Pipeline.prototype, &apos;raise&apos;).returns(Promise.resolve(null));
-      Hoist.events.raise(name, payload, done);
+      Context.set(context).then(() =&gt; {
+        Hoist.events.raise(name, payload, done);
+      });
     });
     after(function () {
       Pipeline.prototype.raise.restore();
     });
     it(&apos;calls raise on pipeline&apos;, function () {
-      return expect(Pipeline.prototype.raise).to.have.been.calledWith(name, payload);
+      return expect(Pipeline.prototype.raise).to.have.been.calledWith(context, name, payload);
     });
   });
 

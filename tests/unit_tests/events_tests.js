@@ -6,6 +6,7 @@ import {
 }
 from 'chai';
 import sinon from 'sinon';
+import Context from '@hoist/context';
 
 /** @test {EventsAPI} */
 describe('Hoist.events', function () {
@@ -18,15 +19,18 @@ describe('Hoist.events', function () {
     var payload = {
       key: 'value'
     };
+    let context = new Context();
     before(function (done) {
       sinon.stub(Pipeline.prototype, 'raise').returns(Promise.resolve(null));
-      Hoist.events.raise(name, payload, done);
+      Context.set(context).then(() => {
+        Hoist.events.raise(name, payload, done);
+      });
     });
     after(function () {
       Pipeline.prototype.raise.restore();
     });
     it('calls raise on pipeline', function () {
-      return expect(Pipeline.prototype.raise).to.have.been.calledWith(name, payload);
+      return expect(Pipeline.prototype.raise).to.have.been.calledWith(context, name, payload);
     });
   });
 

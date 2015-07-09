@@ -1069,25 +1069,25 @@ window.esdocSearchIndex = [
   ],
   [
     "eventsapi src/events.js~eventsapi,eventsapi",
-    "test-file/tests/unit_tests/events_tests.js.html#lineNumber11",
+    "test-file/tests/unit_tests/events_tests.js.html#lineNumber12",
     "Hoist.events",
     "test"
   ],
   [
     "eventsapi#raise src/events.js~eventsapi#raise,eventsapi#raise",
-    "test-file/tests/unit_tests/events_tests.js.html#lineNumber16",
+    "test-file/tests/unit_tests/events_tests.js.html#lineNumber17",
     "Hoist.events .raise",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/events_tests.js.html#lineNumber28",
+    "test-file/tests/unit_tests/events_tests.js.html#lineNumber32",
     "Hoist.events .raise calls raise on pipeline",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/events_tests.js.html#lineNumber12",
+    "test-file/tests/unit_tests/events_tests.js.html#lineNumber13",
     "Hoist.events exists",
     "test"
   ],
