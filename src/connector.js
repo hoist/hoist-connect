@@ -70,26 +70,26 @@ class ConnectorAPI extends BaseAPI {
     return this._loadConnector();
   }
   get(...params) {
-    return this.loadConnector()
+    return this._loadConnector()
       .then(() => {
         return this.get.apply(this, params);
       });
   }
   put(...params) {
-    return this.loadConnector()
+    return this._loadConnector()
       .then(() => {
         return this.put.apply(this, params);
       });
 
   }
   post(...params) {
-    return this.loadConnector()
+    return this._loadConnector()
       .then(() => {
         return this.post.apply(this, params);
       });
   }
   delete(...params) {
-    return this.loadConnector()
+    return this._loadConnector()
       .then(() => {
         return this.delete.apply(this, params);
       });
