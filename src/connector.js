@@ -47,17 +47,16 @@ class ConnectorAPI extends BaseAPI {
            * also has all methods of underlying connector
            */
           let _this = this;
-          this[method] = function () {
+          this[method] = function (...params) {
             _this._logger.info('proxying method ' + method);
             if (typeof c[method] !== 'function') {
               throw new errors.connector.request.UnsupportedError(method + ' method unsupported');
             }
             let callback;
-            let args = Array.prototype.slice.call(arguments);
-            if (typeof (args[args.length - 1]) === 'function') {
-              callback = args.pop();
+            if (typeof (params[params.length - 1]) === 'function') {
+              callback = params.pop();
             }
-            return Bluebird.resolve(c[method].apply(c, args))
+            return Bluebird.resolve(c[method].apply(c, params))
               .nodeify(callback);
           };
         });
