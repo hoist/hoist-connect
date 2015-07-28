@@ -53,7 +53,7 @@
     "@hoist/connector-pipeline": "^1.0.4",
     "@hoist/data-pipeline": "^1.0.5",
     "@hoist/errors": "^1.0.1",
-    "@hoist/events-pipeline": "^2.0.2",
+    "@hoist/events-pipeline": "^2.0.3",
     "@hoist/logger": "^1.0.0",
     "@hoist/user-pipeline": "^1.0.0",
     "babel": "^5.6.9",
