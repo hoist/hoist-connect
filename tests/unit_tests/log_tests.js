@@ -1,6 +1,7 @@
 'use strict';
-var log = require('../../lib/log');
-describe('.log', function () {
+import log from '../../src/log';
+/** @test {Log} */
+describe('Hoist.log', function () {
   before(function () {
     var b = {
 

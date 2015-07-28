@@ -1,0 +1,43 @@
+{
+  "coverage": "85%",
+  "expectCount": 40,
+  "actualCount": 34,
+  "files": {
+    "src/base_api.js": {
+      "expectCount": 2,
+      "actualCount": 2
+    },
+    "src/bucket.js": {
+      "expectCount": 9,
+      "actualCount": 9
+    },
+    "src/connector.js": {
+      "expectCount": 7,
+      "actualCount": 2
+    },
+    "src/data.js": {
+      "expectCount": 9,
+      "actualCount": 9
+    },
+    "src/events.js": {
+      "expectCount": 3,
+      "actualCount": 3
+    },
+    "src/lock.js": {
+      "expectCount": 3,
+      "actualCount": 3
+    },
+    "src/log.js": {
+      "expectCount": 1,
+      "actualCount": 1
+    },
+    "src/timeout.js": {
+      "expectCount": 2,
+      "actualCount": 2
+    },
+    "src/user.js": {
+      "expectCount": 4,
+      "actualCount": 3
+    }
+  }
+}

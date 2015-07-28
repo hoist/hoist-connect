@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/connector.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+</head>
+<body class="layout-container">
+
+<header>
+  <a href="./">Home</a>
+  <a href="identifiers.html">Identifier</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/hoist/hoist-connect.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
+  <h2>Class</h2>
+  <ul>
+    
+  <li data-ice="classDoc"><span><a href="class/src/base_api.js~BaseAPI.html">BaseAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/bucket.js~BucketAPI.html">BucketAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/connector.js~ConnectorAPI.html">ConnectorAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/data.js~DataAPI.html">DataAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/events.js~EventsAPI.html">EventsAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/lock.js~HoistLockAPI.html">HoistLockAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/timeout.js~TimeoutAPI.html">TimeoutAPI</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/user.js~UserAPI.html">UserAPI</a></span></li>
+</ul>
+</div>
+
+
+
+<div data-ice="functionWrap">
+  <h2><a href="function/">Function</a></h2>
+  <ul>
+    
+  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-Log">Log</a></span></li>
+</ul>
+</div>
+
+
+
+
+
+
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/connector.js</h1>
+<pre class="source-code line-number"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
+import errors from &apos;@hoist/errors&apos;;
+import Pipeline from &apos;@hoist/connector-pipeline&apos;;
+import BaseAPI from &apos;./base_api&apos;;
+import {
+  filter, functions
+}
+from &apos;lodash&apos;;
+import logger from &apos;@hoist/logger&apos;;
+import Bluebird from &apos;bluebird&apos;;
+/**
+ * Hoists API wrapper around connectors
+ */
+class ConnectorAPI extends BaseAPI {
+  /**
+   * create a new connector API
+   * @param {string} key - the connector key
+   */
+  constructor(key) {
+    super();
+    this._logger = logger.child({
+      cls: this.constructor.name
+    });
+    if (!key) {
+      throw new errors.connector.request.InvalidError();
+    }
+    this._pipeline = new Pipeline();
+    this._key = key;
+    this._loadConnector();
+  }
+  _loadConnector() {
+    if (!this._connector) {
+      this._connector = this._pipeline.loadConnector(this._key).then((c) =&gt; {
+
+        let methods = filter(functions(c), (property) =&gt; {
+
+          if (property.startsWith(&apos;_&apos;) || property === &apos;receiveBounce&apos; || this[property]) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+        //we should always show the rest params but they might return an error
+        methods = methods.concat([&apos;get&apos;, &apos;post&apos;, &apos;put&apos;, &apos;delete&apos;]);
+        methods.forEach((method) =&gt; {
+          /**
+           * also has all methods of underlying connector
+           */
+          let _this = this;
+          this[method] = function (...params) {
+            _this._logger.info(&apos;proxying method &apos; + method);
+            if (typeof c[method] !== &apos;function&apos;) {
+              throw new errors.connector.request.UnsupportedError(method + &apos; method unsupported&apos;);
+            }
+            let callback;
+            if (typeof (params[params.length - 1]) === &apos;function&apos;) {
+              callback = params.pop();
+            }
+            return Bluebird.resolve(c[method].apply(c, params))
+              .nodeify(callback);
+          };
+        });
+      });
+
+    }
+    return this._connector;
+  }
+  init() {
+    return this._loadConnector();
+  }
+  get(...params) {
+    return this._loadConnector()
+      .then(() =&gt; {
+        return this.get.apply(this, params);
+      });
+  }
+  put(...params) {
+    return this._loadConnector()
+      .then(() =&gt; {
+        return this.put.apply(this, params);
+      });
+
+  }
+  post(...params) {
+    return this._loadConnector()
+      .then(() =&gt; {
+        return this.post.apply(this, params);
+      });
+  }
+  delete(...params) {
+    return this._loadConnector()
+      .then(() =&gt; {
+        return this.delete.apply(this, params);
+      });
+  }
+}
+
+export default ConnectorAPI;
+</code></pre>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.1.2)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,11 +1,10 @@
 'use strict';
-var Hoist = require('../../lib');
-var expect = require('chai').expect;
-var HoistErrors = require('hoist-errors');
-var UserPipeline = require('hoist-user-pipeline').Pipeline;
-var AppUser = require('hoist-model').AppUser;
-var sinon = require('sinon');
-var BBPromise = require('bluebird');
+import Hoist from '../../src';
+import {expect} from 'chai';
+import HoistErrors from '@hoist/errors';
+import {Pipeline as UserPipeline} from '@hoist/user-pipeline';
+import {AppUser} from '@hoist/model';
+import sinon from 'sinon';
 
 describe('Hoist', function () {
   describe('.user', function () {
@@ -19,7 +18,7 @@ describe('Hoist', function () {
     });
     describe('.login', function () {
       before(function () {
-        sinon.stub(UserPipeline.prototype, 'login').returns(BBPromise.resolve(appUser));
+        sinon.stub(UserPipeline.prototype, 'login').returns(Promise.resolve(appUser));
       });
       after(function () {
         UserPipeline.prototype.login.restore();
@@ -50,7 +49,7 @@ describe('Hoist', function () {
     });
     describe('.invite', function () {
       before(function () {
-        sinon.stub(UserPipeline.prototype, 'invite').returns(BBPromise.resolve(null));
+        sinon.stub(UserPipeline.prototype, 'invite').returns(Promise.resolve(null));
       });
       after(function () {
         UserPipeline.prototype.invite.restore();
@@ -61,9 +60,8 @@ describe('Hoist', function () {
         }).to.throw(HoistErrors.user.request.InvalidError, 'user details are required');
       });
       describe('valid request', function () {
-        var result;
         before(function () {
-          return (result = Hoist.user.invite({
+          return (Hoist.user.invite({
             username: 'username'
           }));
         });
