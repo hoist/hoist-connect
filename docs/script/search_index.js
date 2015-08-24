@@ -823,13 +823,13 @@ window.esdocSearchIndex = [
   ],
   [
     "dataapi src/data.js~dataapi,dataapi",
-    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber10",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber7",
     "Hoist.data",
     "test"
   ],
   [
     "dataapi src/data.js~dataapi,dataapi",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber7",
+    "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber10",
     "Hoist.data",
     "test"
   ],
@@ -1324,6 +1324,12 @@ window.esdocSearchIndex = [
     "file/src/connector.js.html",
     "src/connector.js",
     "file"
+  ],
+  [
+    "src/connector.js~connectorapi#authorize",
+    "class/src/connector.js~ConnectorAPI.html#instance-method-authorize",
+    "src/connector.js~ConnectorAPI#authorize",
+    "method"
   ],
   [
     "src/connector.js~connectorapi#constructor",

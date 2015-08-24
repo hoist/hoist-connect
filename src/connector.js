@@ -41,7 +41,7 @@ class ConnectorAPI extends BaseAPI {
           }
         });
         //we should always show the rest params but they might return an error
-        methods = methods.concat(['get', 'post', 'put', 'delete']);
+        methods = methods.concat(['get', 'post', 'put', 'delete', 'authorize']);
         methods.forEach((method) => {
           /**
            * also has all methods of underlying connector
@@ -91,6 +91,12 @@ class ConnectorAPI extends BaseAPI {
     return this._loadConnector()
       .then(() => {
         return this.delete.apply(this, params);
+      });
+  }
+  authorize(...params) {
+    return this._loadConnector()
+      .then(() => {
+        return this.authorize.apply(this, params);
       });
   }
 }
