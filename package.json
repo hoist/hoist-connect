@@ -1,6 +1,6 @@
 {
   "name": "@hoist/connect",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Hoist connect client library",
   "main": "lib/index.js",
   "scripts": {
