@@ -780,7 +780,29 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport Pipeline from '@hoist/data-pipeline';\nimport errors from '@hoist/errors';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\n\n/**\n * Hoists Data API\n */\nclass DataAPI extends BaseAPI {\n  /**\n   * create a new data API\n   * @param {string} [type] - the object type for this data api instance\n   */\n  constructor(type) {\n    super();\n    if (type) {\n      this.setType(type);\n    }\n    this._pipeline = new Pipeline();\n  }\n\n  _verify() {\n    return Promise.resolve().then(() => {\n      if (!this._type) {\n        throw new errors.data.request.InvalidError('you need to specify a type for the retrieval, call #setType([typename]) first');\n      }\n    });\n  }\n\n  /**\n   * set the type of this Data API instance\n   * @param {string} type - the object type for this data api instance\n   */\n  setType(type) {\n    this._type = type.toLowerCase();\n  }\n\n  /**\n   * find objects matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error, objects: Array<object>)} [callback] - callback to call when objects have been found\n   * @returns {Promise<Array<object>>} - a promise to have retrieved the objects\n   */\n  find(query, callback) {\n    return Bluebird.resolve(\n        this._verify()\n        .then(() => {\n          return this._pipeline.find(this._type, query || {});\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * find a single object with the matching id\n   * @param {string} id - the object id\n   * @param {function(error: Error, object: object)} [callback] - callback to call when object has been found\n   * @returns {Promise<object>} - a promise to have retrieved the object\n   */\n  findById(id, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!id) {\n            throw new errors.data.request.InvalidError('you need to specify an id for #findById');\n          }\n        })\n        .then(() => {\n          return this.findOne({\n            _id: id\n          });\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * find a single object matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error, object: object)} [callback] - callback to call when object has been found\n   * @returns {Promise<object>} - a promise to have retrieved the object\n   */\n  findOne(query, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!query) {\n            throw new errors.data.request.InvalidError('you need to specify a query for #findOne');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.findOne(this._type, query);\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove objects matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error)} [callback] - callback to call when objects have been removed\n   * @returns {Promise} - a promise to have removed the objects\n   */\n  remove(query, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!query) {\n            throw new errors.data.request.InvalidError('you need to specify a query for #remove');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.remove(this._type, query);\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove a single object with a given id\n   * @param {string} id - the object id\n   * @param {function(error: Error)} [callback] - callback to call when object has been removed\n   * @returns {Promise} - a promise to have removed the object\n   */\n  removeOneById(id, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!id) {\n            throw new errors.data.request.InvalidError('you need to specify an id for #removeOneById');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.remove(this._type, {\n            _id: id\n          });\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * save an object\n   * @param {object} json - raw object to save\n   * @param {function(error: Error, object: object)} [callback] - callback to call when objects has been saved\n   * @returns {Promise<object>} - a promise to have saved the object\n   */\n  save(json, callback) {\n    if (!this._type && json._type) {\n      this.setType(json._type);\n    }\n    return Bluebird.resolve(\n      this._verify()\n      .then(() => {\n        return this._pipeline.save(this._type, json);\n      })).nodeify(callback);\n  }\n}\n\n\nexport default DataAPI;\n"
+    "content": "'use strict';\nimport Pipeline from '@hoist/data-pipeline';\nimport errors from '@hoist/errors';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\n\n/**\n * Hoists Data API\n */\nclass DataAPI extends BaseAPI {\n  /**\n   * create a new data API\n   * @param {string} [type] - the object type for this data api instance\n   */\n  constructor(type) {\n    super();\n    if (type) {\n      this.setType(type);\n    }\n    this._pipeline = new Pipeline();\n  }\n\n  _verify() {\n    return Promise.resolve().then(() => {\n      if (!this._type) {\n        throw new errors.data.request.InvalidError('you need to specify a type for the retrieval, call #setType([typename]) first');\n      }\n    });\n  }\n\n  /**\n   * set the type of this Data API instance\n   * @param {string} type - the object type for this data api instance\n   */\n  setType(type) {\n    this._type = type.toLowerCase();\n  }\n\n  /**\n   * find objects matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error, objects: Array<object>)} [callback] - callback to call when objects have been found\n   * @returns {Promise<Array<object>>} - a promise to have retrieved the objects\n   */\n  find(query, callback) {\n    return Bluebird.resolve(\n        this._verify()\n        .then(() => {\n          return this._pipeline.find(this._type, query || {});\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * find a single object with the matching id\n   * @param {string} id - the object id\n   * @param {function(error: Error, object: object)} [callback] - callback to call when object has been found\n   * @returns {Promise<object>} - a promise to have retrieved the object\n   */\n  findById(id, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!id) {\n            throw new errors.data.request.InvalidError('you need to specify an id for #findById');\n          }\n        })\n        .then(() => {\n          return this.findOne({\n            _id: id\n          });\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * find a single object matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error, object: object)} [callback] - callback to call when object has been found\n   * @returns {Promise<object>} - a promise to have retrieved the object\n   */\n  findOne(query, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!query) {\n            throw new errors.data.request.InvalidError('you need to specify a query for #findOne');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.findOne(this._type, query);\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove objects matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error)} [callback] - callback to call when objects have been removed\n   * @returns {Promise} - a promise to have removed the objects\n   */\n  remove(query, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!query) {\n            throw new errors.data.request.InvalidError('you need to specify a query for #remove');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.remove(this._type, query);\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove a single object with a given id\n   * @param {string} id - the object id\n   * @param {function(error: Error)} [callback] - callback to call when object has been removed\n   * @returns {Promise} - a promise to have removed the object\n   */\n  removeOneById(id, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!id) {\n            throw new errors.data.request.InvalidError('you need to specify an id for #removeOneById');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.remove(this._type, {\n            _id: id\n          });\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * save an object\n   * @param {object} json - raw object to save\n   * @param {function(error: Error, object: object)} [callback] - callback to call when objects has been saved\n   * @returns {Promise<object>} - a promise to have saved the object\n   */\n  save(json, callback) {\n    if (!this._type && json._type) {\n      this.setType(json._type);\n    }\n    return Bluebird.resolve(\n      this._verify()\n      .then(() => {\n        return this._pipeline.save(this._type, json);\n      })).nodeify(callback);\n  }\n}\n\nDataAPI.disconnect = function () {\n  return Pipeline._mongoConnection.close();\n};\n\n\nexport default DataAPI;\n"
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "disconnect",
+    "memberof": "src/data.js",
+    "longname": "src/data.js~disconnect",
+    "access": null,
+    "export": false,
+    "importPath": "@hoist/connect/src/data.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 165,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
   },
   {
     "kind": "class",
@@ -1327,7 +1349,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport {\n  isFunction\n}\nfrom 'lodash';\nimport LockAPI from './lock';\nimport Bluebird from 'bluebird';\nimport DataAPI from './data';\nimport UserAPI from './user';\nimport EventsAPI from './events';\nimport ConnectorAPI from './connector';\nimport log from './log';\nimport TimeoutAPI from './timeout';\nimport Context from '@hoist/context';\nimport Model from '@hoist/model';\nimport BucketAPI from './bucket';\n\nlet index = {\n  data: function (type) {\n    return new DataAPI(type);\n  },\n  user: new UserAPI(),\n  events: new EventsAPI(),\n  connector: function (key) {\n    return new ConnectorAPI(key);\n  },\n  log: log,\n  lock: function CreateLock(name, timeout, callback) {\n    let hoistLock = new LockAPI();\n    if (!callback && isFunction(timeout)) {\n      callback = timeout;\n      timeout = null;\n    }\n    return Bluebird.resolve(hoistLock.aquireLock(name, timeout))\n      .nodeify(callback);\n  },\n  timeout: new TimeoutAPI(),\n  Context: Context,\n  _model: Model,\n  bucket: new BucketAPI()\n};\n\nindex.event = index.events;\n\nexport default index;\n"
+    "content": "'use strict';\nimport {\n  isFunction\n}\nfrom 'lodash';\nimport LockAPI from './lock';\nimport Bluebird from 'bluebird';\nimport DataAPI from './data';\nimport UserAPI from './user';\nimport EventsAPI from './events';\nimport ConnectorAPI from './connector';\nimport log from './log';\nimport TimeoutAPI from './timeout';\nimport Context from '@hoist/context';\nimport Model from '@hoist/model';\nimport BucketAPI from './bucket';\nlet index = {\n  data: function (type) {\n    return new DataAPI(type);\n  },\n  user: new UserAPI(),\n  events: new EventsAPI(),\n  connector: function (key) {\n    return new ConnectorAPI(key);\n  },\n  log: log,\n  lock: function CreateLock(name, timeout, callback) {\n    let hoistLock = new LockAPI();\n    if (!callback && isFunction(timeout)) {\n      callback = timeout;\n      timeout = null;\n    }\n    return Bluebird.resolve(hoistLock.aquireLock(name, timeout))\n      .nodeify(callback);\n  },\n  timeout: new TimeoutAPI(),\n  Context: Context,\n  _model: Model,\n  bucket: new BucketAPI()\n};\n\nindex.data._cleanup = function () {\n  return DataAPI.disconnect();\n};\n\nindex.event = index.events;\n\nexport default index;\n"
   },
   {
     "kind": "variable",
@@ -1341,13 +1363,35 @@
     "importPath": "@hoist/connect/src/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 18,
+    "lineNumber": 17,
     "undocument": true,
     "type": {
       "types": [
         "*"
       ]
     }
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "_cleanup",
+    "memberof": "src/index.js",
+    "longname": "src/index.js~_cleanup",
+    "access": null,
+    "export": false,
+    "importPath": "@hoist/connect/src/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
   },
   {
     "kind": "file",

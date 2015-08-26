@@ -8166,6 +8166,277 @@
       ]
     },
     {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "MemberExpression",
+          "computed": false,
+          "object": {
+            "type": "Identifier",
+            "name": "DataAPI",
+            "range": [
+              4755,
+              4762
+            ],
+            "loc": {
+              "start": {
+                "line": 165,
+                "column": 0
+              },
+              "end": {
+                "line": 165,
+                "column": 7
+              }
+            }
+          },
+          "property": {
+            "type": "Identifier",
+            "name": "disconnect",
+            "range": [
+              4763,
+              4773
+            ],
+            "loc": {
+              "start": {
+                "line": 165,
+                "column": 8
+              },
+              "end": {
+                "line": 165,
+                "column": 18
+              }
+            }
+          },
+          "range": [
+            4755,
+            4773
+          ],
+          "loc": {
+            "start": {
+              "line": 165,
+              "column": 0
+            },
+            "end": {
+              "line": 165,
+              "column": 18
+            }
+          }
+        },
+        "right": {
+          "type": "FunctionExpression",
+          "id": {
+            "type": "Identifier",
+            "name": "disconnect",
+            "range": [
+              4763,
+              4773
+            ],
+            "loc": {
+              "start": {
+                "line": 165,
+                "column": 8
+              },
+              "end": {
+                "line": 165,
+                "column": 18
+              }
+            }
+          },
+          "params": [],
+          "body": {
+            "type": "BlockStatement",
+            "body": [
+              {
+                "type": "ReturnStatement",
+                "argument": {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "MemberExpression",
+                    "computed": false,
+                    "object": {
+                      "type": "MemberExpression",
+                      "computed": false,
+                      "object": {
+                        "type": "Identifier",
+                        "name": "Pipeline",
+                        "range": [
+                          4799,
+                          4807
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 166,
+                            "column": 9
+                          },
+                          "end": {
+                            "line": 166,
+                            "column": 17
+                          }
+                        }
+                      },
+                      "property": {
+                        "type": "Identifier",
+                        "name": "_mongoConnection",
+                        "range": [
+                          4808,
+                          4824
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 166,
+                            "column": 18
+                          },
+                          "end": {
+                            "line": 166,
+                            "column": 34
+                          }
+                        }
+                      },
+                      "range": [
+                        4799,
+                        4824
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 166,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 166,
+                          "column": 34
+                        }
+                      }
+                    },
+                    "property": {
+                      "type": "Identifier",
+                      "name": "close",
+                      "range": [
+                        4825,
+                        4830
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 166,
+                          "column": 35
+                        },
+                        "end": {
+                          "line": 166,
+                          "column": 40
+                        }
+                      }
+                    },
+                    "range": [
+                      4799,
+                      4830
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 166,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 166,
+                        "column": 40
+                      }
+                    }
+                  },
+                  "arguments": [],
+                  "range": [
+                    4799,
+                    4832
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 166,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 166,
+                      "column": 42
+                    }
+                  }
+                },
+                "range": [
+                  4792,
+                  4833
+                ],
+                "loc": {
+                  "start": {
+                    "line": 166,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 166,
+                    "column": 43
+                  }
+                }
+              }
+            ],
+            "range": [
+              4788,
+              4835
+            ],
+            "loc": {
+              "start": {
+                "line": 165,
+                "column": 33
+              },
+              "end": {
+                "line": 167,
+                "column": 1
+              }
+            }
+          },
+          "generator": false,
+          "expression": false,
+          "range": [
+            4776,
+            4835
+          ],
+          "loc": {
+            "start": {
+              "line": 165,
+              "column": 21
+            },
+            "end": {
+              "line": 167,
+              "column": 1
+            }
+          }
+        },
+        "range": [
+          4755,
+          4835
+        ],
+        "loc": {
+          "start": {
+            "line": 165,
+            "column": 0
+          },
+          "end": {
+            "line": 167,
+            "column": 1
+          }
+        }
+      },
+      "range": [
+        4755,
+        4836
+      ],
+      "loc": {
+        "start": {
+          "line": 165,
+          "column": 0
+        },
+        "end": {
+          "line": 167,
+          "column": 2
+        }
+      }
+    },
+    {
       "type": "ExportDefaultDeclaration",
       "declaration": {
         "type": "ClassDeclaration",
@@ -15985,16 +16256,16 @@
         "trailingComments": []
       },
       "range": [
-        4756,
-        4779
+        4839,
+        4862
       ],
       "loc": {
         "start": {
-          "line": 166,
+          "line": 170,
           "column": 0
         },
         "end": {
-          "line": 166,
+          "line": 170,
           "column": 23
         }
       }
@@ -16003,7 +16274,7 @@
   "sourceType": "module",
   "range": [
     0,
-    4779
+    4862
   ],
   "loc": {
     "start": {
@@ -16011,7 +16282,7 @@
       "column": 0
     },
     "end": {
-      "line": 166,
+      "line": 170,
       "column": 23
     }
   },

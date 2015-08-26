@@ -162,5 +162,9 @@ class DataAPI extends BaseAPI {
   }
 }
 
+DataAPI.disconnect = function () {
+  return Pipeline._mongoConnection.close();
+};
+
 
 export default DataAPI;

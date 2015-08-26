@@ -14,7 +14,6 @@ import TimeoutAPI from './timeout';
 import Context from '@hoist/context';
 import Model from '@hoist/model';
 import BucketAPI from './bucket';
-
 let index = {
   data: function (type) {
     return new DataAPI(type);
@@ -38,6 +37,10 @@ let index = {
   Context: Context,
   _model: Model,
   bucket: new BucketAPI()
+};
+
+index.data._cleanup = function () {
+  return DataAPI.disconnect();
 };
 
 index.event = index.events;
