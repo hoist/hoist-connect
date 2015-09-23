@@ -3,7 +3,7 @@ import errors from '@hoist/errors';
 import Pipeline from '@hoist/connector-pipeline';
 import BaseAPI from './base_api';
 import {
-  filter, functions
+  filter
 }
 from 'lodash';
 import logger from '@hoist/logger';
@@ -32,7 +32,7 @@ class ConnectorAPI extends BaseAPI {
     if (!this._connector) {
       this._connector = this._pipeline.loadConnector(this._key).then((c) => {
 
-        let methods = filter(functions(c), (property) => {
+        let methods = filter(Object.getOwnPropertyNames(Object.getPrototypeOf(c)), (property) => {
 
           if (property.startsWith('_') || property === 'receiveBounce' || this[property]) {
             return false;
@@ -52,7 +52,8 @@ class ConnectorAPI extends BaseAPI {
             if (typeof c[method] !== 'function') {
               var methodType = typeof c[method];
               _this._logger.warn({
-                methodType: methodType
+                methodType: methodType,
+                typeof: c
               }, 'tried to call an unsupported method');
               throw new errors.connector.request.UnsupportedError(method + ' method unsupported');
             }
