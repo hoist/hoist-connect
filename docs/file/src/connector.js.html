@@ -112,6 +112,10 @@ class ConnectorAPI extends BaseAPI {
           this[method] = function (...params) {
             _this._logger.info(&apos;proxying method &apos; + method);
             if (typeof c[method] !== &apos;function&apos;) {
+              var methodType = typeof c[method];
+              _this._logger.warn({
+                methodType: methodType
+              }, &apos;tried to call an unsupported method&apos;);
               throw new errors.connector.request.UnsupportedError(method + &apos; method unsupported&apos;);
             }
             let callback;
