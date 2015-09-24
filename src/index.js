@@ -36,7 +36,8 @@ let index = {
   timeout: new TimeoutAPI(),
   Context: Context,
   _model: Model,
-  bucket: new BucketAPI()
+  bucket: new BucketAPI(),
+  Promise: Bluebird
 };
 
 index.data._cleanup = function () {
