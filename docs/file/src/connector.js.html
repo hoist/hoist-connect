@@ -65,7 +65,7 @@ import errors from &apos;@hoist/errors&apos;;
 import Pipeline from &apos;@hoist/connector-pipeline&apos;;
 import BaseAPI from &apos;./base_api&apos;;
 import {
-  filter
+  filter, functions
 }
 from &apos;lodash&apos;;
 import logger from &apos;@hoist/logger&apos;;
@@ -94,7 +94,7 @@ class ConnectorAPI extends BaseAPI {
     if (!this._connector) {
       this._connector = this._pipeline.loadConnector(this._key).then((c) =&gt; {
 
-        let methods = filter(Object.getOwnPropertyNames(Object.getPrototypeOf(c)), (property) =&gt; {
+        let methods = filter(functions(c), (property) =&gt; {
 
           if (property.startsWith(&apos;_&apos;) || property === &apos;receiveBounce&apos; || this[property]) {
             return false;
