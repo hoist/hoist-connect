@@ -47,14 +47,14 @@
     "sinon-chai": "^2.8.0"
   },
   "dependencies": {
-    "@hoist/context": "^1.0.1",
-    "@hoist/model": "^1.0.2",
     "@hoist/bucket-pipeline": "^1.0.0",
     "@hoist/connector-pipeline": "^1.0.9",
+    "@hoist/context": "^1.0.1",
     "@hoist/data-pipeline": "^1.0.7",
     "@hoist/errors": "^1.0.1",
     "@hoist/events-pipeline": "^2.0.9",
     "@hoist/logger": "^1.0.0",
+    "@hoist/model": "^1.0.2",
     "@hoist/user-pipeline": "^1.0.0",
     "babel": "^5.6.9",
     "bluebird": "^2.9.30",
@@ -62,6 +62,7 @@
     "lodash": "^3.9.3",
     "loggly": "^1.0.6",
     "redis": "^0.12.1",
-    "redis-lock": "0.1.0"
+    "redis-lock": "0.1.0",
+    "redis-sentinel-client": "^0.2.5"
   }
 }

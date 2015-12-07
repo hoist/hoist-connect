@@ -1403,7 +1403,29 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport config from 'config';\nimport redisLock from 'redis-lock';\nimport redis from 'redis';\nimport BaseAPI from './base_api';\n\nlet client;\n/**\n * Hoists lock API\n */\nclass HoistLockAPI extends BaseAPI {\n\n  /**\n   * create new lock\n   */\n  constructor() {\n    super();\n  }\n\n  /**\n   * aquire a lock within the given timeout\n   * @param {string} name - the key for the lock\n   * @param {Number} [timeout=500] - the timeout to wait for the lock\n   * @returns {Promise} - promise to have aquired the lock\n   */\n  aquireLock(name, timeout) {\n    timeout = timeout || 500;\n    client = HoistLockAPI._getClient();\n    let lock = redisLock(client);\n    return new Promise((resolve) => {\n      lock(name, timeout, (done) => {\n        /*\n         * release the current lock\n         */\n        resolve({\n          release: done\n        });\n      });\n    });\n  }\n}\n\n\nHoistLockAPI._getClient = function () {\n  return client || (client = redis.createClient(config.get('Hoist.redis.port'), config.get('Hoist.redis.host')));\n};\nHoistLockAPI._clearClient = function () {\n  if (client) {\n    client.end();\n    client = null;\n  }\n};\n\n\n\nexport default HoistLockAPI;\n"
+    "content": "'use strict';\nimport config from 'config';\nimport redisLock from 'redis-lock';\nimport redis from 'redis';\nimport redisSentinel from 'redis-sentinel-client';\nimport BaseAPI from './base_api';\n\nlet client;\n/**\n * Hoists lock API\n */\nclass HoistLockAPI extends BaseAPI {\n\n  /**\n   * create new lock\n   */\n  constructor() {\n    super();\n  }\n\n  /**\n   * aquire a lock within the given timeout\n   * @param {string} name - the key for the lock\n   * @param {Number} [timeout=500] - the timeout to wait for the lock\n   * @returns {Promise} - promise to have aquired the lock\n   */\n  aquireLock(name, timeout) {\n    timeout = timeout || 500;\n    client = HoistLockAPI._getClient();\n    let lock = redisLock(client);\n    return new Promise((resolve) => {\n      lock(name, timeout, (done) => {\n        /*\n         * release the current lock\n         */\n        resolve({\n          release: done\n        });\n      });\n    });\n  }\n}\n\nfunction createClient() {\n  if (config.has('Hoist.redis.clustered') && config.get('Hoist.redis.clustered')) {\n    return redisSentinel.createClient({\n      host: config.get('Hoist.redis.host'),\n      port: config.get('Hoist.redis.port'),\n      masterName: config.get('Hoist.redis.masterName')\n    });\n  } else {\n    return redis.createClient(config.get('Hoist.redis.port'), config.get('Hoist.redis.host'));\n  }\n}\n\nHoistLockAPI._getClient = function () {\n  return client || (client = createClient());\n};\nHoistLockAPI._clearClient = function () {\n  if (client) {\n    client.end();\n    client = null;\n  }\n};\n\n\n\nexport default HoistLockAPI;\n"
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "createClient",
+    "memberof": "src/lock.js",
+    "longname": "src/lock.js~createClient",
+    "access": null,
+    "export": false,
+    "importPath": "@hoist/connect/src/lock.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 44,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
   },
   {
     "kind": "function",
@@ -1417,7 +1439,7 @@
     "importPath": "@hoist/connect/src/lock.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 44,
+    "lineNumber": 56,
     "undocument": true,
     "params": [],
     "return": {
@@ -1439,7 +1461,7 @@
     "importPath": "@hoist/connect/src/lock.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 47,
+    "lineNumber": 59,
     "undocument": true,
     "params": [],
     "generator": false
@@ -1456,7 +1478,7 @@
     "importPath": "@hoist/connect/src/lock.js",
     "importStyle": "HoistLockAPI",
     "description": "Hoists lock API",
-    "lineNumber": 11,
+    "lineNumber": 12,
     "interface": false,
     "extends": [
       "src/base_api~BaseAPI"
@@ -1471,7 +1493,7 @@
     "longname": "src/lock.js~HoistLockAPI#constructor",
     "access": null,
     "description": "create new lock",
-    "lineNumber": 16,
+    "lineNumber": 17,
     "params": [],
     "generator": false
   },
@@ -1484,7 +1506,7 @@
     "longname": "src/lock.js~HoistLockAPI#aquireLock",
     "access": null,
     "description": "aquire a lock within the given timeout",
-    "lineNumber": 26,
+    "lineNumber": 27,
     "unknown": [
       {
         "tagName": "@returns",

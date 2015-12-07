@@ -64,6 +64,7 @@
 import config from &apos;config&apos;;
 import redisLock from &apos;redis-lock&apos;;
 import redis from &apos;redis&apos;;
+import redisSentinel from &apos;redis-sentinel-client&apos;;
 import BaseAPI from &apos;./base_api&apos;;
 
 let client;
@@ -102,9 +103,20 @@ class HoistLockAPI extends BaseAPI {
   }
 }
 
+function createClient() {
+  if (config.has(&apos;Hoist.redis.clustered&apos;) &amp;&amp; config.get(&apos;Hoist.redis.clustered&apos;)) {
+    return redisSentinel.createClient({
+      host: config.get(&apos;Hoist.redis.host&apos;),
+      port: config.get(&apos;Hoist.redis.port&apos;),
+      masterName: config.get(&apos;Hoist.redis.masterName&apos;)
+    });
+  } else {
+    return redis.createClient(config.get(&apos;Hoist.redis.port&apos;), config.get(&apos;Hoist.redis.host&apos;));
+  }
+}
 
 HoistLockAPI._getClient = function () {
-  return client || (client = redis.createClient(config.get(&apos;Hoist.redis.port&apos;), config.get(&apos;Hoist.redis.host&apos;)));
+  return client || (client = createClient());
 };
 HoistLockAPI._clearClient = function () {
   if (client) {
