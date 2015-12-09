@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@hoist/bucket-pipeline": "^1.0.0",
-    "@hoist/connector-pipeline": "^1.0.10",
+    "@hoist/connector-pipeline": "^1.0.11",
     "@hoist/context": "^1.0.1",
     "@hoist/data-pipeline": "^1.0.7",
     "@hoist/errors": "^1.0.1",
