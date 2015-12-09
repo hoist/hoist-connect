@@ -4,7 +4,8 @@
   "description": "Hoist connect client library",
   "main": "lib/index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "prepublish": "gulp build"
   },
   "repository": {
     "type": "git",
@@ -48,7 +49,7 @@
   },
   "dependencies": {
     "@hoist/bucket-pipeline": "^1.0.0",
-    "@hoist/connector-pipeline": "^1.0.9",
+    "@hoist/connector-pipeline": "^1.0.10-beta.0",
     "@hoist/context": "^1.0.1",
     "@hoist/data-pipeline": "^1.0.7",
     "@hoist/errors": "^1.0.1",
