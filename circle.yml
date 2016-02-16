@@ -1,14 +1,21 @@
 machine:
-  ruby:
-    version: 2.1.2
   node:
-    version: iojs-v1.8
-dependencies:
-  pre:
-    - echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+    version: 4
+checkout:
+  post:
+    - echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > ~/.npmrc
 general:
   artifacts:
-    - coverage/*
-    - coverage/**/*
+    - ~/coverage/*
+    - ~/coverage/**/*
     - log/*.log
     - npm-debug.log
+dependencies:
+  pre:
+    - npm install npm -g
+deployment:
+  release:
+    tag: /^v[0-9]*\.[0-9]*\.[0-9]*.*/
+    owner: hoist
+    commands:
+      - npm publish

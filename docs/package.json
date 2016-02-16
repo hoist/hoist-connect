@@ -58,7 +58,6 @@
     "@hoist/logger": "^1.1.0",
     "@hoist/model": "^1.1.4",
     "@hoist/user-pipeline": "^1.0.0",
-    "babel": "^5.6.9",
     "bluebird": "^3.3.1",
     "config": "^1.19.0",
     "lodash": "^4.3.0",
