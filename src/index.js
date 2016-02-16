@@ -46,3 +46,5 @@ index.data._cleanup = function () {
 index.event = index.events;
 
 export default index;
+
+module.exports = index;
