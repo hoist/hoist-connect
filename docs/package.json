@@ -1,6 +1,6 @@
 {
   "name": "@hoist/connect",
-  "version": "1.0.32",
+  "version": "2.0.0-pre.0",
   "description": "Hoist connect client library",
   "main": "lib/index.js",
   "scripts": {
@@ -49,14 +49,14 @@
     "sinon-chai": "^2.8.0"
   },
   "dependencies": {
-    "@hoist/bucket-pipeline": "^2.0.0",
+    "@hoist/bucket-pipeline": "^3.0.0-pre.2",
     "@hoist/connector-pipeline": "^1.0.12",
     "@hoist/context": "^1.0.1",
     "@hoist/data-pipeline": "^1.0.7",
-    "@hoist/errors": "^1.0.1",
-    "@hoist/events-pipeline": "^2.0.9",
+    "@hoist/errors": "^2.0.0-pre.1",
+    "@hoist/events-pipeline": "^3.0.0-pre.2",
     "@hoist/logger": "^1.1.0",
-    "@hoist/model": "^1.1.4",
+    "@hoist/model": "^2.0.0-pre.8",
     "@hoist/user-pipeline": "^1.0.0",
     "bluebird": "^3.3.1",
     "config": "^1.19.0",

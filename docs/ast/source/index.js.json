@@ -3076,6 +3076,113 @@
       "trailingComments": []
     },
     {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "MemberExpression",
+          "computed": false,
+          "object": {
+            "type": "Identifier",
+            "name": "module",
+            "range": [
+              1126,
+              1132
+            ],
+            "loc": {
+              "start": {
+                "line": 50,
+                "column": 0
+              },
+              "end": {
+                "line": 50,
+                "column": 6
+              }
+            }
+          },
+          "property": {
+            "type": "Identifier",
+            "name": "exports",
+            "range": [
+              1133,
+              1140
+            ],
+            "loc": {
+              "start": {
+                "line": 50,
+                "column": 7
+              },
+              "end": {
+                "line": 50,
+                "column": 14
+              }
+            }
+          },
+          "range": [
+            1126,
+            1140
+          ],
+          "loc": {
+            "start": {
+              "line": 50,
+              "column": 0
+            },
+            "end": {
+              "line": 50,
+              "column": 14
+            }
+          }
+        },
+        "right": {
+          "type": "Identifier",
+          "name": "index",
+          "range": [
+            1143,
+            1148
+          ],
+          "loc": {
+            "start": {
+              "line": 50,
+              "column": 17
+            },
+            "end": {
+              "line": 50,
+              "column": 22
+            }
+          }
+        },
+        "range": [
+          1126,
+          1148
+        ],
+        "loc": {
+          "start": {
+            "line": 50,
+            "column": 0
+          },
+          "end": {
+            "line": 50,
+            "column": 22
+          }
+        }
+      },
+      "range": [
+        1126,
+        1149
+      ],
+      "loc": {
+        "start": {
+          "line": 50,
+          "column": 0
+        },
+        "end": {
+          "line": 50,
+          "column": 23
+        }
+      }
+    },
+    {
       "type": "ExportDefaultDeclaration",
       "declaration": {
         "type": "VariableDeclaration",
@@ -4787,7 +4894,7 @@
   "sourceType": "module",
   "range": [
     0,
-    1124
+    1149
   ],
   "loc": {
     "start": {
@@ -4795,8 +4902,8 @@
       "column": 0
     },
     "end": {
-      "line": 48,
-      "column": 21
+      "line": 50,
+      "column": 23
     }
   },
   "comments": []
