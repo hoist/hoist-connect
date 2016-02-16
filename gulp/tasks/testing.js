@@ -24,7 +24,7 @@ function runMocha(options) {
 }
 
 gulp.task('mocha-server', ['transpile', 'eslint', 'clean-coverage'], function (cb) {
-  require("babel/register");
+  require("babel-register");
   gulp.src(globs.js.src)
     .pipe(plugins.istanbul({
       instrumenter: isparta.Instrumenter
@@ -42,12 +42,12 @@ gulp.task('mocha-server', ['transpile', 'eslint', 'clean-coverage'], function (c
     });
 });
 gulp.task('mocha-server-without-coverage', ['transpile', 'eslint'], function () {
-  require("babel/register");
+  require("babel-register");
   return runMocha();
 });
 var withCoverage = false;
 gulp.task('mocha-server-continue', ['transpile', 'eslint', 'clean-coverage'], function (cb) {
-  require("babel/register")();
+  require("babel-register")();
   var ended;
   if (!withCoverage) {
     runMocha({
