@@ -9,12 +9,14 @@
   <script src="script/prettify/prettify.js"></script>
   
   
+  <script src="script/manual.js"></script>
 </head>
-<body class="layout-container">
+<body class="layout-container" data-ice="rootContainer">
 
 <header>
   <a href="./">Home</a>
-  <a href="identifiers.html">Identifier</a>
+  
+  <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
   <a data-ice="repoURL" href="https://github.com/hoist/hoist-connect.git" class="repo-url-github">Repository</a>
@@ -27,41 +29,24 @@
   </div>
 </header>
 
-<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
-  <h2>Class</h2>
+<nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/src/base_api.js~BaseAPI.html">BaseAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/bucket.js~BucketAPI.html">BucketAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/connector.js~ConnectorAPI.html">ConnectorAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/data.js~DataAPI.html">DataAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/events.js~EventsAPI.html">EventsAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/lock.js~HoistLockAPI.html">HoistLockAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/timeout.js~TimeoutAPI.html">TimeoutAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/user.js~UserAPI.html">UserAPI</a></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/base_api.js~BaseAPI.html">BaseAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/bucket.js~BucketAPI.html">BucketAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/connector.js~ConnectorAPI.html">ConnectorAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/data.js~DataAPI.html">DataAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events.js~EventsAPI.html">EventsAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lock.js~HoistLockAPI.html">HoistLockAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/timeout.js~TimeoutAPI.html">TimeoutAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~UserAPI.html">UserAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Log">Log</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-index">index</a></span></span></li>
 </ul>
 </div>
-
-
-
-<div data-ice="functionWrap">
-  <h2><a href="function/">Function</a></h2>
-  <ul>
-    
-  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-Log">Log</a></span></li>
-</ul>
-</div>
-
-
-
-
-
-
 </nav>
 
-<div class="content" data-ice="content"><h1>Source <span class="esdoc-coverage" data-ice="coverageBadge"><a href="https://esdoc.org" class="esdoc-coverage-wrap">
-    <span class="esdoc-coverage-label">document</span><span class="esdoc-coverage-ratio esdoc-coverage-middle">82%</span>
-    </a></span><span data-ice="totalCoverageCount" class="total-coverage-count">34/41</span></h1>
+<div class="content" data-ice="content"><h1>Source <img data-ice="coverageBadge" src="./badge.svg"><span data-ice="totalCoverageCount" class="total-coverage-count">34/42</span></h1>
 
 <table class="files-summary" data-ice="files" data-use-coverage="true">
   <thead>
@@ -93,7 +78,7 @@
       <td style="display: none;" data-ice="updated">2015-07-03 03:43:15 (UTC)</td>
     </tr>
 <tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/connector.js.html">src/connector.js</a></span></td>
+      <td data-ice="filePath"><span><a href="file/src/connector.js.html#errorLines=101,73,76,82,89,95">src/connector.js</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/src/connector.js~ConnectorAPI.html">ConnectorAPI</a></span></td>
       <td class="coverage"><span data-ice="coverage">25 %</span><span data-ice="coverageCount" class="coverage-count">2/8</span></td>
       <td style="display: none;" data-ice="size">2943 byte</td>
@@ -117,20 +102,20 @@
       <td style="display: none;" data-ice="updated">2015-07-03 03:43:15 (UTC)</td>
     </tr>
 <tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/index.js.html">src/index.js</a></span></td>
-      <td data-ice="identifier" class="identifiers">-</td>
-      <td class="coverage"><span data-ice="coverage">-</span></td>
-      <td style="display: none;" data-ice="size">1125 byte</td>
-      <td style="display: none;" data-ice="lines">48</td>
-      <td style="display: none;" data-ice="updated">2015-08-04 04:40:10 (UTC)</td>
+      <td data-ice="filePath"><span><a href="file/src/index.js.html#errorLines=17">src/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="variable/index.html#static-variable-index">index</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">1150 byte</td>
+      <td style="display: none;" data-ice="lines">50</td>
+      <td style="display: none;" data-ice="updated">2016-02-03 03:05:23 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/lock.js.html">src/lock.js</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/src/lock.js~HoistLockAPI.html">HoistLockAPI</a></span></td>
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">3/3</span></td>
-      <td style="display: none;" data-ice="size">1557 byte</td>
+      <td style="display: none;" data-ice="size">1561 byte</td>
       <td style="display: none;" data-ice="lines">68</td>
-      <td style="display: none;" data-ice="updated">2015-12-02 00:21:03 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2016-03-04 21:35:38 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/log.js.html">src/log.js</a></span></td>
@@ -149,7 +134,7 @@
       <td style="display: none;" data-ice="updated">2015-07-03 03:43:15 (UTC)</td>
     </tr>
 <tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/user.js.html">src/user.js</a></span></td>
+      <td data-ice="filePath"><span><a href="file/src/user.js.html#errorLines=35">src/user.js</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/src/user.js~UserAPI.html">UserAPI</a></span></td>
       <td class="coverage"><span data-ice="coverage">75 %</span><span data-ice="coverageCount" class="coverage-count">3/4</span></td>
       <td style="display: none;" data-ice="size">1079 byte</td>
@@ -161,7 +146,7 @@
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.1.2)</span></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.6)</span></a>
 </footer>
 
 <script src="script/search_index.js"></script>

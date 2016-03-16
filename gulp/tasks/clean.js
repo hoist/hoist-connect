@@ -2,14 +2,14 @@
 var gulp = require('gulp');
 var del = require('del');
 
-gulp.task('clean-coverage', function (callback) {
+gulp.task('clean-coverage', function () {
 
-  del('coverage/**/*', callback);
+  del('coverage/**/*');
 });
-gulp.task('clean-docs', function (callback) {
-  del('docs/**/*', callback);
+gulp.task('clean-docs', function () {
+  del('docs/**/*');
 });
-gulp.task('clean-compiled', function (callback) {
-  del('lib/**/*', callback);
+gulp.task('clean-compiled', function () {
+  del('lib/**/*');
 });
 

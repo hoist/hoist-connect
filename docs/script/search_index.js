@@ -54,6 +54,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@hoist/connect/src/index.js~index",
+    "variable/index.html#static-variable-index",
+    "<span>index</span> <span class=\"search-result-import-path\">@hoist/connect/src/index.js</span>",
+    "variable"
+  ],
+  [
     "builtinexternal/ecmascriptexternal.js~array",
     "external/index.html",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
@@ -333,6 +339,12 @@ window.esdocSearchIndex = [
     "builtinexternal/ecmascriptexternal.js~undefined",
     "external/index.html",
     "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "external"
+  ],
+  [
+    "builtinexternal/webapiexternal.js~audiocontext",
+    "external/index.html",
+    "BuiltinExternal/WebAPIExternal.js~AudioContext",
     "external"
   ],
   [
@@ -823,12 +835,6 @@ window.esdocSearchIndex = [
   ],
   [
     "dataapi src/data.js~dataapi,dataapi",
-    "test-file/tests/unit_tests/data_tests.js.html#lineNumber7",
-    "Hoist.data",
-    "test"
-  ],
-  [
-    "dataapi src/data.js~dataapi,dataapi",
     "test-file/tests/unit_tests/data_save_tests.js.html#lineNumber10",
     "Hoist.data",
     "test"
@@ -836,6 +842,12 @@ window.esdocSearchIndex = [
   [
     "dataapi src/data.js~dataapi,dataapi",
     "test-file/tests/unit_tests/data_find_tests.js.html#lineNumber10",
+    "Hoist.data",
+    "test"
+  ],
+  [
+    "dataapi src/data.js~dataapi,dataapi",
+    "test-file/tests/unit_tests/data_tests.js.html#lineNumber7",
     "Hoist.data",
     "test"
   ],

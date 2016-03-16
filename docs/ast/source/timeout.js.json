@@ -1922,26 +1922,47 @@
           "column": 1
         }
       },
-      "leadingComments": [
-        {
-          "type": "Block",
-          "value": "*\n * the Hoist Timeout API\n ",
-          "range": [
-            160,
-            192
-          ],
-          "loc": {
-            "start": {
-              "line": 10,
-              "column": 0
-            },
-            "end": {
-              "line": 12,
-              "column": 3
-            }
+      "leadingComments": [],
+      "name": "_",
+      "trailingComments": []
+    },
+    {
+      "type": "Identifier",
+      "declaration": {
+        "type": "Identifier",
+        "name": "TimeoutAPI",
+        "range": [
+          946,
+          956
+        ],
+        "loc": {
+          "start": {
+            "line": 40,
+            "column": 15
+          },
+          "end": {
+            "line": 40,
+            "column": 25
           }
         }
-      ]
+      },
+      "range": [
+        931,
+        957
+      ],
+      "loc": {
+        "start": {
+          "line": 40,
+          "column": 0
+        },
+        "end": {
+          "line": 40,
+          "column": 26
+        }
+      },
+      "name": "_",
+      "leadingComments": [],
+      "trailingComments": []
     },
     {
       "type": "ExportDefaultDeclaration",
@@ -3520,6 +3541,7 @@
             }
           }
         ],
+        "__esdoc__pseudo_export": false,
         "trailingComments": []
       },
       "range": [
@@ -3535,7 +3557,8 @@
           "line": 40,
           "column": 26
         }
-      }
+      },
+      "leadingComments": null
     }
   ],
   "sourceType": "module",

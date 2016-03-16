@@ -8144,26 +8144,9 @@
           "column": 1
         }
       },
-      "leadingComments": [
-        {
-          "type": "Block",
-          "value": "*\n * Hoists Data API\n ",
-          "range": [
-            163,
-            189
-          ],
-          "loc": {
-            "start": {
-              "line": 7,
-              "column": 0
-            },
-            "end": {
-              "line": 9,
-              "column": 3
-            }
-          }
-        }
-      ]
+      "leadingComments": [],
+      "name": "_",
+      "trailingComments": []
     },
     {
       "type": "ExpressionStatement",
@@ -8435,6 +8418,44 @@
           "column": 2
         }
       }
+    },
+    {
+      "type": "Identifier",
+      "declaration": {
+        "type": "Identifier",
+        "name": "DataAPI",
+        "range": [
+          4854,
+          4861
+        ],
+        "loc": {
+          "start": {
+            "line": 170,
+            "column": 15
+          },
+          "end": {
+            "line": 170,
+            "column": 22
+          }
+        }
+      },
+      "range": [
+        4839,
+        4862
+      ],
+      "loc": {
+        "start": {
+          "line": 170,
+          "column": 0
+        },
+        "end": {
+          "line": 170,
+          "column": 23
+        }
+      },
+      "name": "_",
+      "leadingComments": [],
+      "trailingComments": []
     },
     {
       "type": "ExportDefaultDeclaration",
@@ -16253,6 +16274,7 @@
             }
           }
         ],
+        "__esdoc__pseudo_export": false,
         "trailingComments": []
       },
       "range": [
@@ -16268,7 +16290,8 @@
           "line": 170,
           "column": 23
         }
-      }
+      },
+      "leadingComments": null
     }
   ],
   "sourceType": "module",

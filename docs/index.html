@@ -9,12 +9,14 @@
   <script src="script/prettify/prettify.js"></script>
   
   
+  <script src="script/manual.js"></script>
 </head>
-<body class="layout-container">
+<body class="layout-container" data-ice="rootContainer">
 
 <header>
   <a href="./">Home</a>
-  <a href="identifiers.html">Identifier</a>
+  
+  <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
   <a data-ice="repoURL" href="https://github.com/hoist/hoist-connect.git" class="repo-url-github">Repository</a>
@@ -27,42 +29,27 @@
   </div>
 </header>
 
-<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
-  <h2>Class</h2>
+<nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/src/base_api.js~BaseAPI.html">BaseAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/bucket.js~BucketAPI.html">BucketAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/connector.js~ConnectorAPI.html">ConnectorAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/data.js~DataAPI.html">DataAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/events.js~EventsAPI.html">EventsAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/lock.js~HoistLockAPI.html">HoistLockAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/timeout.js~TimeoutAPI.html">TimeoutAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/user.js~UserAPI.html">UserAPI</a></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/base_api.js~BaseAPI.html">BaseAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/bucket.js~BucketAPI.html">BucketAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/connector.js~ConnectorAPI.html">ConnectorAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/data.js~DataAPI.html">DataAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events.js~EventsAPI.html">EventsAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lock.js~HoistLockAPI.html">HoistLockAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/timeout.js~TimeoutAPI.html">TimeoutAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~UserAPI.html">UserAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Log">Log</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-index">index</a></span></span></li>
 </ul>
 </div>
-
-
-
-<div data-ice="functionWrap">
-  <h2><a href="function/">Function</a></h2>
-  <ul>
-    
-  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-Log">Log</a></span></li>
-</ul>
-</div>
-
-
-
-
-
-
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index"><h1 id="hoist-connect-ssjs-library">Hoist Connect SSJS Library</h1>
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><p>#Hoist Connect SSJS Library</p>
 <p>This JS Library is exposed to every Hoist Module running on the Hoist Connect system.</p>
 <p>It&apos;s Exposed via a global variable called Hoist so you don&apos;t need to require anything.</p>
-<h1 id="api-documentation">API Documentation</h1>
+<p>#API Documentation</p>
 <ul>
 <li><a href="#log-api">Log API</a><ul>
 <li><a href="#hoistlogargs-callback"><code>Hoist.log([args], [callback])</code></a></li>
@@ -135,16 +122,16 @@
 </li>
 </ul>
 <h2 id="log-api">Log API</h2>
-<h2 id="-hoist-log-args-callback-"><code>Hoist.log([args], [callback])</code></h2>
-<p>Log a message to the applications instance of Loggly</p>
+<p>##<code>Hoist.log([args], [callback])</code>
+Log a message to the applications instance of Loggly</p>
 <ul>
 <li>this requires Loggly to be setup, see instructions in the portal</li>
 </ul>
 <p><em>example</em> (logs <code>Hello World</code> to the applications loggly account)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.log(&apos;Hello World&apos;, function(){
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.log(&apos;Hello World&apos;, function(){
   //message is sent
   done();
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -156,15 +143,15 @@
 <li>A <code>{Promise}</code> to have sent the message, it&apos;s currently important that you wait till the message is sent before returning from your Hoist module. We expect to fix this ASAP</li>
 </ul>
 <h2 id="lock-api">Lock API</h2>
-<h2 id="-hoist-lock-key-timeout-callback-"><code>Hoist.lock(key, [timeout], [callback])</code></h2>
-<p>Aquire a lock to ensure that you have exclusive access to a function. Will only run the callback function (or proceed the promise) once the lock has been aquired.</p>
+<p>##<code>Hoist.lock(key, [timeout], [callback])</code>
+Aquire a lock to ensure that you have exclusive access to a function. Will only run the callback function (or proceed the promise) once the lock has been aquired.</p>
 <p><em>example</em> (grabs the lock <code>example-lock</code> and proceeds once done)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.lock(&apos;example-lock&apos;, function(lock){
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.lock(&apos;example-lock&apos;, function(lock){
   //have the lock
   //do work
   //release the lock
   lock.release();
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Paremeters</em></p>
 <ul>
@@ -177,10 +164,10 @@
 <li>A <code>{Promise}</code> to return the <code>Lock</code> object to use promises instead of the callback syntax</li>
 </ul>
 <h2 id="timeout-api">Timeout API</h2>
-<h2 id="-hoist-timeout-reset-milliseconds-"><code>Hoist.timeout.reset(milliseconds)</code></h2>
-<p>resets the timeout on the current module to be in <code>milliseconds</code> time. (Module timeout is 5 seconds by default)</p>
+<p>##<code>Hoist.timeout.reset(milliseconds)</code>
+resets the timeout on the current module to be in <code>milliseconds</code> time. (Module timeout is 5 seconds by default)</p>
 <p><em>example</em> (extends the timeout for another 3 seconds)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.timeout.reset(3000);</code></pre>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.timeout.reset(3000);</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -191,10 +178,10 @@
 <li>A <code>{Promise}</code> to have set the timeout, you don&apos;t need to chain this as it can run async and in the background.</li>
 </ul>
 <h2 id="data-api">Data API</h2>
-<h2 id="-hoist-data-type-"><code>Hoist.data(type)</code></h2>
-<p>Create a data manager object for <em>type</em></p>
+<p>##<code>Hoist.data(type)</code>
+Create a data manager object for <em>type</em></p>
 <p><em>example</em> (returns a <code>DataTypeManager</code> for <code>Fruit</code> objects)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">var Fruits = Hoist.data(&apos;Fruit&apos;);</code></pre>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">var Fruits = Hoist.data(&apos;Fruit&apos;);</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -204,27 +191,27 @@
 <ul>
 <li><code>{DataTypeManager}</code> an API object over the specified Data Type</li>
 </ul>
-<h2 id="-datatypemanager-"><code>{DataTypeManager}</code></h2>
-<h3 id="-settype-type-"><code>.setType(type)</code></h3>
-<p>set or change the type for this manager</p>
+<p>##<code>{DataTypeManager}</code></p>
+<p>###<code>.setType(type)</code>
+set or change the type for this manager</p>
 <p><em>example</em> (sets <code>Fruits</code> data type to <code>Banana</code>)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Fruits.setType(&apos;Banana&apos;);</code></pre>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Fruits.setType(&apos;Banana&apos;);</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
 <li><code>Data Type {String}</code> This is the name of the type you want to carry out operations on. Objects of the same type will be grouped together and you can only Query over one type at a time. This is case insensitive.</li>
 </ul>
-<h3 id="-save-json-callback-"><code>.save(json,[callback])</code></h3>
-<p>saves a new object, or updates an existing object in the type collection</p>
+<p>###<code>.save(json,[callback])</code>
+saves a new object, or updates an existing object in the type collection</p>
 <p><em>example</em> (saves the object with the <code>_id</code> <code>Banana</code> and if an existing object with the same id exists the object <strong>will be overwritten</strong>.)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Fruits.save({_id:&apos;Banana&apos;,name:&apos;Banana&apos;,color:&apos;Yellow&apos;},function(err, savedObject){
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Fruits.save({_id:&apos;Banana&apos;,name:&apos;Banana&apos;,color:&apos;Yellow&apos;},function(err, savedObject){
   if(err){
     console.log(&apos;there was an error during save:&apos;, err.message);
     return
   }
   //{_id: Banana, name: &apos;Banana&apos;, color:&apos;Yellow&apos;, _createdDate:&apos;xyz&apos;, _updatedDate: &apos;xyz&apos;}
   console.log(&apos;the object was saved&apos;, savedObject);
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -235,17 +222,17 @@
 <ul>
 <li><code>{Promise}</code> a promise to return the saved object. use this instead of the callback if you want to use promise chains (.then .catch etc)</li>
 </ul>
-<h3 id="-find-query-callback-"><code>.find(query, callback)</code></h3>
-<p>returns a collection of objects from the type collection that match the given query</p>
+<p>###<code>.find(query, callback)</code>
+returns a collection of objects from the type collection that match the given query</p>
 <p><em>example</em> (finds all fruit with the color Red)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Fruits.find({color:&apos;Red&apos;},function(err, redFruit){
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Fruits.find({color:&apos;Red&apos;},function(err, redFruit){
   if(err){
     console.log(&apos;there was an error during find:&apos;, err.message);
     return
   }
   // [{_id:&apos;Strawberry&apos;, color:&apos;Red&apos;},{_id:&apos;Rasberry&apos;, color:&apos;Red&apos; }]
   console.log(&apos;the query found the following fruit&apos;, redFruit);
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -256,17 +243,17 @@
 <ul>
 <li><code>{Promise}</code> a promise to return an array of matching objects. use this instead of the callback if you want to use promise chains (<code>.then</code> <code>.catch</code> etc)</li>
 </ul>
-<h3 id="-findone-query-callback-"><code>.findOne(query, callback)</code></h3>
-<p>returns the first object in the type collection to match the supplied query</p>
+<p>###<code>.findOne(query, callback)</code>
+returns the first object in the type collection to match the supplied query</p>
 <p><em>example</em> (finds one fruit with the color Red)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Fruits.findOne({color:&apos;Red&apos;},function(err, redFruit){
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Fruits.findOne({color:&apos;Red&apos;},function(err, redFruit){
   if(err){
     console.log(&apos;there was an error during find:&apos;, err.message);
     return
   }
   // {_id:&apos;Strawberry&apos;, color:&apos;Red&apos;}
   console.log(&apos;the query found the following fruit&apos;, redFruit);
-  });</code></pre>
+  });</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -277,17 +264,17 @@
 <ul>
 <li><code>{Promise}</code> a promise to return the matched object.</li>
 </ul>
-<h3 id="-findbyid-idvalue-callback-"><code>.findById(idValue, callback)</code></h3>
-<p>finds a single object matching the given id or <code>null</code></p>
+<p>###<code>.findById(idValue, callback)</code>
+finds a single object matching the given id or <code>null</code></p>
 <p><em>example</em> (finds the fruit with the id Cucumber)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Fruits.find(&apos;Cucumber&apos;,function(err, cucumber){
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Fruits.find(&apos;Cucumber&apos;,function(err, cucumber){
   if(err){
     console.log(&apos;there was an error during find:&apos;, err.message);
     return
   }
   // {_id:&apos;Cucumber&apos;, color:&apos;Cucumber&apos;}
   console.log(&apos;the query found the following fruit&apos;, cucumber);
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -299,16 +286,16 @@
 <li><code>{Promise}</code> a promise to return the saved object. use this instead of the callback if you want to use promise chains (.then .catch etc)</li>
 </ul>
 <h2 id="events-api">Events API</h2>
-<h2 id="-hoist-event-"><code>Hoist.event</code></h2>
+<p>##<code>Hoist.event</code></p>
 <p><em>Returns</em>
 -<code>{HoistEventManager}</code></p>
 <h2 id="-hoisteventmanager-"><code>{HoistEventManager}</code></h2>
-<h2 id="-raise-event-payload-contextoverride-callback-"><code>.raise(event, [payload], [contextOverride], [callback])</code></h2>
+<p>##<code>.raise(event, [payload], [contextOverride], [callback])</code></p>
 <p>Raise an event</p>
 <p><em>example</em> (raises the new:invoice event)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.event.raise(&apos;new:invoice&apos;,{contact:&apos;supplier&apos;, total:10.2}, function(){
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.event.raise(&apos;new:invoice&apos;,{contact:&apos;supplier&apos;, total:10.2}, function(){
   //new:invoice event raised
-})</code></pre>
+})</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -322,18 +309,18 @@
 <li><code>{Promise}</code> a promise to have raised the event</li>
 </ul>
 <h2 id="user-api">User API</h2>
-<h2 id="-hoist-user-"><code>Hoist.user</code></h2>
-<h2 id="-login-username-password-callback-"><code>.login(username, password, callback)</code></h2>
+<p>##<code>Hoist.user</code></p>
+<p>##<code>.login(username, password, callback)</code></p>
 <p>switch the current session to be under the given user</p>
 <p><em>example</em> (switches the current session to bob)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.user.login(&apos;bob@hoi.io&apos;, &apos;password123&apos;, function(err){
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.user.login(&apos;bob@hoi.io&apos;, &apos;password123&apos;, function(err){
   if(err){
     // bob has failed to log in
   }
   else{
     // session is now running as bob
   }
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -346,10 +333,10 @@
 <li><code>{Promise}</code> a promise to have logged the user in</li>
 </ul>
 <h2 id="connector-api">Connector API</h2>
-<h2 id="-hoist-connector-key-"><code>Hoist.connector(key)</code></h2>
+<p>##<code>Hoist.connector(key)</code></p>
 <p>Create a connector manager object for the type of connector and the settings represented by key.</p>
 <p><em>example</em> (returns a <code>{Connector}</code> object with the key <code>internal-xero</code>)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">var xeroInternal = Hoist.connector(&apos;internal-xero&apos;);</code></pre>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">var xeroInternal = Hoist.connector(&apos;internal-xero&apos;);</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -359,13 +346,13 @@
 <ul>
 <li><code>{Connector}</code> a connector to work with the specified API</li>
 </ul>
-<h2 id="-get-arguments-"><code>.get([arguments])</code></h2>
+<p>##<code>.get([arguments])</code></p>
 <p>perform a get request agains the connector</p>
 <p><em>example</em> (perform a get request against the given endpoint)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">xeroInternal.get(&apos;/invoices&apos;)
+<pre><code class="lang-javascript"><code class="source-code prettyprint">xeroInternal.get(&apos;/invoices&apos;)
 .then(function(responseJson){
   //response received
-})</code></pre>
+})</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -375,13 +362,13 @@
 <ul>
 <li><code>{Promise}</code> a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.</li>
 </ul>
-<h2 id="-post-arguments-"><code>.post([arguments])</code></h2>
+<p>##<code>.post([arguments])</code></p>
 <p>perform a post request agains the connector</p>
 <p><em>example</em> (perform a post request against the given endpoint)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">xeroInternal.post(&apos;/invoices&apos;, data)
+<pre><code class="lang-javascript"><code class="source-code prettyprint">xeroInternal.post(&apos;/invoices&apos;, data)
 .then(function(responseJson){
   //response received
-})</code></pre>
+})</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -391,13 +378,13 @@
 <ul>
 <li><code>{Promise}</code> a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.</li>
 </ul>
-<h2 id="-put-arguments-"><code>.put([arguments])</code></h2>
+<p>##<code>.put([arguments])</code></p>
 <p>perform a put request agains the connector</p>
 <p><em>example</em> (perform a put request against the given endpoint)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">xeroInternal.put(&apos;/invoices&apos;, data)
+<pre><code class="lang-javascript"><code class="source-code prettyprint">xeroInternal.put(&apos;/invoices&apos;, data)
 .then(function(responseJson){
   //response received
-})</code></pre>
+})</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -407,13 +394,13 @@
 <ul>
 <li><code>{Promise}</code> a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.</li>
 </ul>
-<h2 id="-delete-arguments-"><code>.delete([arguments])</code></h2>
+<p>##<code>.delete([arguments])</code></p>
 <p>perform a delete request agains the connector</p>
 <p><em>example</em> (perform a delete request against the given endpoint)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">wfm.delete(&apos;/client.api/contact/1234&apos;)
+<pre><code class="lang-javascript"><code class="source-code prettyprint">wfm.delete(&apos;/client.api/contact/1234&apos;)
 .then(function(responseJson){
   //response received
-})</code></pre>
+})</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -423,13 +410,13 @@
 <ul>
 <li><code>{Promise}</code> a promise to have received the response from the endpoint. See individual connector documentation for how each connector endpoint works.</li>
 </ul>
-<h2 id="-authorize-token-callback-"><code>.authorize(token, [callback])</code></h2>
+<p>##<code>.authorize(token, [callback])</code></p>
 <p>authorize the connector with the given authorization token.</p>
 <p><em>example</em> (authorize the connector)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">xeroInternal.authorize(&apos;123456abcdef&apos;)
+<pre><code class="lang-javascript"><code class="source-code prettyprint">xeroInternal.authorize(&apos;123456abcdef&apos;)
 .then(function(){
   //do something
-})</code></pre>
+})</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -441,18 +428,18 @@
 <li><code>{Promise}</code> a promise to have authorized the connector.  It will resolve to null if authorization is not required for the connector. <em>see individual connector documentation</em></li>
 </ul>
 <h2 id="bucket-api">Bucket API</h2>
-<h2 id="-hoist-bucket-"><code>Hoist.bucket</code></h2>
-<h2 id="-add-key-meta-callback-"><code>.add([key], [meta], [callback])</code></h2>
+<p>##<code>Hoist.bucket</code></p>
+<p>##<code>.add([key], [meta], [callback])</code></p>
 <p>create a new bucket (doesn&apos;t set it to the current bucket)</p>
 <p><em>example</em> (creates a new bucket with key &apos;group one&apos; and meta data {info: &apos;some info&apos;})</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.bucket.add(&apos;group one&apos;, {info: &apos;some info&apos;})
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.bucket.add(&apos;group one&apos;, {info: &apos;some info&apos;})
 .then(function (bucket) {
   if (bucket) {
     // a bucket has been created with the specified key and meta data
   }
 }).catch(function(err) {
     // error if the specified key already exists
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -464,27 +451,27 @@
 <ul>
 <li><code>{Promise}</code> a promise to have created the bucket</li>
 </ul>
-<h2 id="-set-key-create-callback-"><code>.set(key, [create], [callback])</code></h2>
+<p>##<code>.set(key, [create], [callback])</code></p>
 <p>set the current bucket to be the given bucket, or create a new bucket if it doesn&apos;t exist and set it to the current bucket</p>
 <p><em>example</em> (switches the current bucket to the bucket with key &apos;group one&apos;)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.bucket.set(&apos;group one&apos;)
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.bucket.set(&apos;group one&apos;)
 .then(function (bucket) {
   if (bucket) {
     // the current bucket has been set to the specified one
   }
 }).catch(function(err) {
     // error does not exist
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>example</em> (switches the current bucket to the bucket with key &apos;group one&apos;)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.bucket.set(&apos;group two&apos;, true)
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.bucket.set(&apos;group two&apos;, true)
 .then(function (bucket) {
   if (bucket) {
     // the specified bucket has been created and set to the current bucket
   }
 }).catch(function(err) {
     // error the specified bucket could not be saved
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -496,27 +483,27 @@
 <ul>
 <li><code>{Promise}</code> a promise to have set the bucket</li>
 </ul>
-<h2 id="-get-key-callback-"><code>.get([key], [callback])</code></h2>
+<p>##<code>.get([key], [callback])</code></p>
 <p>retrieve a specific bucket or the current bucket</p>
 <p><em>example</em> (retrieves the current bucket in the current application and environment)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.bucket.get()
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.bucket.get()
 .then(function (bucket) {
   if (bucket) {
     // bucket returned is the current bucket
   }
 }).catch(function(err) {
     // error the current bucket is not set
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>example</em> (retrieves the specified bucket in the current application and environment)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.bucket.get(&apos;group one&apos;)
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.bucket.get(&apos;group one&apos;)
 .then(function (bucket) {
   if (bucket) {
     // bucket returned is the specified bucket
   }
 }).catch(function(err) {
     // error the specified bucket does not exist
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -527,17 +514,17 @@
 <ul>
 <li><code>{Promise}</code> a promise to have retrieved the bucket</li>
 </ul>
-<h2 id="-getall-callback-"><code>.getAll([callback])</code></h2>
+<p>##<code>.getAll([callback])</code></p>
 <p>retrieve all the buckets in the current context</p>
 <p><em>example</em> (retrieves the all the buckets current application and environment)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.bucket.getAll()
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.bucket.getAll()
 .then(function (buckets) {
   if (buckets.length) {
     // all the buckets in the current context
   } else {
     // there are no buckets currently set in the current context
   }
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -547,14 +534,14 @@
 <ul>
 <li><code>{Promise}</code> a promise to have retrieved all the buckets</li>
 </ul>
-<h2 id="-each-fn-callback-"><code>.each(fn, [callback])</code></h2>
+<p>##<code>.each(fn, [callback])</code></p>
 <p>iterates through each bucket in the current context and calls the specified function</p>
 <p><em>example</em> (log out each bucket in the current context)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.bucket.each(function (bucket) {
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.bucket.each(function (bucket) {
   if (bucket) {
     console.log(bucket);
   }
-})</code></pre>
+})</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -565,23 +552,23 @@
 <ul>
 <li><code>{Promise}</code> a promise to have returned all the buckets</li>
 </ul>
-<h2 id="-savemeta-meta-key-callback-"><code>.saveMeta(meta, [key], [callback])</code></h2>
+<p>##<code>.saveMeta(meta, [key], [callback])</code></p>
 <p>save metadata to a specific bucket or the current bucket.  Merges the new meta into the current meta.</p>
 <p><em>example</em> (saves meta to the current bucket in the current application and environment)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.bucket.saveMeta({key:&apos;value&apos;})
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.bucket.saveMeta({key:&apos;value&apos;})
 .then(function (newMeta) {
   // the updated meta
 }).catch(function(err) {
     // error the current bucket is not set
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>example</em> (saves meta to the specified bucket in the current application and environment)</p>
-<pre><code class="lang-javascript"><pre class="source-code"><code class="prettyprint">Hoist.bucket.saveMeta({key:&apos;value&apos;}, &apos;group one&apos;)
+<pre><code class="lang-javascript"><code class="source-code prettyprint">Hoist.bucket.saveMeta({key:&apos;value&apos;}, &apos;group one&apos;)
 .then(function (newMeta) {
   // the updated meta
 }).catch(function(err) {
     // error the specified bucket does not exist
-});</code></pre>
+});</code>
 </code></pre>
 <p><em>Parameters</em></p>
 <ul>
@@ -597,7 +584,7 @@
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.1.2)</span></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.6)</span></a>
 </footer>
 
 <script src="script/search_index.js"></script>

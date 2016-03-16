@@ -7652,26 +7652,47 @@
           "column": 1
         }
       },
-      "leadingComments": [
-        {
-          "type": "Block",
-          "value": "*\n * Hoists API wrapper around connectors\n ",
-          "range": [
-            249,
-            296
-          ],
-          "loc": {
-            "start": {
-              "line": 11,
-              "column": 0
-            },
-            "end": {
-              "line": 13,
-              "column": 3
-            }
+      "leadingComments": [],
+      "name": "_",
+      "trailingComments": []
+    },
+    {
+      "type": "Identifier",
+      "declaration": {
+        "type": "Identifier",
+        "name": "ConnectorAPI",
+        "range": [
+          2929,
+          2941
+        ],
+        "loc": {
+          "start": {
+            "line": 109,
+            "column": 15
+          },
+          "end": {
+            "line": 109,
+            "column": 27
           }
         }
-      ]
+      },
+      "range": [
+        2914,
+        2942
+      ],
+      "loc": {
+        "start": {
+          "line": 109,
+          "column": 0
+        },
+        "end": {
+          "line": 109,
+          "column": 28
+        }
+      },
+      "name": "_",
+      "leadingComments": [],
+      "trailingComments": []
     },
     {
       "type": "ExportDefaultDeclaration",
@@ -14781,6 +14802,7 @@
             }
           }
         ],
+        "__esdoc__pseudo_export": false,
         "trailingComments": []
       },
       "range": [
@@ -14796,7 +14818,8 @@
           "line": 109,
           "column": 28
         }
-      }
+      },
+      "leadingComments": null
     }
   ],
   "sourceType": "module",

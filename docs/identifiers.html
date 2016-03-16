@@ -9,12 +9,14 @@
   <script src="script/prettify/prettify.js"></script>
   
   
+  <script src="script/manual.js"></script>
 </head>
-<body class="layout-container">
+<body class="layout-container" data-ice="rootContainer">
 
 <header>
   <a href="./">Home</a>
-  <a href="identifiers.html">Identifier</a>
+  
+  <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
   <a data-ice="repoURL" href="https://github.com/hoist/hoist-connect.git" class="repo-url-github">Repository</a>
@@ -27,40 +29,25 @@
   </div>
 </header>
 
-<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
-  <h2>Class</h2>
+<nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/src/base_api.js~BaseAPI.html">BaseAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/bucket.js~BucketAPI.html">BucketAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/connector.js~ConnectorAPI.html">ConnectorAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/data.js~DataAPI.html">DataAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/events.js~EventsAPI.html">EventsAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/lock.js~HoistLockAPI.html">HoistLockAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/timeout.js~TimeoutAPI.html">TimeoutAPI</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/user.js~UserAPI.html">UserAPI</a></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/base_api.js~BaseAPI.html">BaseAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/bucket.js~BucketAPI.html">BucketAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/connector.js~ConnectorAPI.html">ConnectorAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/data.js~DataAPI.html">DataAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events.js~EventsAPI.html">EventsAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lock.js~HoistLockAPI.html">HoistLockAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/timeout.js~TimeoutAPI.html">TimeoutAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~UserAPI.html">UserAPI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Log">Log</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-index">index</a></span></span></li>
 </ul>
 </div>
-
-
-
-<div data-ice="functionWrap">
-  <h2><a href="function/">Function</a></h2>
-  <ul>
-    
-  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-Log">Log</a></span></li>
-</ul>
-</div>
-
-
-
-
-
-
 </nav>
 
-<div class="content" data-ice="content"><h1>Identifier</h1>
-<div data-ice="classSummary"><h2>Class Summary</h2><table class="summary" data-ice="summary">
+<div class="content" data-ice="content"><h1>References</h1>
+<div data-ice="classSummary"><h2 id="class">Class Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3">Static Public Class Summary</td></tr></thead>
   <tbody>
   
@@ -82,7 +69,9 @@
         
         
         <div data-ice="description"><p>API entry for creating buckets
-</p></div>
+as with most API classes this acts more as a wrapper
+over the Pipeline methods in <span>BucketPipeline</span></p>
+</div>
       </div>
     </td>
     <td>
@@ -282,7 +271,7 @@
 </table>
 </div>
 
-<div data-ice="functionSummary"><h2>Function Summary</h2><table class="summary" data-ice="summary">
+<div data-ice="functionSummary"><h2 id="function">Function Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3">Static Public Function Summary</td></tr></thead>
   <tbody>
   
@@ -315,12 +304,44 @@
 </tbody>
 </table>
 </div>
+<div data-ice="variableSummary"><h2 id="variable">Variable Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Variable Summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="variable/index.html#static-variable-index">index</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
 
 
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.1.2)</span></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.6)</span></a>
 </footer>
 
 <script src="script/search_index.js"></script>

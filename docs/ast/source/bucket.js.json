@@ -6532,26 +6532,47 @@
           "column": 1
         }
       },
-      "leadingComments": [
-        {
-          "type": "Block",
-          "value": "*\n * API entry for creating buckets\n * as with most API classes this acts more as a wrapper\n * over the Pipeline methods in {@link BucketPipeline}\n ",
-          "range": [
-            164,
-            316
-          ],
-          "loc": {
-            "start": {
-              "line": 6,
-              "column": 0
-            },
-            "end": {
-              "line": 10,
-              "column": 3
-            }
+      "leadingComments": [],
+      "name": "_",
+      "trailingComments": []
+    },
+    {
+      "type": "Identifier",
+      "declaration": {
+        "type": "Identifier",
+        "name": "BucketAPI",
+        "range": [
+          4499,
+          4508
+        ],
+        "loc": {
+          "start": {
+            "line": 133,
+            "column": 15
+          },
+          "end": {
+            "line": 133,
+            "column": 24
           }
         }
-      ]
+      },
+      "range": [
+        4484,
+        4509
+      ],
+      "loc": {
+        "start": {
+          "line": 133,
+          "column": 0
+        },
+        "end": {
+          "line": 133,
+          "column": 25
+        }
+      },
+      "name": "_",
+      "leadingComments": [],
+      "trailingComments": []
     },
     {
       "type": "ExportDefaultDeclaration",
@@ -12758,6 +12779,7 @@
             }
           }
         ],
+        "__esdoc__pseudo_export": false,
         "trailingComments": []
       },
       "range": [
@@ -12773,7 +12795,8 @@
           "line": 133,
           "column": 25
         }
-      }
+      },
+      "leadingComments": null
     }
   ],
   "sourceType": "module",

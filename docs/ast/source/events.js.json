@@ -2101,26 +2101,47 @@
           "column": 1
         }
       },
-      "leadingComments": [
-        {
-          "type": "Block",
-          "value": "*\n * Hoists event API\n ",
-          "range": [
-            206,
-            233
-          ],
-          "loc": {
-            "start": {
-              "line": 11,
-              "column": 0
-            },
-            "end": {
-              "line": 13,
-              "column": 3
-            }
+      "leadingComments": [],
+      "name": "_",
+      "trailingComments": []
+    },
+    {
+      "type": "Identifier",
+      "declaration": {
+        "type": "Identifier",
+        "name": "EventsAPI",
+        "range": [
+          1256,
+          1265
+        ],
+        "loc": {
+          "start": {
+            "line": 48,
+            "column": 15
+          },
+          "end": {
+            "line": 48,
+            "column": 24
           }
         }
-      ]
+      },
+      "range": [
+        1241,
+        1266
+      ],
+      "loc": {
+        "start": {
+          "line": 48,
+          "column": 0
+        },
+        "end": {
+          "line": 48,
+          "column": 25
+        }
+      },
+      "name": "_",
+      "leadingComments": [],
+      "trailingComments": []
     },
     {
       "type": "ExportDefaultDeclaration",
@@ -3805,6 +3826,7 @@
             }
           }
         ],
+        "__esdoc__pseudo_export": false,
         "trailingComments": []
       },
       "range": [
@@ -3820,7 +3842,8 @@
           "line": 48,
           "column": 25
         }
-      }
+      },
+      "leadingComments": null
     }
   ],
   "sourceType": "module",

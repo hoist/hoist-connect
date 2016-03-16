@@ -1,5 +1,6 @@
 [
   {
+    "__docId__": 0,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -12,6 +13,7 @@
     "content": "'use strict';\nimport logger from '@hoist/logger';\n/**\n * a base class for api definitions\n * @access protected\n */\nclass BaseAPI {\n  /**\n  * create a new Base API\n  * sets up a logger member\n  * @abstract\n  */\n  constructor() {\n    this._logger = logger.child({\n      cls: this.constructor.name\n    });\n  }\n}\n\nexport default BaseAPI;\n"
   },
   {
+    "__docId__": 1,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -27,6 +29,7 @@
     "interface": false
   },
   {
+    "__docId__": 2,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -41,6 +44,7 @@
     "generator": false
   },
   {
+    "__docId__": 3,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -58,6 +62,7 @@
     }
   },
   {
+    "__docId__": 4,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -70,6 +75,7 @@
     "content": "'use strict';\nimport Errors from '@hoist/errors';\nimport Pipeline from '@hoist/bucket-pipeline';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\n/**\n * API entry for creating buckets\n * as with most API classes this acts more as a wrapper\n * over the Pipeline methods in {@link BucketPipeline}\n */\nclass BucketAPI extends BaseAPI {\n  /**\n   * create a new BucketAPI\n   */\n  constructor() {\n    super();\n    this._pipeline = new Pipeline();\n  }\n\n  /**\n   * add a new Bucket\n   * @param {String} key - the key of the bucket to create, must be unique\n   * @param {Object} [meta] - the meta data to save against the bucket\n   * @param {function(error: Error, bucket: Bucket)} [callback] - callback to call when bucket has been created\n   * @returns {Promise<Bucket>} - a promise to have created the bucket\n   **/\n  add(key, meta, callback) {\n    if (!callback && typeof meta === 'function') {\n      callback = meta;\n      meta = null;\n    }\n    if (!callback && !meta && typeof key === 'function') {\n      callback = key;\n      key = null;\n      meta = null;\n    }\n    return Bluebird.resolve(this._pipeline.add(key, meta))\n      .nodeify(callback);\n  }\n\n  /**\n   * set the current bucket in the Hoist context\n   * @param {String} key - the key of the bucket to set\n   * @param {Boolean} [create=false] - if the bucket isn't found should it be created?\n   * @param {function(error: Error, bucket: Bucket)} [callback] - callback to call when bucket has been set\n   * @returns {Promise<Bucket>} - a promise to have set the bucket\n   */\n  set(key, create, callback) {\n    if (!callback && typeof create === 'function') {\n      callback = create;\n      create = null;\n    }\n    if (!key || typeof key === 'function') {\n      throw new Errors.bucket.InvalidError('No key specified to set current bucket');\n    }\n    return Bluebird.resolve(this._pipeline.set(key, create))\n      .nodeify(callback);\n  }\n\n  /**\n   * get a bucket specified by the key\n   * @param {String} key - the key of the bucket to get\n   * @param {function(error: Error, bucket: Bucket)} [callback] - callback to call when bucket has been retrieved\n   * @returns {Promise<Bucket>} - a promise to have found the bucket\n   */\n  get(key, callback) {\n    if (!callback && typeof key === 'function') {\n      callback = key;\n      key = null;\n    }\n    return Bluebird.resolve(this._pipeline.get(key))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove/delete a bucket specified by the key\n   * @param {String} key - the key of the bucket to remove\n   * @param {function(error: Error)} [callback] - callback to call when bucket has been removed\n   * @returns {Promise} - a promise to have removed the bucket\n   */\n  remove(key, callback) {\n    if (!callback && typeof key === 'function') {\n      callback = key;\n      key = null;\n    }\n    return Bluebird.resolve(this._pipeline.remove(key))\n      .nodeify(callback);\n  }\n\n  /**\n   * get a list of all buckets in the organisation\n   * @param {function(error: Error, buckets: Array<Bucket>)} [callback] - callback to call when list has been retrieved\n   * @returns {Promise<Array<Bucket>>} - a promise to have retrieved the buckets\n   */\n  getAll(callback) {\n    return Bluebird.resolve(this._pipeline.getAll())\n      .nodeify(callback);\n  }\n\n  /**\n   * apply a function to every bucket in the current application\n   * @param {function(bucket: Bucket)} fn - function to apply to each bucket\n   * @param {function(error: Error)} [callback] - callback to call when all buckets have been applied\n   * @returns {Promise} - a promise to have run the function against each bucket\n   */\n  each(fn, callback) {\n    if (typeof fn !== 'function') {\n      throw new Errors.bucket.InvalidError('No function given in each');\n    }\n    return Bluebird.resolve().then(() => {\n        this._pipeline.each(fn);\n      })\n      .nodeify(callback);\n  }\n\n  /**\n   * save/update metadata against a bucket\n   * @param {Object} meta - the meta data to save against the bucket\n   * @param {String} [key] - the key of the bucket to save data to, applies to current bucket if not supplied\n   * @param {function(error: Error)} [callback] - callback to call when all buckets have been applied\n   * @returns {Promise} - a promise to have applied the meta data\n   */\n  saveMeta(meta, key, callback) {\n    if (!callback && typeof key === 'function') {\n      callback = key;\n      key = null;\n    }\n    return Bluebird.resolve(this._pipeline.saveMeta(meta, key))\n      .nodeify(callback);\n  }\n}\n\nexport default BucketAPI;\n"
   },
   {
+    "__docId__": 5,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -84,10 +90,11 @@
     "lineNumber": 11,
     "interface": false,
     "extends": [
-      "src/base_api~BaseAPI"
+      "src/base_api.js~BaseAPI"
     ]
   },
   {
+    "__docId__": 6,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -101,6 +108,7 @@
     "generator": false
   },
   {
+    "__docId__": 7,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -118,6 +126,7 @@
     }
   },
   {
+    "__docId__": 8,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -176,6 +185,7 @@
     "generator": false
   },
   {
+    "__docId__": 9,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -236,6 +246,7 @@
     "generator": false
   },
   {
+    "__docId__": 10,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -284,6 +295,7 @@
     "generator": false
   },
   {
+    "__docId__": 11,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -332,6 +344,7 @@
     "generator": false
   },
   {
+    "__docId__": 12,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -370,6 +383,7 @@
     "generator": false
   },
   {
+    "__docId__": 13,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -418,6 +432,7 @@
     "generator": false
   },
   {
+    "__docId__": 14,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -476,6 +491,7 @@
     "generator": false
   },
   {
+    "__docId__": 15,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -488,6 +504,7 @@
     "content": "'use strict';\nimport errors from '@hoist/errors';\nimport Pipeline from '@hoist/connector-pipeline';\nimport BaseAPI from './base_api';\nimport {\n  filter, functions\n}\nfrom 'lodash';\nimport logger from '@hoist/logger';\nimport Bluebird from 'bluebird';\n/**\n * Hoists API wrapper around connectors\n */\nclass ConnectorAPI extends BaseAPI {\n  /**\n   * create a new connector API\n   * @param {string} key - the connector key\n   */\n  constructor(key) {\n    super();\n    this._logger = logger.child({\n      cls: this.constructor.name\n    });\n    if (!key) {\n      throw new errors.connector.request.InvalidError();\n    }\n    this._pipeline = new Pipeline();\n    this._key = key;\n    this._loadConnector();\n  }\n  _loadConnector() {\n    if (!this._connector) {\n      this._connector = this._pipeline.loadConnector(this._key).then((c) => {\n\n        let methods = filter(functions(c), (property) => {\n\n          if (property.startsWith('_') || property === 'receiveBounce' || this[property]) {\n            return false;\n          } else {\n            return true;\n          }\n        });\n        //we should always show the rest params but they might return an error\n        methods = methods.concat(['get', 'post', 'put', 'delete', 'authorize']);\n        methods.forEach((method) => {\n          /**\n           * also has all methods of underlying connector\n           */\n          let _this = this;\n          this[method] = function (...params) {\n            _this._logger.info('proxying method ' + method);\n            if (typeof c[method] !== 'function') {\n              var methodType = typeof c[method];\n              _this._logger.warn({\n                methodType: methodType,\n                typeof: c\n              }, 'tried to call an unsupported method');\n              throw new errors.connector.request.UnsupportedError(method + ' method unsupported');\n            }\n            let callback;\n            if (typeof (params[params.length - 1]) === 'function') {\n              callback = params.pop();\n            }\n            return Bluebird.resolve(c[method].apply(c, params))\n              .nodeify(callback);\n          };\n        });\n      });\n\n    }\n    return this._connector;\n  }\n  init() {\n    return this._loadConnector();\n  }\n  get(...params) {\n    return this._loadConnector()\n      .then(() => {\n        return this.get.apply(this, params);\n      });\n  }\n  put(...params) {\n    return this._loadConnector()\n      .then(() => {\n        return this.put.apply(this, params);\n      });\n\n  }\n  post(...params) {\n    return this._loadConnector()\n      .then(() => {\n        return this.post.apply(this, params);\n      });\n  }\n  delete(...params) {\n    return this._loadConnector()\n      .then(() => {\n        return this.delete.apply(this, params);\n      });\n  }\n  authorize(...params) {\n    return this._loadConnector()\n      .then(() => {\n        return this.authorize.apply(this, params);\n      });\n  }\n}\n\nexport default ConnectorAPI;\n"
   },
   {
+    "__docId__": 16,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -502,10 +519,11 @@
     "lineNumber": 14,
     "interface": false,
     "extends": [
-      "src/base_api~BaseAPI"
+      "src/base_api.js~BaseAPI"
     ]
   },
   {
+    "__docId__": 17,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -530,6 +548,7 @@
     "generator": false
   },
   {
+    "__docId__": 18,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -547,6 +566,7 @@
     }
   },
   {
+    "__docId__": 19,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -564,6 +584,7 @@
     }
   },
   {
+    "__docId__": 20,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -581,6 +602,7 @@
     }
   },
   {
+    "__docId__": 21,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -600,6 +622,7 @@
     "generator": false
   },
   {
+    "__docId__": 22,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -617,6 +640,7 @@
     }
   },
   {
+    "__docId__": 23,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -636,6 +660,7 @@
     "generator": false
   },
   {
+    "__docId__": 24,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -663,6 +688,7 @@
     "generator": false
   },
   {
+    "__docId__": 25,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -690,6 +716,7 @@
     "generator": false
   },
   {
+    "__docId__": 26,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -717,6 +744,7 @@
     "generator": false
   },
   {
+    "__docId__": 27,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -744,6 +772,7 @@
     "generator": false
   },
   {
+    "__docId__": 28,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -771,6 +800,7 @@
     "generator": false
   },
   {
+    "__docId__": 29,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -783,6 +813,7 @@
     "content": "'use strict';\nimport Pipeline from '@hoist/data-pipeline';\nimport errors from '@hoist/errors';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\n\n/**\n * Hoists Data API\n */\nclass DataAPI extends BaseAPI {\n  /**\n   * create a new data API\n   * @param {string} [type] - the object type for this data api instance\n   */\n  constructor(type) {\n    super();\n    if (type) {\n      this.setType(type);\n    }\n    this._pipeline = new Pipeline();\n  }\n\n  _verify() {\n    return Promise.resolve().then(() => {\n      if (!this._type) {\n        throw new errors.data.request.InvalidError('you need to specify a type for the retrieval, call #setType([typename]) first');\n      }\n    });\n  }\n\n  /**\n   * set the type of this Data API instance\n   * @param {string} type - the object type for this data api instance\n   */\n  setType(type) {\n    this._type = type.toLowerCase();\n  }\n\n  /**\n   * find objects matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error, objects: Array<object>)} [callback] - callback to call when objects have been found\n   * @returns {Promise<Array<object>>} - a promise to have retrieved the objects\n   */\n  find(query, callback) {\n    return Bluebird.resolve(\n        this._verify()\n        .then(() => {\n          return this._pipeline.find(this._type, query || {});\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * find a single object with the matching id\n   * @param {string} id - the object id\n   * @param {function(error: Error, object: object)} [callback] - callback to call when object has been found\n   * @returns {Promise<object>} - a promise to have retrieved the object\n   */\n  findById(id, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!id) {\n            throw new errors.data.request.InvalidError('you need to specify an id for #findById');\n          }\n        })\n        .then(() => {\n          return this.findOne({\n            _id: id\n          });\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * find a single object matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error, object: object)} [callback] - callback to call when object has been found\n   * @returns {Promise<object>} - a promise to have retrieved the object\n   */\n  findOne(query, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!query) {\n            throw new errors.data.request.InvalidError('you need to specify a query for #findOne');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.findOne(this._type, query);\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove objects matching the given query\n   * @param {object} query - the mongo style query\n   * @param {function(error: Error)} [callback] - callback to call when objects have been removed\n   * @returns {Promise} - a promise to have removed the objects\n   */\n  remove(query, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!query) {\n            throw new errors.data.request.InvalidError('you need to specify a query for #remove');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.remove(this._type, query);\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove a single object with a given id\n   * @param {string} id - the object id\n   * @param {function(error: Error)} [callback] - callback to call when object has been removed\n   * @returns {Promise} - a promise to have removed the object\n   */\n  removeOneById(id, callback) {\n    return Bluebird.resolve(\n        Promise.resolve()\n        .then(() => {\n          if (!id) {\n            throw new errors.data.request.InvalidError('you need to specify an id for #removeOneById');\n          }\n        })\n        .then(() => {\n          return this._verify();\n        })\n        .then(() => {\n          return this._pipeline.remove(this._type, {\n            _id: id\n          });\n        }))\n      .nodeify(callback);\n  }\n\n  /**\n   * save an object\n   * @param {object} json - raw object to save\n   * @param {function(error: Error, object: object)} [callback] - callback to call when objects has been saved\n   * @returns {Promise<object>} - a promise to have saved the object\n   */\n  save(json, callback) {\n    if (!this._type && json._type) {\n      this.setType(json._type);\n    }\n    return Bluebird.resolve(\n      this._verify()\n      .then(() => {\n        return this._pipeline.save(this._type, json);\n      })).nodeify(callback);\n  }\n}\n\nDataAPI.disconnect = function () {\n  return Pipeline._mongoConnection.close();\n};\n\n\nexport default DataAPI;\n"
   },
   {
+    "__docId__": 30,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -805,6 +836,7 @@
     "generator": false
   },
   {
+    "__docId__": 31,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -819,10 +851,11 @@
     "lineNumber": 10,
     "interface": false,
     "extends": [
-      "src/base_api~BaseAPI"
+      "src/base_api.js~BaseAPI"
     ]
   },
   {
+    "__docId__": 32,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -847,6 +880,7 @@
     "generator": false
   },
   {
+    "__docId__": 33,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -864,6 +898,7 @@
     }
   },
   {
+    "__docId__": 34,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -883,6 +918,7 @@
     "generator": false
   },
   {
+    "__docId__": 35,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -907,6 +943,7 @@
     "generator": false
   },
   {
+    "__docId__": 36,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -924,6 +961,7 @@
     }
   },
   {
+    "__docId__": 37,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -972,6 +1010,7 @@
     "generator": false
   },
   {
+    "__docId__": 38,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1020,6 +1059,7 @@
     "generator": false
   },
   {
+    "__docId__": 39,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1068,6 +1108,7 @@
     "generator": false
   },
   {
+    "__docId__": 40,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1116,6 +1157,7 @@
     "generator": false
   },
   {
+    "__docId__": 41,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1164,6 +1206,7 @@
     "generator": false
   },
   {
+    "__docId__": 42,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1212,6 +1255,7 @@
     "generator": false
   },
   {
+    "__docId__": 43,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1224,6 +1268,7 @@
     "content": "'use strict';\nimport Pipeline from '@hoist/events-pipeline';\nimport {\n  isFunction\n}\nfrom 'lodash';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\nimport Context from '@hoist/context';\n\n/**\n * Hoists event API\n */\nclass EventsAPI extends BaseAPI {\n  /**\n   * create a new instance of the event api\n   */\n  constructor() {\n    super();\n    this._pipeline = new Pipeline();\n  }\n\n  /**\n   * raise a new event\n   * @param {string} name - the name of the event\n   * @param {object} payload - the event payload\n   * @param {object} [contextOverride] - overides for the current context\n   * @param {function(error: Error, objects: Event)} [callback] - callback to call when event has been raised\n   * @returns {Promise<Event>} - a promise to have raised the Event\n   */\n  raise(name, payload, contextOverride, callback) {\n    if (!callback && isFunction(contextOverride)) {\n      callback = contextOverride;\n      contextOverride = null;\n    }\n    if (!callback && isFunction(payload)) {\n      callback = payload;\n      payload = {};\n    }\n    return Bluebird.resolve(\n      Context.get().then((context) => {\n        return this._pipeline.raise(context, name, payload, contextOverride);\n      })\n    ).nodeify(callback);\n  }\n}\n\nexport default EventsAPI;\n"
   },
   {
+    "__docId__": 44,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1238,10 +1283,11 @@
     "lineNumber": 14,
     "interface": false,
     "extends": [
-      "src/base_api~BaseAPI"
+      "src/base_api.js~BaseAPI"
     ]
   },
   {
+    "__docId__": 45,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -1255,6 +1301,7 @@
     "generator": false
   },
   {
+    "__docId__": 46,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -1272,6 +1319,7 @@
     }
   },
   {
+    "__docId__": 47,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1340,6 +1388,7 @@
     "generator": false
   },
   {
+    "__docId__": 48,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1349,29 +1398,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport {\n  isFunction\n}\nfrom 'lodash';\nimport LockAPI from './lock';\nimport Bluebird from 'bluebird';\nimport DataAPI from './data';\nimport UserAPI from './user';\nimport EventsAPI from './events';\nimport ConnectorAPI from './connector';\nimport log from './log';\nimport TimeoutAPI from './timeout';\nimport Context from '@hoist/context';\nimport Model from '@hoist/model';\nimport BucketAPI from './bucket';\nlet index = {\n  data: function (type) {\n    return new DataAPI(type);\n  },\n  user: new UserAPI(),\n  events: new EventsAPI(),\n  connector: function (key) {\n    return new ConnectorAPI(key);\n  },\n  log: log,\n  lock: function CreateLock(name, timeout, callback) {\n    let hoistLock = new LockAPI();\n    if (!callback && isFunction(timeout)) {\n      callback = timeout;\n      timeout = null;\n    }\n    return Bluebird.resolve(hoistLock.aquireLock(name, timeout))\n      .nodeify(callback);\n  },\n  timeout: new TimeoutAPI(),\n  Context: Context,\n  _model: Model,\n  bucket: new BucketAPI()\n};\n\nindex.data._cleanup = function () {\n  return DataAPI.disconnect();\n};\n\nindex.event = index.events;\n\nexport default index;\n"
+    "content": "'use strict';\nimport {\n  isFunction\n}\nfrom 'lodash';\nimport LockAPI from './lock';\nimport Bluebird from 'bluebird';\nimport DataAPI from './data';\nimport UserAPI from './user';\nimport EventsAPI from './events';\nimport ConnectorAPI from './connector';\nimport log from './log';\nimport TimeoutAPI from './timeout';\nimport Context from '@hoist/context';\nimport Model from '@hoist/model';\nimport BucketAPI from './bucket';\nlet index = {\n  data: function (type) {\n    return new DataAPI(type);\n  },\n  user: new UserAPI(),\n  events: new EventsAPI(),\n  connector: function (key) {\n    return new ConnectorAPI(key);\n  },\n  log: log,\n  lock: function CreateLock(name, timeout, callback) {\n    let hoistLock = new LockAPI();\n    if (!callback && isFunction(timeout)) {\n      callback = timeout;\n      timeout = null;\n    }\n    return Bluebird.resolve(hoistLock.aquireLock(name, timeout))\n      .nodeify(callback);\n  },\n  timeout: new TimeoutAPI(),\n  Context: Context,\n  _model: Model,\n  bucket: new BucketAPI()\n};\n\nindex.data._cleanup = function () {\n  return DataAPI.disconnect();\n};\n\nindex.event = index.events;\n\nexport default index;\n\nmodule.exports = index;\n"
   },
   {
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "index",
-    "memberof": "src/index.js",
-    "longname": "src/index.js~index",
-    "access": null,
-    "export": false,
-    "importPath": "@hoist/connect/src/index.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 17,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
+    "__docId__": 49,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1394,6 +1424,28 @@
     "generator": false
   },
   {
+    "__docId__": 50,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "index",
+    "memberof": "src/index.js",
+    "longname": "src/index.js~index",
+    "access": null,
+    "export": true,
+    "importPath": "@hoist/connect/src/index.js",
+    "importStyle": "index",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 51,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1403,9 +1455,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport config from 'config';\nimport redisLock from 'redis-lock';\nimport redis from 'redis';\nimport redisSentinel from 'redis-sentinel-client';\nimport BaseAPI from './base_api';\n\nlet client;\n/**\n * Hoists lock API\n */\nclass HoistLockAPI extends BaseAPI {\n\n  /**\n   * create new lock\n   */\n  constructor() {\n    super();\n  }\n\n  /**\n   * aquire a lock within the given timeout\n   * @param {string} name - the key for the lock\n   * @param {Number} [timeout=500] - the timeout to wait for the lock\n   * @returns {Promise} - promise to have aquired the lock\n   */\n  aquireLock(name, timeout) {\n    timeout = timeout || 500;\n    client = HoistLockAPI._getClient();\n    let lock = redisLock(client);\n    return new Promise((resolve) => {\n      lock(name, timeout, (done) => {\n        /*\n         * release the current lock\n         */\n        resolve({\n          release: done\n        });\n      });\n    });\n  }\n}\n\nfunction createClient() {\n  if (config.has('Hoist.redis.clustered') && config.get('Hoist.redis.clustered')) {\n    return redisSentinel.createClient({\n      host: config.get('Hoist.redis.host'),\n      port: config.get('Hoist.redis.port'),\n      masterName: config.get('Hoist.redis.masterName')\n    });\n  } else {\n    return redis.createClient(config.get('Hoist.redis.port'), config.get('Hoist.redis.host'));\n  }\n}\n\nHoistLockAPI._getClient = function () {\n  return client || (client = createClient());\n};\nHoistLockAPI._clearClient = function () {\n  if (client) {\n    client.end();\n    client = null;\n  }\n};\n\n\n\nexport default HoistLockAPI;\n"
+    "content": "'use strict';\nimport config from 'config';\nimport redisLock from 'redis-lock';\nimport redis from 'redis';\nimport redisSentinel from 'redis-sentinel-client';\nimport BaseAPI from './base_api';\n\nlet client;\n/**\n * Hoists lock API\n */\nclass HoistLockAPI extends BaseAPI {\n\n  /**\n   * create new lock\n   */\n  constructor() {\n    super();\n  }\n\n  /**\n   * aquire a lock within the given timeout\n   * @param {string} name - the key for the lock\n   * @param {Number} [timeout=500] - the timeout to wait for the lock\n   * @returns {Promise} - promise to have aquired the lock\n   */\n  aquireLock(name, timeout) {\n    timeout = timeout || 500;\n    client = HoistLockAPI._getClient();\n    let lock = redisLock(client);\n    return new Promise((resolve) => {\n      lock(name, timeout, (done) => {\n        /*\n         * release the current lock\n         */\n        resolve({\n          release: done\n        });\n      });\n    });\n  }\n}\n\nfunction createClient() {\n  if (config.has('Hoist.redis.clustered') && config.get('Hoist.redis.clustered')) {\n    return redisSentinel.createClient({\n      host: config.get('Hoist.redis.host'),\n      port: config.get('Hoist.redis.port'),\n      masterName: config.get('Hoist.redis.masterName')\n    });\n  } else {\n    return redis.createClient(config.get('Hoist.redis.port'), config.get('Hoist.redis.host'));\n  }\n}\n\nHoistLockAPI._getClient = function () {\n  return client || (client = createClient());\n};\nHoistLockAPI._clearClient = function () {\n  if (client) {\n    client.end(true);\n    client = null;\n  }\n};\n\n\n\nexport default HoistLockAPI;\n"
   },
   {
+    "__docId__": 52,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1428,6 +1481,7 @@
     "generator": false
   },
   {
+    "__docId__": 53,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1450,6 +1504,7 @@
     "generator": false
   },
   {
+    "__docId__": 54,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1467,6 +1522,7 @@
     "generator": false
   },
   {
+    "__docId__": 55,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1481,10 +1537,11 @@
     "lineNumber": 12,
     "interface": false,
     "extends": [
-      "src/base_api~BaseAPI"
+      "src/base_api.js~BaseAPI"
     ]
   },
   {
+    "__docId__": 56,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -1498,6 +1555,7 @@
     "generator": false
   },
   {
+    "__docId__": 57,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1548,6 +1606,7 @@
     "generator": false
   },
   {
+    "__docId__": 58,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1560,6 +1619,7 @@
     "content": "'use strict';\nimport Bluebird from 'bluebird';\nimport {\n  isFunction\n}\nfrom 'lodash';\n\n/**\n * log out the object to be captured by the executor process\n */\nexport default function Log() {\n\n  let args = Array.prototype.slice.call(arguments);\n  let callback;\n  if (isFunction(args[args.length - 1])) {\n    callback = args.pop();\n  }\n  let log = {\n    type: 'appLog',\n    arguments: args\n  };\n\n  let cache = [];\n  let message = JSON.stringify(log, function (key, value) {\n    if (typeof value === 'object' && value !== null) {\n      if (cache.indexOf(value) !== -1) {\n        return '[Circular]';\n      }\n      // Store value in our collection\n      cache.push(value);\n    }\n    return value;\n  });\n  cache = null;\n  console.log(message);\n\n  //return promise for backwards compatibility\n\n  return Bluebird.resolve(null).nodeify(callback);\n}\n"
   },
   {
+    "__docId__": 59,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1581,6 +1641,7 @@
     "generator": false
   },
   {
+    "__docId__": 60,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1593,6 +1654,7 @@
     "content": "'use strict';\nimport Context from '@hoist/context';\nimport Errors from '@hoist/errors';\nimport {\n  isNumber\n}\nfrom 'lodash';\nimport BaseAPI from './base_api';\n\n/**\n * the Hoist Timeout API\n */\nclass TimeoutAPI extends BaseAPI {\n  /**\n   * reset the timeout from now\n   * @param {Number} milliseconds - the amount of time to timeout from now (between 1 and 120000)\n   * @returns {Promise}\n   */\n  reset(milliseconds) {\n    //upper bound at 2m\n    //lower bound at 1s\n    return Promise.resolve().then(() => {\n\n      if (!milliseconds || !isNumber(milliseconds) || milliseconds > 120000 || milliseconds < 1) {\n        throw new Errors.timeout.InvalidTimeoutValueError();\n      }\n\n      return Context.get().then((context) => {\n        if (context.timeout) {\n          clearTimeout(context.timeout.current);\n          context.timeout.current = setTimeout(context.timeout.onTimeout, milliseconds);\n        }\n      });\n    });\n\n  }\n}\n\n\nexport default TimeoutAPI;\n"
   },
   {
+    "__docId__": 61,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1607,10 +1669,11 @@
     "lineNumber": 13,
     "interface": false,
     "extends": [
-      "src/base_api~BaseAPI"
+      "src/base_api.js~BaseAPI"
     ]
   },
   {
+    "__docId__": 62,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1649,6 +1712,7 @@
     "generator": false
   },
   {
+    "__docId__": 63,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1661,6 +1725,7 @@
     "content": "'use strict';\nimport Errors from '@hoist/errors';\nimport Pipeline from '@hoist/user-pipeline';\nimport BaseAPI from './base_api';\nimport Bluebird from 'bluebird';\n\n/**\n * Hoists User API\n * @depreciated\n */\nclass UserAPI extends BaseAPI {\n  /**\n   * create a user API\n   */\n  constructor() {\n    super();\n    this._pipeline = new Pipeline();\n  }\n\n  /**\n   * log the user in\n   * @params {string} username - the username\n   * @params {password} password - the password\n   */\n  login(username, password, callback) {\n    if (!username) {\n      throw new Errors.user.request.InvalidError('username is required');\n    }\n    if (!password) {\n      throw new Errors.user.request.InvalidError('password is required');\n    }\n    return Bluebird.resolve(this._pipeline.login(username, password))\n      .nodeify(callback);\n  }\n  invite(userDetails, callback) {\n    if (!userDetails) {\n      throw new Errors.user.request.InvalidError('user details are required');\n    }\n    return Bluebird.resolve(this._pipeline.invite(userDetails))\n      .nodeify(callback);\n  }\n}\n\nexport default UserAPI;\n"
   },
   {
+    "__docId__": 64,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1681,10 +1746,11 @@
     ],
     "interface": false,
     "extends": [
-      "src/base_api~BaseAPI"
+      "src/base_api.js~BaseAPI"
     ]
   },
   {
+    "__docId__": 65,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -1698,6 +1764,7 @@
     "generator": false
   },
   {
+    "__docId__": 66,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -1715,6 +1782,7 @@
     }
   },
   {
+    "__docId__": 67,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1762,6 +1830,7 @@
     "generator": false
   },
   {
+    "__docId__": 68,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1794,6 +1863,7 @@
     "generator": false
   },
   {
+    "__docId__": 70,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1802,10 +1872,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 71,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1814,10 +1885,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 72,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1826,10 +1898,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 73,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1838,10 +1911,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 74,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1850,10 +1924,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 75,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1862,10 +1937,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 76,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1874,10 +1950,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 77,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1886,10 +1963,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 78,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1898,10 +1976,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 79,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1910,10 +1989,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 80,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1922,10 +2002,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 81,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1934,10 +2015,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 82,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1946,10 +2028,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 83,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1958,10 +2041,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 84,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1970,10 +2054,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 85,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1982,10 +2067,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 86,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1994,10 +2080,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 87,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2006,10 +2093,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 88,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2018,10 +2106,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 89,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2030,10 +2119,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 90,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2042,10 +2132,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 91,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2054,10 +2145,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 92,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2066,10 +2158,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 93,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2078,10 +2171,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 94,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2090,10 +2184,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 95,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2102,10 +2197,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 96,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2114,10 +2210,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 97,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2126,10 +2223,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 98,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2138,10 +2236,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 99,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2150,10 +2249,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 100,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2162,10 +2262,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 101,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2174,10 +2275,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 102,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2186,10 +2288,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 103,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2198,10 +2301,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 104,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2210,10 +2314,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 105,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2222,10 +2327,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 106,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2234,10 +2340,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 107,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2246,10 +2353,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 108,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2258,10 +2366,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 109,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2270,10 +2379,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 110,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2282,10 +2392,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 111,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2294,10 +2405,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 112,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2306,10 +2418,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 113,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2318,10 +2431,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 114,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2330,10 +2444,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 115,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2342,10 +2457,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 116,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2354,10 +2470,11 @@
     "memberof": "BuiltinExternal/ECMAScriptExternal.js",
     "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 118,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2366,10 +2483,11 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 119,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2378,10 +2496,11 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 120,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2390,10 +2509,11 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~Element",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 121,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2402,10 +2522,11 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~Event",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 122,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2414,10 +2535,11 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~Node",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 123,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2426,10 +2548,11 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 124,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2438,10 +2561,24 @@
     "memberof": "BuiltinExternal/WebAPIExternal.js",
     "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
     "access": null,
-    "description": null,
+    "description": "",
     "builtinExternal": true
   },
   {
+    "__docId__": 125,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 126,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -2454,6 +2591,7 @@
     "content": "'use strict';\nimport Hoist from '../../src';\nimport {\n  expect\n}\nfrom 'chai';\nimport sinon from 'sinon';\nimport BucketPipeline from '@hoist/bucket-pipeline';\nimport Errors from '@hoist/errors';\n\n/** @test {BucketAPI} */\ndescribe('Hoist.bucket', function () {\n  it('exists', function () {\n    return expect(Hoist.bucket).to.exist;\n  });\n  /** @test {BucketAPI#remove} */\n  describe('.remove', function () {\n    before(function () {\n      sinon.stub(BucketPipeline.prototype, 'remove').returns(Promise.resolve(null));\n      return Hoist.bucket.remove('key');\n    });\n    after(function () {\n      BucketPipeline.prototype.remove.restore();\n    });\n    it('calls bucketPipeline.remove', function () {\n      return expect(BucketPipeline.prototype.remove)\n        .to.have.been.calledWith('key');\n    });\n  });\n  /** @test {BucketAPI#set} */\n  describe('.set', function () {\n    describe('with key and create', function () {\n      var fakeKey = 'key';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'set').returns(Promise.resolve());\n        return Hoist.bucket.set(fakeKey, true);\n      });\n      after(function () {\n        BucketPipeline.prototype.set.restore();\n      });\n      it('calls bucketPipeline.set with correct key', function () {\n        expect(BucketPipeline.prototype.set)\n          .to.have.been.calledWith(fakeKey, true);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.set(fakeKey, true, done);\n      });\n    });\n    describe('with key and callback', function () {\n      var fakeKey = 'key';\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'set').returns(Promise.resolve());\n        return Hoist.bucket.set(fakeKey, done);\n      });\n      after(function () {\n        BucketPipeline.prototype.set.restore();\n      });\n      it('calls bucketPipeline.set with correct key and meta', function () {\n        expect(BucketPipeline.prototype.set)\n          .to.have.been.calledWith(fakeKey, null);\n      });\n    });\n    describe('with no key specified', function () {\n      it('rejects', function () {\n        expect(function () {\n          Hoist.bucket.set();\n        }).to.throw(Errors.bucket.InvalidError);\n      });\n      it('with callback', function () {\n        expect(function () {\n          Hoist.bucket.set(function () {});\n        }).to.throw(Errors.bucket.InvalidError);\n      });\n    });\n  });\n\n  /** @test {BucketAPI#add} */\n  describe('.add', function () {\n    describe('with key and meta', function () {\n      var fakeKey = 'key';\n      var fakeMeta = 'meta';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'add').returns(Promise.resolve());\n        return Hoist.bucket.add(fakeKey, fakeMeta);\n      });\n      after(function () {\n        BucketPipeline.prototype.add.restore();\n      });\n      it('calls bucketPipeline.add with correct key and meta', function () {\n        expect(BucketPipeline.prototype.add)\n          .to.have.been.calledWith(fakeKey, fakeMeta);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.add(fakeKey, fakeMeta, done);\n      });\n    });\n    describe('with key and callback', function () {\n      var fakeKey = 'key';\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'add').returns(Promise.resolve());\n        return Hoist.bucket.add(fakeKey, done);\n      });\n      after(function () {\n        BucketPipeline.prototype.add.restore();\n      });\n      it('calls bucketPipeline.add with correct key and meta', function () {\n        expect(BucketPipeline.prototype.add)\n          .to.have.been.calledWith(fakeKey, null);\n      });\n    });\n    describe('with only callback', function () {\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'add').returns(Promise.resolve());\n        return Hoist.bucket.add(done);\n      });\n      after(function () {\n        BucketPipeline.prototype.add.restore();\n      });\n      it('calls bucketPipeline.add with correct key and meta', function () {\n        expect(BucketPipeline.prototype.add)\n          .to.have.been.calledWith(null, null);\n      });\n    });\n  });\n\n  /** @test {BucketAPI#get} */\n  describe('.get', function () {\n    describe('with key', function () {\n      var fakeKey = 'key';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'get').returns(Promise.resolve());\n        return Hoist.bucket.get(fakeKey);\n      });\n      after(function () {\n        BucketPipeline.prototype.get.restore();\n      });\n      it('calls bucketPipeline.get with correct key', function () {\n        expect(BucketPipeline.prototype.get)\n          .to.have.been.calledWith(fakeKey);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.get(fakeKey, done);\n      });\n    });\n    describe('with only callback', function () {\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'get').returns(Promise.resolve());\n        Hoist.bucket.get(done);\n      });\n      after(function () {\n        BucketPipeline.prototype.get.restore();\n      });\n      it('calls bucketPipeline.get with no key', function () {\n        expect(BucketPipeline.prototype.get)\n          .to.have.been.calledWith();\n      });\n    });\n  });\n\n  /** @test {BucketAPI#getAll} */\n  describe('.getAll', function () {\n    before(function () {\n      sinon.stub(BucketPipeline.prototype, 'getAll').returns(Promise.resolve([]));\n      return Hoist.bucket.getAll();\n    });\n    after(function () {\n      BucketPipeline.prototype.getAll.restore();\n    });\n    it('calls bucketPipeline.get with correct key', function () {\n      expect(BucketPipeline.prototype.getAll)\n        .to.have.been.calledWith();\n    });\n    it('with callback', function (done) {\n      Hoist.bucket.getAll(done);\n    });\n  });\n\n  /** @test {BucketAPI#each} */\n  describe('.each', function () {\n    describe('with a function', function () {\n      var fn = function () {};\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'each').returns(Promise.resolve());\n        return Hoist.bucket.each(fn);\n      });\n      after(function () {\n        BucketPipeline.prototype.each.restore();\n      });\n      it('calls bucketPipeline.each with correct key', function () {\n        expect(BucketPipeline.prototype.each)\n          .to.have.been.calledWith(fn);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.each(fn, done);\n      });\n    });\n    describe('without function', function () {\n      it('rejects', function () {\n        expect(function () {\n          Hoist.bucket.each();\n        }).to.throw(Errors.bucket.InvalidError);\n      });\n    });\n  });\n  describe('.saveMeta', function () {\n    describe('with meta and key', function () {\n      var fakeMeta = {\n        key: 'value'\n      };\n      var fakeKey = 'key';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'saveMeta').returns(Promise.resolve());\n        return Hoist.bucket.saveMeta(fakeMeta, fakeKey);\n      });\n      after(function () {\n        BucketPipeline.prototype.saveMeta.restore();\n      });\n      it('calls bucketPipeline.saveMeta with correct key', function () {\n        expect(BucketPipeline.prototype.saveMeta)\n          .to.have.been.calledWith(fakeMeta, fakeKey);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.saveMeta(fakeMeta, fakeKey, done);\n      });\n    });\n    describe('with meta and no key', function () {\n      var fakeMeta = {\n        key: 'value'\n      };\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'saveMeta').returns(Promise.resolve());\n        return Hoist.bucket.saveMeta(fakeMeta);\n      });\n      after(function () {\n        BucketPipeline.prototype.saveMeta.restore();\n      });\n      it('calls bucketPipeline.saveMeta with correct key', function () {\n        expect(BucketPipeline.prototype.saveMeta)\n          .to.have.been.calledWith(fakeMeta, undefined);\n      });\n    });\n    describe('with meta and no key and callback', function () {\n      var fakeMeta = {\n        key: 'value'\n      };\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'saveMeta').returns(Promise.resolve());\n        return Hoist.bucket.saveMeta(fakeMeta, done);\n      });\n      after(function () {\n        BucketPipeline.prototype.saveMeta.restore();\n      });\n      it('calls bucketPipeline.saveMeta with correct key', function () {\n        expect(BucketPipeline.prototype.saveMeta)\n          .to.have.been.calledWith(fakeMeta, null);\n      });\n    });\n  });\n});\n"
   },
   {
+    "__docId__": 127,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2476,6 +2614,7 @@
     ]
   },
   {
+    "__docId__": 128,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2489,6 +2628,7 @@
     "lineNumber": 13
   },
   {
+    "__docId__": 129,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2511,6 +2651,7 @@
     ]
   },
   {
+    "__docId__": 130,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2524,6 +2665,7 @@
     "lineNumber": 25
   },
   {
+    "__docId__": 131,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2546,6 +2688,7 @@
     ]
   },
   {
+    "__docId__": 132,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2559,6 +2702,7 @@
     "lineNumber": 32
   },
   {
+    "__docId__": 133,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2572,6 +2716,7 @@
     "lineNumber": 41
   },
   {
+    "__docId__": 134,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2585,6 +2730,7 @@
     "lineNumber": 45
   },
   {
+    "__docId__": 135,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2598,6 +2744,7 @@
     "lineNumber": 49
   },
   {
+    "__docId__": 136,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2611,6 +2758,7 @@
     "lineNumber": 58
   },
   {
+    "__docId__": 137,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2624,6 +2772,7 @@
     "lineNumber": 63
   },
   {
+    "__docId__": 138,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2637,6 +2786,7 @@
     "lineNumber": 64
   },
   {
+    "__docId__": 139,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2650,6 +2800,7 @@
     "lineNumber": 69
   },
   {
+    "__docId__": 140,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2672,6 +2823,7 @@
     ]
   },
   {
+    "__docId__": 141,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2685,6 +2837,7 @@
     "lineNumber": 79
   },
   {
+    "__docId__": 142,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2698,6 +2851,7 @@
     "lineNumber": 89
   },
   {
+    "__docId__": 143,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2711,6 +2865,7 @@
     "lineNumber": 93
   },
   {
+    "__docId__": 144,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2724,6 +2879,7 @@
     "lineNumber": 97
   },
   {
+    "__docId__": 145,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2737,6 +2893,7 @@
     "lineNumber": 106
   },
   {
+    "__docId__": 146,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2750,6 +2907,7 @@
     "lineNumber": 111
   },
   {
+    "__docId__": 147,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2763,6 +2921,7 @@
     "lineNumber": 119
   },
   {
+    "__docId__": 148,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2785,6 +2944,7 @@
     ]
   },
   {
+    "__docId__": 149,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2798,6 +2958,7 @@
     "lineNumber": 128
   },
   {
+    "__docId__": 150,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2811,6 +2972,7 @@
     "lineNumber": 137
   },
   {
+    "__docId__": 151,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2824,6 +2986,7 @@
     "lineNumber": 141
   },
   {
+    "__docId__": 152,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2837,6 +3000,7 @@
     "lineNumber": 145
   },
   {
+    "__docId__": 153,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2850,6 +3014,7 @@
     "lineNumber": 153
   },
   {
+    "__docId__": 154,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2872,6 +3037,7 @@
     ]
   },
   {
+    "__docId__": 155,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2885,6 +3051,7 @@
     "lineNumber": 169
   },
   {
+    "__docId__": 156,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2898,6 +3065,7 @@
     "lineNumber": 173
   },
   {
+    "__docId__": 157,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2920,6 +3088,7 @@
     ]
   },
   {
+    "__docId__": 158,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2933,6 +3102,7 @@
     "lineNumber": 180
   },
   {
+    "__docId__": 159,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2946,6 +3116,7 @@
     "lineNumber": 189
   },
   {
+    "__docId__": 160,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2959,6 +3130,7 @@
     "lineNumber": 193
   },
   {
+    "__docId__": 161,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2972,6 +3144,7 @@
     "lineNumber": 197
   },
   {
+    "__docId__": 162,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -2985,6 +3158,7 @@
     "lineNumber": 198
   },
   {
+    "__docId__": 163,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -2998,6 +3172,7 @@
     "lineNumber": 205
   },
   {
+    "__docId__": 164,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3011,6 +3186,7 @@
     "lineNumber": 206
   },
   {
+    "__docId__": 165,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3024,6 +3200,7 @@
     "lineNumber": 218
   },
   {
+    "__docId__": 166,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3037,6 +3214,7 @@
     "lineNumber": 222
   },
   {
+    "__docId__": 167,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3050,6 +3228,7 @@
     "lineNumber": 226
   },
   {
+    "__docId__": 168,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3063,6 +3242,7 @@
     "lineNumber": 237
   },
   {
+    "__docId__": 169,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3076,6 +3256,7 @@
     "lineNumber": 242
   },
   {
+    "__docId__": 170,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3089,6 +3270,7 @@
     "lineNumber": 253
   },
   {
+    "__docId__": 171,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -3101,6 +3283,7 @@
     "content": "'use strict';\nimport ConnectorPipeline from '@hoist/connector-pipeline';\nimport Hoist from '../../src';\nimport sinon from 'sinon';\nimport {\n  expect\n}\nfrom 'chai';\nimport errors from '@hoist/errors';\n\n/** @test {ConnectorAPI} */\ndescribe('Hoist.connector', function () {\n  var StubConnector = function () {\n    this.get = sinon.stub();\n    this.put = sinon.stub();\n    this.post = sinon.stub();\n    this.delete = sinon.stub();\n  };\n  var connector;\n  var stubConnector = new StubConnector();\n  describe('with key', function () {\n    before(function () {\n      sinon.stub(ConnectorPipeline.prototype, 'loadConnector').returns(Promise.resolve(stubConnector));\n      connector = Hoist.connector('key');\n    });\n    after(function () {\n      ConnectorPipeline.prototype.loadConnector.restore();\n    });\n    it('loads the specified connector', function () {\n      expect(ConnectorPipeline.prototype.loadConnector)\n        .to.have.been.calledWith('key');\n    });\n    /** @test {ConnectorAPI#get} */\n    describe('Hoist.connector#get', function () {\n      var _promise = Promise.resolve(true);\n      before(function () {\n        stubConnector.get.returns(_promise);\n        return connector.get('/path?query');\n      });\n      after(function () {\n        stubConnector.get.reset();\n      });\n      it('calls pipeline#get', function () {\n        expect(stubConnector.get)\n          .to.have.been.calledWith('/path?query');\n      });\n    });\n    /** @test {ConnectorAPI#put} */\n    describe('Hoist.connector#put', function () {\n\n      var _promise = Promise.resolve(true);\n      before(function () {\n        stubConnector.put.returns(_promise);\n        return connector.put('/path?query', 'data');\n      });\n      after(function () {\n        stubConnector.put.reset();\n      });\n      it('calls pipeline#put', function () {\n        expect(stubConnector.put)\n          .to.have.been.calledWith('/path?query', 'data');\n      });\n    });\n    /** @test {ConnectorAPI#delete} */\n    describe('Hoist.connector#delete', function () {\n\n      var _promise = Promise.resolve(true);\n      before(function () {\n        stubConnector.delete.returns(_promise);\n        return connector.delete('/path');\n      });\n      after(function () {\n        stubConnector.delete.reset();\n      });\n      it('calls pipeline#delete', function () {\n        expect(stubConnector.delete)\n          .to.have.been.calledWith('/path');\n      });\n    });\n    /** @test {ConnectorAPI#post} */\n    describe('Hoist.connector#post', function () {\n\n      var _promise = Promise.resolve(true);\n      before(function () {\n        stubConnector.post.returns(_promise);\n        return connector.post('/path?query', 'data');\n      });\n      after(function () {\n        stubConnector.post.reset();\n      });\n      it('calls pipeline#post', function () {\n        expect(stubConnector.post)\n          .to.have.been.calledWith('/path?query', 'data');\n      });\n    });\n  });\n  describe('with no key specified', function () {\n    it('rejects', function () {\n      expect(function () {\n        Hoist.connector();\n      }).to.throw(errors.connector.request.InvalidError);\n    });\n  });\n});\n"
   },
   {
+    "__docId__": 172,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3123,6 +3306,7 @@
     ]
   },
   {
+    "__docId__": 173,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3136,6 +3320,7 @@
     "lineNumber": 21
   },
   {
+    "__docId__": 174,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3149,6 +3334,7 @@
     "lineNumber": 29
   },
   {
+    "__docId__": 175,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3171,6 +3357,7 @@
     ]
   },
   {
+    "__docId__": 176,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3184,6 +3371,7 @@
     "lineNumber": 43
   },
   {
+    "__docId__": 177,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3206,6 +3394,7 @@
     ]
   },
   {
+    "__docId__": 178,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3219,6 +3408,7 @@
     "lineNumber": 59
   },
   {
+    "__docId__": 179,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3241,6 +3431,7 @@
     ]
   },
   {
+    "__docId__": 180,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3254,6 +3445,7 @@
     "lineNumber": 75
   },
   {
+    "__docId__": 181,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3276,6 +3468,7 @@
     ]
   },
   {
+    "__docId__": 182,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3289,6 +3482,7 @@
     "lineNumber": 91
   },
   {
+    "__docId__": 183,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3302,6 +3496,7 @@
     "lineNumber": 97
   },
   {
+    "__docId__": 184,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3315,6 +3510,7 @@
     "lineNumber": 98
   },
   {
+    "__docId__": 185,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -3324,9 +3520,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nrequire('../bootstrap');\nvar Hoist = require('../../src');\nvar expect = require('chai').expect;\nvar sinon = require('sinon');\nvar BBPromise = require('bluebird');\nvar DataPipeline = require('@hoist/data-pipeline');\n\n/** @test {DataAPI} */\ndescribe('Hoist.data', function () {\n  /** @test {BucketAPI#find} */\n  describe('Hoist.data#find', function () {\n    var data;\n    before(function () {\n      data = Hoist.data();\n    });\n    var result = [{\n\n    }];\n    var retrieved;\n    before(function () {\n      sinon.stub(DataPipeline.prototype, 'find').returns(BBPromise.resolve(result));\n      data._type = 'person';\n    });\n    after(function () {\n      DataPipeline.prototype.find.restore();\n    });\n    describe('with no query', function () {\n      before(function () {\n        retrieved = data.find();\n      });\n      after(function () {\n        DataPipeline.prototype.find.reset();\n      });\n      it('retrieves data specifying correct type, and basic query', function () {\n        expect(DataPipeline.prototype.find)\n          .to.have.been.calledWith('person', {});\n      });\n      it('returns correct data', function () {\n        expect(retrieved).to.eventually.eql(result);\n      });\n    });\n    describe('with a query defined', function () {\n      before(function () {\n        retrieved = data.find({\n          '_id': 'id'\n        });\n      });\n      after(function () {\n        DataPipeline.prototype.find.reset();\n      });\n      it('retrieves data specifying correct type', function () {\n        expect(DataPipeline.prototype.find)\n          .to.have.been.calledWith('person', {\n            '_id': 'id'\n          });\n      });\n      it('returns correct data', function () {\n        return expect(retrieved).to.eventually.eql(result);\n      });\n    });\n  });\n  /** @test {BucketAPI#findOne} */\n  describe('Hoist.data#findOne', function () {\n    var data;\n    before(function () {\n      data = Hoist.data();\n    });\n    var result = {\n\n    };\n    var retrieved;\n    before(function () {\n      sinon.stub(DataPipeline.prototype, 'findOne').returns(BBPromise.resolve(result));\n      data._type = 'person';\n    });\n    after(function () {\n      DataPipeline.prototype.findOne.restore();\n    });\n    describe('with no query', function () {\n      let error;\n      before(function () {\n        return data.findOne().catch((err) => {\n          error = err;\n        });\n      });\n      after(function () {\n        DataPipeline.prototype.findOne.reset();\n      });\n      it('throws an error', function () {\n        /* jshint -W030 */\n        return expect(error.message)\n          .to.eql('you need to specify a query for #findOne');\n      });\n    });\n    describe('with a query defined', function () {\n      before(function () {\n        retrieved = data.findOne({\n          '_id': 'id'\n        });\n      });\n      after(function () {\n        DataPipeline.prototype.findOne.reset();\n      });\n      it('retrieves data specifying correct type', function () {\n        expect(DataPipeline.prototype.findOne)\n          .to.have.been.calledWith('person', {\n            '_id': 'id'\n          });\n      });\n      it('returns correct data', function () {\n        return expect(retrieved).to.eventually.eql(result);\n      });\n    });\n  });\n  /** @test {BucketAPI#findById} */\n  describe('Hoist.data#findById', function () {\n    var data;\n    before(function () {\n      data = Hoist.data();\n    });\n    var result = {\n\n    };\n    var retrieved;\n    before(function () {\n      sinon.stub(DataPipeline.prototype, 'findOne').returns(BBPromise.resolve(result));\n      data._type = 'person';\n    });\n    after(function () {\n      DataPipeline.prototype.findOne.restore();\n    });\n    describe('with no id', function () {\n      let error;\n      before(function () {\n        retrieved = data.findById().catch((err) => {\n          error = err;\n        });\n      });\n      after(function () {\n        DataPipeline.prototype.findOne.reset();\n      });\n      it('throws an error', function () {\n        /* jshint -W030 */\n        return expect(error.message)\n          .to.eql('you need to specify an id for #findById');\n      });\n    });\n    describe('with an id defined', function () {\n      before(function () {\n        retrieved = data.findById('id');\n      });\n      after(function () {\n        DataPipeline.prototype.findOne.reset();\n      });\n      it('retrieves data specifying correct type', function () {\n        expect(DataPipeline.prototype.findOne)\n          .to.have.been.calledWith('person', {\n            '_id': 'id'\n          });\n      });\n      it('returns correct data', function () {\n        return expect(retrieved).to.eventually.eql(result);\n      });\n    });\n  });\n});\n"
+    "content": "'use strict';\nrequire('../bootstrap');\nimport Hoist from '../../src';\nimport {expect} from 'chai';\nimport sinon from 'sinon';\nimport BBPromise from 'bluebird';\nimport DataPipeline from '@hoist/data-pipeline';\n\n/** @test {DataAPI} */\ndescribe('Hoist.data', function () {\n  /** @test {BucketAPI#find} */\n  describe('Hoist.data#find', function () {\n    var data;\n    before(function () {\n      data = Hoist.data();\n    });\n    var result = [{\n\n    }];\n    var retrieved;\n    before(function () {\n      sinon.stub(DataPipeline.prototype, 'find').returns(BBPromise.resolve(result));\n      data._type = 'person';\n    });\n    after(function () {\n      DataPipeline.prototype.find.restore();\n    });\n    describe('with no query', function () {\n      before(function () {\n        retrieved = data.find();\n      });\n      after(function () {\n        DataPipeline.prototype.find.reset();\n      });\n      it('retrieves data specifying correct type, and basic query', function () {\n        expect(DataPipeline.prototype.find)\n          .to.have.been.calledWith('person', {});\n      });\n      it('returns correct data', function () {\n        expect(retrieved).to.eventually.eql(result);\n      });\n    });\n    describe('with a query defined', function () {\n      before(function () {\n        retrieved = data.find({\n          '_id': 'id'\n        });\n      });\n      after(function () {\n        DataPipeline.prototype.find.reset();\n      });\n      it('retrieves data specifying correct type', function () {\n        expect(DataPipeline.prototype.find)\n          .to.have.been.calledWith('person', {\n            '_id': 'id'\n          });\n      });\n      it('returns correct data', function () {\n        return expect(retrieved).to.eventually.eql(result);\n      });\n    });\n  });\n  /** @test {BucketAPI#findOne} */\n  describe('Hoist.data#findOne', function () {\n    var data;\n    before(function () {\n      data = Hoist.data();\n    });\n    var result = {\n\n    };\n    var retrieved;\n    before(function () {\n      sinon.stub(DataPipeline.prototype, 'findOne').returns(BBPromise.resolve(result));\n      data._type = 'person';\n    });\n    after(function () {\n      DataPipeline.prototype.findOne.restore();\n    });\n    describe('with no query', function () {\n      let error;\n      before(function () {\n        return data.findOne().catch((err) => {\n          error = err;\n        });\n      });\n      after(function () {\n        DataPipeline.prototype.findOne.reset();\n      });\n      it('throws an error', function () {\n        /* jshint -W030 */\n        return expect(error.message)\n          .to.eql('you need to specify a query for #findOne');\n      });\n    });\n    describe('with a query defined', function () {\n      before(function () {\n        retrieved = data.findOne({\n          '_id': 'id'\n        });\n      });\n      after(function () {\n        DataPipeline.prototype.findOne.reset();\n      });\n      it('retrieves data specifying correct type', function () {\n        expect(DataPipeline.prototype.findOne)\n          .to.have.been.calledWith('person', {\n            '_id': 'id'\n          });\n      });\n      it('returns correct data', function () {\n        return expect(retrieved).to.eventually.eql(result);\n      });\n    });\n  });\n  /** @test {BucketAPI#findById} */\n  describe('Hoist.data#findById', function () {\n    var data;\n    before(function () {\n      data = Hoist.data();\n    });\n    var result = {\n\n    };\n    var retrieved;\n    before(function () {\n      sinon.stub(DataPipeline.prototype, 'findOne').returns(BBPromise.resolve(result));\n      data._type = 'person';\n    });\n    after(function () {\n      DataPipeline.prototype.findOne.restore();\n    });\n    describe('with no id', function () {\n      let error;\n      before(function () {\n        retrieved = data.findById().catch((err) => {\n          error = err;\n        });\n      });\n      after(function () {\n        DataPipeline.prototype.findOne.reset();\n      });\n      it('throws an error', function () {\n        /* jshint -W030 */\n        return expect(error.message)\n          .to.eql('you need to specify an id for #findById');\n      });\n    });\n    describe('with an id defined', function () {\n      before(function () {\n        retrieved = data.findById('id');\n      });\n      after(function () {\n        DataPipeline.prototype.findOne.reset();\n      });\n      it('retrieves data specifying correct type', function () {\n        expect(DataPipeline.prototype.findOne)\n          .to.have.been.calledWith('person', {\n            '_id': 'id'\n          });\n      });\n      it('returns correct data', function () {\n        return expect(retrieved).to.eventually.eql(result);\n      });\n    });\n  });\n});\n"
   },
   {
+    "__docId__": 186,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3349,6 +3546,7 @@
     ]
   },
   {
+    "__docId__": 187,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3371,6 +3569,7 @@
     ]
   },
   {
+    "__docId__": 188,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3384,6 +3583,7 @@
     "lineNumber": 28
   },
   {
+    "__docId__": 189,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3397,6 +3597,7 @@
     "lineNumber": 35
   },
   {
+    "__docId__": 190,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3410,6 +3611,7 @@
     "lineNumber": 39
   },
   {
+    "__docId__": 191,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3423,6 +3625,7 @@
     "lineNumber": 43
   },
   {
+    "__docId__": 192,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3436,6 +3639,7 @@
     "lineNumber": 52
   },
   {
+    "__docId__": 193,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3449,6 +3653,7 @@
     "lineNumber": 58
   },
   {
+    "__docId__": 194,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3471,6 +3676,7 @@
     ]
   },
   {
+    "__docId__": 195,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3484,6 +3690,7 @@
     "lineNumber": 80
   },
   {
+    "__docId__": 196,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3497,6 +3704,7 @@
     "lineNumber": 90
   },
   {
+    "__docId__": 197,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3510,6 +3718,7 @@
     "lineNumber": 96
   },
   {
+    "__docId__": 198,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3523,6 +3732,7 @@
     "lineNumber": 105
   },
   {
+    "__docId__": 199,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3536,6 +3746,7 @@
     "lineNumber": 111
   },
   {
+    "__docId__": 200,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3558,6 +3769,7 @@
     ]
   },
   {
+    "__docId__": 201,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3571,6 +3783,7 @@
     "lineNumber": 133
   },
   {
+    "__docId__": 202,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3584,6 +3797,7 @@
     "lineNumber": 143
   },
   {
+    "__docId__": 203,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3597,6 +3811,7 @@
     "lineNumber": 149
   },
   {
+    "__docId__": 204,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3610,6 +3825,7 @@
     "lineNumber": 156
   },
   {
+    "__docId__": 205,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3623,6 +3839,7 @@
     "lineNumber": 162
   },
   {
+    "__docId__": 206,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -3632,9 +3849,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nrequire('../bootstrap');\nvar Hoist = require('../../src');\nvar sinon = require('sinon');\nvar expect = require('chai').expect;\nvar BBPromise = require('bluebird');\nvar DataPipeline = require('@hoist/data-pipeline');\n\n/** @test {DataAPI} */\ndescribe('Hoist.data', function () {\n  before(function () {\n\n  });\n  var objToSave = {\n    key: 'value'\n  };\n  /** @test {DataAPI#save} */\n  describe('Hoist.data.#save', function () {\n    before(function () {\n      sinon.stub(DataPipeline.prototype, 'save').returns(BBPromise.resolve(true));\n    });\n    after(function () {\n      DataPipeline.prototype.save.restore();\n    });\n    describe('with type set by class', function () {\n      var data;\n      before(function () {\n        data = Hoist.data('person');\n        data.save(objToSave);\n      });\n      after(function () {\n        DataPipeline.prototype.save.reset();\n      });\n\n      it('passes to pipeline save', function () {\n        expect(DataPipeline.prototype.save)\n          .to.have.been.calledWith('person', objToSave);\n      });\n    });\n    describe('with type set by object', function () {\n      var data;\n      before(function () {\n        data = Hoist.data();\n        objToSave._type = 'person';\n        data.save(objToSave);\n      });\n      after(function () {\n        objToSave._type = null;\n        DataPipeline.prototype.save.reset();\n      });\n\n      it('passes to pipeline save', function () {\n        expect(DataPipeline.prototype.save)\n          .to.have.been.calledWith('person', objToSave);\n      });\n    });\n  });\n});\n"
+    "content": "'use strict';\nrequire('../bootstrap');\nimport Hoist from '../../src';\nimport sinon from 'sinon';\nimport {expect} from 'chai';\nimport BBPromise from 'bluebird';\nimport DataPipeline from '@hoist/data-pipeline';\n\n/** @test {DataAPI} */\ndescribe('Hoist.data', function () {\n  before(function () {\n\n  });\n  var objToSave = {\n    key: 'value'\n  };\n  /** @test {DataAPI#save} */\n  describe('Hoist.data.#save', function () {\n    before(function () {\n      sinon.stub(DataPipeline.prototype, 'save').returns(BBPromise.resolve(true));\n    });\n    after(function () {\n      DataPipeline.prototype.save.restore();\n    });\n    describe('with type set by class', function () {\n      var data;\n      before(function () {\n        data = Hoist.data('person');\n        data.save(objToSave);\n      });\n      after(function () {\n        DataPipeline.prototype.save.reset();\n      });\n\n      it('passes to pipeline save', function () {\n        expect(DataPipeline.prototype.save)\n          .to.have.been.calledWith('person', objToSave);\n      });\n    });\n    describe('with type set by object', function () {\n      var data;\n      before(function () {\n        data = Hoist.data();\n        objToSave._type = 'person';\n        data.save(objToSave);\n      });\n      after(function () {\n        objToSave._type = null;\n        DataPipeline.prototype.save.reset();\n      });\n\n      it('passes to pipeline save', function () {\n        expect(DataPipeline.prototype.save)\n          .to.have.been.calledWith('person', objToSave);\n      });\n    });\n  });\n});\n"
   },
   {
+    "__docId__": 207,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3657,6 +3875,7 @@
     ]
   },
   {
+    "__docId__": 208,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3679,6 +3898,7 @@
     ]
   },
   {
+    "__docId__": 209,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3692,6 +3912,7 @@
     "lineNumber": 25
   },
   {
+    "__docId__": 210,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3705,6 +3926,7 @@
     "lineNumber": 35
   },
   {
+    "__docId__": 211,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3718,6 +3940,7 @@
     "lineNumber": 40
   },
   {
+    "__docId__": 212,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3731,6 +3954,7 @@
     "lineNumber": 52
   },
   {
+    "__docId__": 213,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -3740,9 +3964,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nrequire('../bootstrap');\nvar expect = require('chai').expect;\nvar Hoist = require('../../src');\n\n/** @test {DataAPI} */\ndescribe('Hoist.data', function () {\n  it('is a function', function () {\n    expect(Hoist)\n      .to.respondTo('data');\n  });\n  var data;\n\n  function standardMethods() {\n    it('defines #find', function () {\n      expect(data).to.respondTo('find');\n    });\n    it('defines #findOne', function () {\n      expect(data).to.respondTo('findOne');\n    });\n    it('defines #setType', function () {\n      expect(data).to.respondTo('setType');\n    });\n    it('defines #remove', function () {\n      expect(data).to.respondTo('remove');\n    });\n    it('setType sets the _type property', function () {\n      var originalType = data._type;\n      data.setType('newType');\n      var newType = data._type;\n      data._type = originalType;\n      expect(newType).to.eql('newtype');\n    });\n\n  }\n  describe('constructed with type', function () {\n    before(function () {\n      data = Hoist.data('Person');\n    });\n    it('sets _type', function () {\n      expect(data._type).to.eql('person');\n    });\n    standardMethods(data);\n  });\n  describe('constructed without type', function () {\n    before(function () {\n      data = Hoist.data();\n    });\n    standardMethods(data);\n    it('#find throws exception', function () {\n      return expect(data.find())\n        .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');\n    });\n    it('#findOne throws exception', function () {\n      return expect(data.findOne({}))\n        .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');\n    });\n    it('#findById throws exception', function () {\n      return expect(data.findById('id'))\n        .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');\n    });\n    it('#save throws exception', function () {\n      return expect(data.save({}))\n        .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');\n    });\n    it('#remove throws exeception', function () {\n      return expect(data.remove({}))\n        .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');\n\n    });\n  });\n});\n"
+    "content": "'use strict';\nrequire('../bootstrap');\nimport {expect} from 'chai';\nimport Hoist from '../../src';\n\n/** @test {DataAPI} */\ndescribe('Hoist.data', function () {\n  it('is a function', function () {\n    expect(Hoist)\n      .to.respondTo('data');\n  });\n  var data;\n\n  function standardMethods() {\n    it('defines #find', function () {\n      expect(data).to.respondTo('find');\n    });\n    it('defines #findOne', function () {\n      expect(data).to.respondTo('findOne');\n    });\n    it('defines #setType', function () {\n      expect(data).to.respondTo('setType');\n    });\n    it('defines #remove', function () {\n      expect(data).to.respondTo('remove');\n    });\n    it('setType sets the _type property', function () {\n      var originalType = data._type;\n      data.setType('newType');\n      var newType = data._type;\n      data._type = originalType;\n      expect(newType).to.eql('newtype');\n    });\n\n  }\n  describe('constructed with type', function () {\n    before(function () {\n      data = Hoist.data('Person');\n    });\n    it('sets _type', function () {\n      expect(data._type).to.eql('person');\n    });\n    standardMethods(data);\n  });\n  describe('constructed without type', function () {\n    before(function () {\n      data = Hoist.data();\n    });\n    standardMethods(data);\n    it('#find throws exception', function () {\n      return expect(data.find())\n        .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');\n    });\n    it('#findOne throws exception', function () {\n      return expect(data.findOne({}))\n        .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');\n    });\n    it('#findById throws exception', function () {\n      return expect(data.findById('id'))\n        .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');\n    });\n    it('#save throws exception', function () {\n      return expect(data.save({}))\n        .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');\n    });\n    it('#remove throws exeception', function () {\n      return expect(data.remove({}))\n        .to.be.rejectedWith('you need to specify a type for the retrieval, call #setType([typename]) first');\n\n    });\n  });\n});\n"
   },
   {
+    "__docId__": 214,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3765,6 +3990,7 @@
     ]
   },
   {
+    "__docId__": 215,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3778,6 +4004,7 @@
     "lineNumber": 8
   },
   {
+    "__docId__": 216,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3791,6 +4018,7 @@
     "lineNumber": 15
   },
   {
+    "__docId__": 217,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3804,6 +4032,7 @@
     "lineNumber": 18
   },
   {
+    "__docId__": 218,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3817,6 +4046,7 @@
     "lineNumber": 21
   },
   {
+    "__docId__": 219,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3830,6 +4060,7 @@
     "lineNumber": 24
   },
   {
+    "__docId__": 220,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3843,6 +4074,7 @@
     "lineNumber": 27
   },
   {
+    "__docId__": 221,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3856,6 +4088,7 @@
     "lineNumber": 36
   },
   {
+    "__docId__": 222,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3869,6 +4102,7 @@
     "lineNumber": 40
   },
   {
+    "__docId__": 223,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3882,6 +4116,7 @@
     "lineNumber": 45
   },
   {
+    "__docId__": 224,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3895,6 +4130,7 @@
     "lineNumber": 50
   },
   {
+    "__docId__": 225,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3908,6 +4144,7 @@
     "lineNumber": 54
   },
   {
+    "__docId__": 226,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3921,6 +4158,7 @@
     "lineNumber": 58
   },
   {
+    "__docId__": 227,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3934,6 +4172,7 @@
     "lineNumber": 62
   },
   {
+    "__docId__": 228,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3947,6 +4186,7 @@
     "lineNumber": 66
   },
   {
+    "__docId__": 229,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -3959,6 +4199,7 @@
     "content": "'use strict';\nimport Hoist from '../../src';\nimport Pipeline from '@hoist/events-pipeline';\nimport {\n  expect\n}\nfrom 'chai';\nimport sinon from 'sinon';\nimport Context from '@hoist/context';\n\n/** @test {EventsAPI} */\ndescribe('Hoist.events', function () {\n  it('exists', function () {\n    return expect(Hoist.events).to.exist;\n  });\n  /** @test {EventsAPI#raise} */\n  describe('.raise', function () {\n    var name = 'name';\n    var payload = {\n      key: 'value'\n    };\n    let context = new Context();\n    before(function (done) {\n      sinon.stub(Pipeline.prototype, 'raise').returns(Promise.resolve(null));\n      Context.set(context).then(() => {\n        Hoist.events.raise(name, payload, done);\n      });\n    });\n    after(function () {\n      Pipeline.prototype.raise.restore();\n    });\n    it('calls raise on pipeline', function () {\n      return expect(Pipeline.prototype.raise).to.have.been.calledWith(context, name, payload);\n    });\n  });\n\n});\n"
   },
   {
+    "__docId__": 230,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -3981,6 +4222,7 @@
     ]
   },
   {
+    "__docId__": 231,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -3994,6 +4236,7 @@
     "lineNumber": 13
   },
   {
+    "__docId__": 232,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4016,6 +4259,7 @@
     ]
   },
   {
+    "__docId__": 233,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4029,6 +4273,7 @@
     "lineNumber": 32
   },
   {
+    "__docId__": 234,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -4041,6 +4286,7 @@
     "content": "'use strict';\nimport Hoist from '../../src';\nimport {\n  expect\n}\nfrom 'chai';\nimport LockAPI from '../../src/lock';\n\ndescribe('Hoist.lock', function () {\n  it('is a function', function () {\n    return expect(Hoist).to.respondTo('lock');\n  });\n  describe('with no lock active', function () {\n    var result;\n    before(function () {\n      return (result = Hoist.lock('lock-key').then(function (lock) {\n        lock.release();\n        return 'lock aquired';\n      }));\n    });\n    it('gets lock', function () {\n      return expect(result).to.be.become('lock aquired');\n    });\n    after(function () {\n      LockAPI._clearClient();\n    });\n  });\n  describe('with lock active', function () {\n    this.timeout(5000);\n    var result;\n    var value;\n    before(function (done) {\n      result = Hoist.lock('lock-key').then(function () {\n        value = 'lock aquired in 1';\n        process.nextTick(function () {\n          done();\n        });\n        return Hoist.lock('lock-key').then(function (lock) {\n          value = 'lock aquired in 2';\n          console.log('releasing');\n          lock.release();\n        });\n      });\n    });\n    it('gets lock', function () {\n      expect(value).to.eql('lock aquired in 1');\n    });\n    it('lock aquired after 500 milliseconds', function (done) {\n      setTimeout(() => {\n        result.then(function () {\n          return expect(value).to.eql('lock aquired in 2');\n        }).then(() => {\n          done();\n        });\n      }, 501);\n\n    });\n    after(function () {\n      LockAPI._clearClient();\n    });\n  });\n  describe('with lock released', function () {\n\n    var value;\n    before(function () {\n\n      return (Hoist.lock('lock-key').then(function (lock1) {\n        value = 'lock aquired in 1';\n        process.nextTick(function () {\n          lock1.release();\n        });\n        return Hoist.lock('lock-key').then(function (lock2) {\n          value = 'lock aquired in 2';\n          lock2.release();\n        });\n      }));\n    });\n    it('gets lock', function () {\n      expect(value).to.eql('lock aquired in 2');\n    });\n\n    after(function () {\n      LockAPI._clearClient();\n    });\n  });\n});\n"
   },
   {
+    "__docId__": 235,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4054,6 +4300,7 @@
     "lineNumber": 9
   },
   {
+    "__docId__": 236,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4067,6 +4314,7 @@
     "lineNumber": 10
   },
   {
+    "__docId__": 237,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4080,6 +4328,7 @@
     "lineNumber": 13
   },
   {
+    "__docId__": 238,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4093,6 +4342,7 @@
     "lineNumber": 21
   },
   {
+    "__docId__": 239,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4106,6 +4356,7 @@
     "lineNumber": 28
   },
   {
+    "__docId__": 240,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4119,6 +4370,7 @@
     "lineNumber": 45
   },
   {
+    "__docId__": 241,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4132,6 +4384,7 @@
     "lineNumber": 48
   },
   {
+    "__docId__": 242,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4145,6 +4398,7 @@
     "lineNumber": 62
   },
   {
+    "__docId__": 243,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4158,6 +4412,7 @@
     "lineNumber": 78
   },
   {
+    "__docId__": 244,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -4170,6 +4425,7 @@
     "content": "'use strict';\nimport log from '../../src/log';\n/** @test {Log} */\ndescribe('Hoist.log', function () {\n  before(function () {\n    var b = {\n\n    };\n    var a = {\n      b: b\n    };\n    b.a = a;\n    var logObject = {\n      a: a,\n      b: b\n    };\n    log(logObject);\n  });\n\n\n  it('should log circular structure', function () {\n    console.log('manually check the log above');\n  });\n});\n"
   },
   {
+    "__docId__": 245,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4192,6 +4448,7 @@
     ]
   },
   {
+    "__docId__": 246,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4205,6 +4462,7 @@
     "lineNumber": 21
   },
   {
+    "__docId__": 247,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -4217,6 +4475,7 @@
     "content": "'use strict';\nimport Context from '@hoist/context';\nimport sinon from 'sinon';\nimport {\n  expect\n}\nfrom 'chai';\n\n/** @test {Log} */\ndescribe('Hoist.log', function () {\n  var Hoist = require('../../lib');\n  var context = new Context();\n  context.application = {\n    _id: 'appid'\n  };\n  it('exists', function () {\n    expect(Hoist).to.respondTo('log');\n  });\n  before(function () {\n    sinon.stub(Context, 'get').returns(Promise.resolve(context));\n  });\n  after(function () {\n    Context.get.restore();\n  });\n  describe('with no application', function () {\n    var consoleLogs = [];\n    before(function () {\n      sinon.stub(console, 'log', function (message) {\n        consoleLogs.push(message);\n      });\n      return Hoist.log('message').then(function () {\n        console.log.restore();\n      });\n    });\n    it('logs to console', function () {\n      expect(consoleLogs).to.eql(['{\\\"type\\\":\\\"appLog\\\",\\\"arguments\\\":[\\\"message\\\"]}']);\n    });\n\n  });\n  describe('called with a callback', function () {\n    var consoleLogs = [];\n    var called;\n    before(function () {\n      sinon.stub(console, 'log', function () {\n        consoleLogs.push(arguments);\n      });\n      Hoist.log('message', 'two', 'three', function () {\n        console.log.restore();\n        called = true;\n      });\n\n    });\n    it('should call log without callback', function () {\n      return expect(consoleLogs[0][0]).to.eql('{\\\"type\\\":\\\"appLog\\\",\\\"arguments\\\":[\\\"message\\\",\\\"two\\\",\\\"three\\\"]}');\n    });\n    it('should call the callback function', function () {\n      return expect(called).to.be.true;\n    });\n  });\n});\n"
   },
   {
+    "__docId__": 248,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4239,6 +4498,7 @@
     ]
   },
   {
+    "__docId__": 249,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4252,6 +4512,7 @@
     "lineNumber": 16
   },
   {
+    "__docId__": 250,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4265,6 +4526,7 @@
     "lineNumber": 25
   },
   {
+    "__docId__": 251,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4278,6 +4540,7 @@
     "lineNumber": 35
   },
   {
+    "__docId__": 252,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4291,6 +4554,7 @@
     "lineNumber": 40
   },
   {
+    "__docId__": 253,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4304,6 +4568,7 @@
     "lineNumber": 53
   },
   {
+    "__docId__": 254,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4317,6 +4582,7 @@
     "lineNumber": 56
   },
   {
+    "__docId__": 255,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -4329,6 +4595,7 @@
     "content": "'use strict';\nimport Hoist from '../../src';\nimport {\n  expect\n}\nfrom 'chai';\nimport Context from '@hoist/context';\nimport sinon from 'sinon';\n\n/** @test {TimeoutAPI} */\ndescribe('Hoist.timeout', function () {\n  it('exists', function () {\n    return expect(Hoist).to.have.property('timeout');\n  });\n\n  /** @test {TimeoutAPI#reset} */\n  describe('#reset', function () {\n    describe('with valid value', function () {\n      var clock;\n      var context;\n      var result = '';\n      beforeEach(function () {\n        context = {\n          timeout: {\n            onTimeout: function () {\n              result = 'this is a reset timeout';\n            }\n          }\n        };\n        result = '';\n        clock = sinon.useFakeTimers();\n        context.timeout.current = setTimeout(function () {\n          result = 'this is original timeout';\n        }, 300);\n        sinon.stub(Context, 'get').returns(Promise.resolve(context));\n        clock.tick(200);\n        return Hoist.timeout.reset(5000);\n      });\n      it('replaces timeout', function () {\n        clock.tick(200);\n        return expect(result).to.eql('');\n      });\n      it('sets new timeout', function () {\n        clock.tick(5000);\n        return expect(result).to.eql('this is a reset timeout');\n      });\n      afterEach(function () {\n        clearTimeout(context.timeout.current);\n        Context.get.restore();\n        clock.restore();\n      });\n    });\n    describe('with invalid value', function () {\n      var clock;\n      var context;\n      var result = '';\n      beforeEach(function () {\n        context = {\n          timeout: {\n            onTimeout: function () {\n              result = 'this is a reset timeout';\n            }\n          }\n        };\n        result = '';\n        clock = sinon.useFakeTimers();\n        context.timeout.current = setTimeout(function () {\n          result = 'this is original timeout';\n        }, 300);\n        sinon.stub(Context, 'get').returns(Promise.resolve(context));\n        clock.tick(200);\n      });\n      it('throws an error', function () {\n        return expect(Hoist.timeout.reset(500000)).to.be.rejectedWith('The specified value for timeout length was invalid');\n      });\n      it('maintains original timeout', function () {\n        clock.tick(200);\n        return expect(result).to.eql('this is original timeout');\n      });\n      afterEach(function () {\n        clearTimeout(context.timeout.current);\n        Context.get.restore();\n        clock.restore();\n      });\n    });\n  });\n});\n"
   },
   {
+    "__docId__": 256,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4351,6 +4618,7 @@
     ]
   },
   {
+    "__docId__": 257,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4364,6 +4632,7 @@
     "lineNumber": 12
   },
   {
+    "__docId__": 258,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4386,6 +4655,7 @@
     ]
   },
   {
+    "__docId__": 259,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4399,6 +4669,7 @@
     "lineNumber": 18
   },
   {
+    "__docId__": 260,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4412,6 +4683,7 @@
     "lineNumber": 39
   },
   {
+    "__docId__": 261,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4425,6 +4697,7 @@
     "lineNumber": 43
   },
   {
+    "__docId__": 262,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4438,6 +4711,7 @@
     "lineNumber": 53
   },
   {
+    "__docId__": 263,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4451,6 +4725,7 @@
     "lineNumber": 73
   },
   {
+    "__docId__": 264,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4464,6 +4739,7 @@
     "lineNumber": 76
   },
   {
+    "__docId__": 265,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -4476,6 +4752,7 @@
     "content": "'use strict';\nimport Hoist from '../../src';\nimport {expect} from 'chai';\nimport HoistErrors from '@hoist/errors';\nimport {Pipeline as UserPipeline} from '@hoist/user-pipeline';\nimport {AppUser} from '@hoist/model';\nimport sinon from 'sinon';\n\ndescribe('Hoist', function () {\n  describe('.user', function () {\n    var appUser;\n    before(function () {\n      appUser = new AppUser();\n    });\n\n    it('exists', function () {\n      return expect(Hoist.user).to.exist;\n    });\n    describe('.login', function () {\n      before(function () {\n        sinon.stub(UserPipeline.prototype, 'login').returns(Promise.resolve(appUser));\n      });\n      after(function () {\n        UserPipeline.prototype.login.restore();\n      });\n      it('requires username', function () {\n        return expect(function () {\n          Hoist.user.login(null, 'password');\n        }).to.throw(HoistErrors.user.request.InvalidError, 'username is required');\n      });\n      it('requires password', function () {\n        return expect(function () {\n          Hoist.user.login('user', null);\n        }).to.throw(HoistErrors.user.request.InvalidError, 'password is required');\n      });\n      describe('valid request', function () {\n        var result;\n        before(function () {\n          return (result = Hoist.user.login('username', 'password'));\n        });\n        it('returns app user', function () {\n          return expect(result).to.become(appUser);\n        });\n        it('passes username and password to pipeline', function () {\n          expect(UserPipeline.prototype.login)\n            .to.have.been.calledWith('username', 'password');\n        });\n      });\n    });\n    describe('.invite', function () {\n      before(function () {\n        sinon.stub(UserPipeline.prototype, 'invite').returns(Promise.resolve(null));\n      });\n      after(function () {\n        UserPipeline.prototype.invite.restore();\n      });\n      it('requires user details', function () {\n        return expect(function () {\n          Hoist.user.invite(null);\n        }).to.throw(HoistErrors.user.request.InvalidError, 'user details are required');\n      });\n      describe('valid request', function () {\n        before(function () {\n          return (Hoist.user.invite({\n            username: 'username'\n          }));\n        });\n        it('passes details to pipeline', function () {\n          expect(UserPipeline.prototype.invite)\n            .to.have.been.calledWith({\n              username: 'username'\n            });\n        });\n      });\n    });\n    describe('.create', function () {\n\n    });\n    describe('.find', function () {\n\n    });\n    describe('.delete', function () {\n\n    });\n    describe('.resetPassword', function () {\n\n    });\n  });\n});\n"
   },
   {
+    "__docId__": 266,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4489,6 +4766,7 @@
     "lineNumber": 9
   },
   {
+    "__docId__": 267,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4502,6 +4780,7 @@
     "lineNumber": 10
   },
   {
+    "__docId__": 268,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4515,6 +4794,7 @@
     "lineNumber": 16
   },
   {
+    "__docId__": 269,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4528,6 +4808,7 @@
     "lineNumber": 19
   },
   {
+    "__docId__": 270,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4541,6 +4822,7 @@
     "lineNumber": 26
   },
   {
+    "__docId__": 271,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4554,6 +4836,7 @@
     "lineNumber": 31
   },
   {
+    "__docId__": 272,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4567,6 +4850,7 @@
     "lineNumber": 36
   },
   {
+    "__docId__": 273,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4580,6 +4864,7 @@
     "lineNumber": 41
   },
   {
+    "__docId__": 274,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4593,6 +4878,7 @@
     "lineNumber": 44
   },
   {
+    "__docId__": 275,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4606,6 +4892,7 @@
     "lineNumber": 50
   },
   {
+    "__docId__": 276,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4619,6 +4906,7 @@
     "lineNumber": 57
   },
   {
+    "__docId__": 277,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4632,6 +4920,7 @@
     "lineNumber": 62
   },
   {
+    "__docId__": 278,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -4645,6 +4934,7 @@
     "lineNumber": 68
   },
   {
+    "__docId__": 279,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4658,6 +4948,7 @@
     "lineNumber": 76
   },
   {
+    "__docId__": 280,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4671,6 +4962,7 @@
     "lineNumber": 79
   },
   {
+    "__docId__": 281,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -4684,6 +4976,7 @@
     "lineNumber": 82
   },
   {
+    "__docId__": 282,
     "kind": "testDescribe",
     "static": true,
     "variation": null,

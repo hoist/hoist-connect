@@ -24,7 +24,7 @@ function runMocha(options) {
 }
 
 gulp.task('mocha-server', ['transpile', 'eslint', 'clean-coverage'], function (cb) {
-  require("babel/register");
+  require("babel-register");
   gulp.src(globs.js.src)
     .pipe(plugins.istanbul({
       instrumenter: isparta.Instrumenter
@@ -42,12 +42,12 @@ gulp.task('mocha-server', ['transpile', 'eslint', 'clean-coverage'], function (c
     });
 });
 gulp.task('mocha-server-without-coverage', ['transpile', 'eslint'], function () {
-  require("babel/register");
+  require("babel-register");
   return runMocha();
 });
 var withCoverage = false;
 gulp.task('mocha-server-continue', ['transpile', 'eslint', 'clean-coverage'], function (cb) {
-  require("babel/register")();
+  require("babel-register")();
   var ended;
   if (!withCoverage) {
     runMocha({
@@ -73,7 +73,7 @@ gulp.task('mocha-server-continue', ['transpile', 'eslint', 'clean-coverage'], fu
       }))
       .pipe(plugins.istanbul.hookRequire())
       .on('finish', function () {
-        require("babel/register")({
+        require("babel-register")({
           optional: ['es7.objectRestSpread']
         });
         //ensure the task finishes after 2 minutes at the most
