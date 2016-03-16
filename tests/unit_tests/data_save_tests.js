@@ -1,10 +1,10 @@
 'use strict';
 require('../bootstrap');
-var Hoist = require('../../src');
-var sinon = require('sinon');
-var expect = require('chai').expect;
-var BBPromise = require('bluebird');
-var DataPipeline = require('@hoist/data-pipeline');
+import Hoist from '../../src';
+import sinon from 'sinon';
+import {expect} from 'chai';
+import BBPromise from 'bluebird';
+import DataPipeline from '@hoist/data-pipeline';
 
 /** @test {DataAPI} */
 describe('Hoist.data', function () {

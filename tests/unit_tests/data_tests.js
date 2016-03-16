@@ -1,7 +1,7 @@
 'use strict';
 require('../bootstrap');
-var expect = require('chai').expect;
-var Hoist = require('../../src');
+import {expect} from 'chai';
+import Hoist from '../../src';
 
 /** @test {DataAPI} */
 describe('Hoist.data', function () {

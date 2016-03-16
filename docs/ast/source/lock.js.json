@@ -3138,10 +3138,30 @@
                             }
                           }
                         },
-                        "arguments": [],
+                        "arguments": [
+                          {
+                            "type": "Literal",
+                            "value": true,
+                            "raw": "true",
+                            "range": [
+                              1496,
+                              1500
+                            ],
+                            "loc": {
+                              "start": {
+                                "line": 61,
+                                "column": 15
+                              },
+                              "end": {
+                                "line": 61,
+                                "column": 19
+                              }
+                            }
+                          }
+                        ],
                         "range": [
                           1485,
-                          1497
+                          1501
                         ],
                         "loc": {
                           "start": {
@@ -3150,13 +3170,13 @@
                           },
                           "end": {
                             "line": 61,
-                            "column": 16
+                            "column": 20
                           }
                         }
                       },
                       "range": [
                         1485,
-                        1498
+                        1502
                       ],
                       "loc": {
                         "start": {
@@ -3165,7 +3185,7 @@
                         },
                         "end": {
                           "line": 61,
-                          "column": 17
+                          "column": 21
                         }
                       }
                     },
@@ -3178,8 +3198,8 @@
                           "type": "Identifier",
                           "name": "client",
                           "range": [
-                            1503,
-                            1509
+                            1507,
+                            1513
                           ],
                           "loc": {
                             "start": {
@@ -3197,8 +3217,8 @@
                           "value": null,
                           "raw": "null",
                           "range": [
-                            1512,
-                            1516
+                            1516,
+                            1520
                           ],
                           "loc": {
                             "start": {
@@ -3212,8 +3232,8 @@
                           }
                         },
                         "range": [
-                          1503,
-                          1516
+                          1507,
+                          1520
                         ],
                         "loc": {
                           "start": {
@@ -3227,8 +3247,8 @@
                         }
                       },
                       "range": [
-                        1503,
-                        1517
+                        1507,
+                        1521
                       ],
                       "loc": {
                         "start": {
@@ -3244,7 +3264,7 @@
                   ],
                   "range": [
                     1479,
-                    1521
+                    1525
                   ],
                   "loc": {
                     "start": {
@@ -3260,7 +3280,7 @@
                 "alternate": null,
                 "range": [
                   1467,
-                  1521
+                  1525
                 ],
                 "loc": {
                   "start": {
@@ -3276,7 +3296,7 @@
             ],
             "range": [
               1463,
-              1523
+              1527
             ],
             "loc": {
               "start": {
@@ -3293,7 +3313,7 @@
           "expression": false,
           "range": [
             1451,
-            1523
+            1527
           ],
           "loc": {
             "start": {
@@ -3308,7 +3328,7 @@
         },
         "range": [
           1423,
-          1523
+          1527
         ],
         "loc": {
           "start": {
@@ -3323,7 +3343,7 @@
       },
       "range": [
         1423,
-        1524
+        1528
       ],
       "loc": {
         "start": {
@@ -3342,8 +3362,8 @@
         "type": "Identifier",
         "name": "HoistLockAPI",
         "range": [
-          1543,
-          1555
+          1547,
+          1559
         ],
         "loc": {
           "start": {
@@ -3357,8 +3377,8 @@
         }
       },
       "range": [
-        1528,
-        1556
+        1532,
+        1560
       ],
       "loc": {
         "start": {
@@ -4531,8 +4551,8 @@
         "trailingComments": []
       },
       "range": [
-        1528,
-        1556
+        1532,
+        1560
       ],
       "loc": {
         "start": {
@@ -4550,7 +4570,7 @@
   "sourceType": "module",
   "range": [
     0,
-    1556
+    1560
   ],
   "loc": {
     "start": {

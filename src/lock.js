@@ -58,7 +58,7 @@ HoistLockAPI._getClient = function () {
 };
 HoistLockAPI._clearClient = function () {
   if (client) {
-    client.end();
+    client.end(true);
     client = null;
   }
 };
