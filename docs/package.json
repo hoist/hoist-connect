@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@hoist/bucket-pipeline": "^3.0.0",
-    "@hoist/connector-pipeline": "^2.0.0",
+    "@hoist/connector-pipeline": "^2.0.1",
     "@hoist/context": "^1.0.1",
     "@hoist/data-pipeline": "^2.0.1",
     "@hoist/errors": "^2.0.2",
@@ -63,7 +63,7 @@
     "config": "^1.19.0",
     "lodash": "^4.6.1",
     "loggly": "^1.1.0",
-    "redis": "^2.5.1",
+    "redis": "^2.5.2",
     "redis-lock": "0.1.0",
     "redis-sentinel-client": "^0.2.5"
   }
