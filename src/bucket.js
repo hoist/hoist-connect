@@ -3,6 +3,7 @@ import Errors from '@hoist/errors';
 import Pipeline from '@hoist/bucket-pipeline';
 import Bluebird from 'bluebird';
 import BaseAPI from './base_api';
+import Context from '@hoist/context';
 /**
  * API entry for creating buckets
  * as with most API classes this acts more as a wrapper
@@ -34,7 +35,9 @@ class BucketAPI extends BaseAPI {
       key = null;
       meta = null;
     }
-    return Bluebird.resolve(this._pipeline.add(key, meta))
+    return Bluebird.resolve(Context.get().then((context) => {
+        return Promise.resolve(this._pipeline.add(context, key, meta));
+      }))
       .nodeify(callback);
   }
 
@@ -53,7 +56,9 @@ class BucketAPI extends BaseAPI {
     if (!key || typeof key === 'function') {
       throw new Errors.bucket.InvalidError('No key specified to set current bucket');
     }
-    return Bluebird.resolve(this._pipeline.set(key, create))
+    return Bluebird.resolve(Context.get().then((context) => {
+        return Promise.resolve(this._pipeline.set(context, key, create));
+      }))
       .nodeify(callback);
   }
 
@@ -68,7 +73,9 @@ class BucketAPI extends BaseAPI {
       callback = key;
       key = null;
     }
-    return Bluebird.resolve(this._pipeline.get(key))
+    return Bluebird.resolve(Context.get().then((context) => {
+        return Promise.resolve(this._pipeline.get(context, key));
+      }))
       .nodeify(callback);
   }
 
@@ -83,7 +90,9 @@ class BucketAPI extends BaseAPI {
       callback = key;
       key = null;
     }
-    return Bluebird.resolve(this._pipeline.remove(key))
+    return Bluebird.resolve(Context.get().then((context) => {
+        return Promise.resolve(this._pipeline.remove(context, key));
+      }))
       .nodeify(callback);
   }
 
@@ -93,7 +102,9 @@ class BucketAPI extends BaseAPI {
    * @returns {Promise<Array<Bucket>>} - a promise to have retrieved the buckets
    */
   getAll(callback) {
-    return Bluebird.resolve(this._pipeline.getAll())
+    return Bluebird.resolve(Context.get().then((context) => {
+        return Promise.resolve(this._pipeline.getAll(context));
+      }))
       .nodeify(callback);
   }
 
@@ -108,7 +119,9 @@ class BucketAPI extends BaseAPI {
       throw new Errors.bucket.InvalidError('No function given in each');
     }
     return Bluebird.resolve().then(() => {
-        this._pipeline.each(fn);
+        return Context.get().then((context) => {
+          return Promise.resolve(this._pipeline.each(context, fn));
+        });
       })
       .nodeify(callback);
   }
@@ -125,7 +138,9 @@ class BucketAPI extends BaseAPI {
       callback = key;
       key = null;
     }
-    return Bluebird.resolve(this._pipeline.saveMeta(meta, key))
+    return Bluebird.resolve(Context.get().then((context) => {
+        return Promise.resolve(this._pipeline.saveMeta(context, meta, key));
+      }))
       .nodeify(callback);
   }
 }

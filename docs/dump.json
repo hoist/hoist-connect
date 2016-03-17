@@ -72,7 +72,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport Errors from '@hoist/errors';\nimport Pipeline from '@hoist/bucket-pipeline';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\n/**\n * API entry for creating buckets\n * as with most API classes this acts more as a wrapper\n * over the Pipeline methods in {@link BucketPipeline}\n */\nclass BucketAPI extends BaseAPI {\n  /**\n   * create a new BucketAPI\n   */\n  constructor() {\n    super();\n    this._pipeline = new Pipeline();\n  }\n\n  /**\n   * add a new Bucket\n   * @param {String} key - the key of the bucket to create, must be unique\n   * @param {Object} [meta] - the meta data to save against the bucket\n   * @param {function(error: Error, bucket: Bucket)} [callback] - callback to call when bucket has been created\n   * @returns {Promise<Bucket>} - a promise to have created the bucket\n   **/\n  add(key, meta, callback) {\n    if (!callback && typeof meta === 'function') {\n      callback = meta;\n      meta = null;\n    }\n    if (!callback && !meta && typeof key === 'function') {\n      callback = key;\n      key = null;\n      meta = null;\n    }\n    return Bluebird.resolve(this._pipeline.add(key, meta))\n      .nodeify(callback);\n  }\n\n  /**\n   * set the current bucket in the Hoist context\n   * @param {String} key - the key of the bucket to set\n   * @param {Boolean} [create=false] - if the bucket isn't found should it be created?\n   * @param {function(error: Error, bucket: Bucket)} [callback] - callback to call when bucket has been set\n   * @returns {Promise<Bucket>} - a promise to have set the bucket\n   */\n  set(key, create, callback) {\n    if (!callback && typeof create === 'function') {\n      callback = create;\n      create = null;\n    }\n    if (!key || typeof key === 'function') {\n      throw new Errors.bucket.InvalidError('No key specified to set current bucket');\n    }\n    return Bluebird.resolve(this._pipeline.set(key, create))\n      .nodeify(callback);\n  }\n\n  /**\n   * get a bucket specified by the key\n   * @param {String} key - the key of the bucket to get\n   * @param {function(error: Error, bucket: Bucket)} [callback] - callback to call when bucket has been retrieved\n   * @returns {Promise<Bucket>} - a promise to have found the bucket\n   */\n  get(key, callback) {\n    if (!callback && typeof key === 'function') {\n      callback = key;\n      key = null;\n    }\n    return Bluebird.resolve(this._pipeline.get(key))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove/delete a bucket specified by the key\n   * @param {String} key - the key of the bucket to remove\n   * @param {function(error: Error)} [callback] - callback to call when bucket has been removed\n   * @returns {Promise} - a promise to have removed the bucket\n   */\n  remove(key, callback) {\n    if (!callback && typeof key === 'function') {\n      callback = key;\n      key = null;\n    }\n    return Bluebird.resolve(this._pipeline.remove(key))\n      .nodeify(callback);\n  }\n\n  /**\n   * get a list of all buckets in the organisation\n   * @param {function(error: Error, buckets: Array<Bucket>)} [callback] - callback to call when list has been retrieved\n   * @returns {Promise<Array<Bucket>>} - a promise to have retrieved the buckets\n   */\n  getAll(callback) {\n    return Bluebird.resolve(this._pipeline.getAll())\n      .nodeify(callback);\n  }\n\n  /**\n   * apply a function to every bucket in the current application\n   * @param {function(bucket: Bucket)} fn - function to apply to each bucket\n   * @param {function(error: Error)} [callback] - callback to call when all buckets have been applied\n   * @returns {Promise} - a promise to have run the function against each bucket\n   */\n  each(fn, callback) {\n    if (typeof fn !== 'function') {\n      throw new Errors.bucket.InvalidError('No function given in each');\n    }\n    return Bluebird.resolve().then(() => {\n        this._pipeline.each(fn);\n      })\n      .nodeify(callback);\n  }\n\n  /**\n   * save/update metadata against a bucket\n   * @param {Object} meta - the meta data to save against the bucket\n   * @param {String} [key] - the key of the bucket to save data to, applies to current bucket if not supplied\n   * @param {function(error: Error)} [callback] - callback to call when all buckets have been applied\n   * @returns {Promise} - a promise to have applied the meta data\n   */\n  saveMeta(meta, key, callback) {\n    if (!callback && typeof key === 'function') {\n      callback = key;\n      key = null;\n    }\n    return Bluebird.resolve(this._pipeline.saveMeta(meta, key))\n      .nodeify(callback);\n  }\n}\n\nexport default BucketAPI;\n"
+    "content": "'use strict';\nimport Errors from '@hoist/errors';\nimport Pipeline from '@hoist/bucket-pipeline';\nimport Bluebird from 'bluebird';\nimport BaseAPI from './base_api';\nimport Context from '@hoist/context';\n/**\n * API entry for creating buckets\n * as with most API classes this acts more as a wrapper\n * over the Pipeline methods in {@link BucketPipeline}\n */\nclass BucketAPI extends BaseAPI {\n  /**\n   * create a new BucketAPI\n   */\n  constructor() {\n    super();\n    this._pipeline = new Pipeline();\n  }\n\n  /**\n   * add a new Bucket\n   * @param {String} key - the key of the bucket to create, must be unique\n   * @param {Object} [meta] - the meta data to save against the bucket\n   * @param {function(error: Error, bucket: Bucket)} [callback] - callback to call when bucket has been created\n   * @returns {Promise<Bucket>} - a promise to have created the bucket\n   **/\n  add(key, meta, callback) {\n    if (!callback && typeof meta === 'function') {\n      callback = meta;\n      meta = null;\n    }\n    if (!callback && !meta && typeof key === 'function') {\n      callback = key;\n      key = null;\n      meta = null;\n    }\n    return Bluebird.resolve(Context.get().then((context) => {\n        return Promise.resolve(this._pipeline.add(context, key, meta));\n      }))\n      .nodeify(callback);\n  }\n\n  /**\n   * set the current bucket in the Hoist context\n   * @param {String} key - the key of the bucket to set\n   * @param {Boolean} [create=false] - if the bucket isn't found should it be created?\n   * @param {function(error: Error, bucket: Bucket)} [callback] - callback to call when bucket has been set\n   * @returns {Promise<Bucket>} - a promise to have set the bucket\n   */\n  set(key, create, callback) {\n    if (!callback && typeof create === 'function') {\n      callback = create;\n      create = null;\n    }\n    if (!key || typeof key === 'function') {\n      throw new Errors.bucket.InvalidError('No key specified to set current bucket');\n    }\n    return Bluebird.resolve(Context.get().then((context) => {\n        return Promise.resolve(this._pipeline.set(context, key, create));\n      }))\n      .nodeify(callback);\n  }\n\n  /**\n   * get a bucket specified by the key\n   * @param {String} key - the key of the bucket to get\n   * @param {function(error: Error, bucket: Bucket)} [callback] - callback to call when bucket has been retrieved\n   * @returns {Promise<Bucket>} - a promise to have found the bucket\n   */\n  get(key, callback) {\n    if (!callback && typeof key === 'function') {\n      callback = key;\n      key = null;\n    }\n    return Bluebird.resolve(Context.get().then((context) => {\n        return Promise.resolve(this._pipeline.get(context, key));\n      }))\n      .nodeify(callback);\n  }\n\n  /**\n   * remove/delete a bucket specified by the key\n   * @param {String} key - the key of the bucket to remove\n   * @param {function(error: Error)} [callback] - callback to call when bucket has been removed\n   * @returns {Promise} - a promise to have removed the bucket\n   */\n  remove(key, callback) {\n    if (!callback && typeof key === 'function') {\n      callback = key;\n      key = null;\n    }\n    return Bluebird.resolve(Context.get().then((context) => {\n        return Promise.resolve(this._pipeline.remove(context, key));\n      }))\n      .nodeify(callback);\n  }\n\n  /**\n   * get a list of all buckets in the organisation\n   * @param {function(error: Error, buckets: Array<Bucket>)} [callback] - callback to call when list has been retrieved\n   * @returns {Promise<Array<Bucket>>} - a promise to have retrieved the buckets\n   */\n  getAll(callback) {\n    return Bluebird.resolve(Context.get().then((context) => {\n        return Promise.resolve(this._pipeline.getAll(context));\n      }))\n      .nodeify(callback);\n  }\n\n  /**\n   * apply a function to every bucket in the current application\n   * @param {function(bucket: Bucket)} fn - function to apply to each bucket\n   * @param {function(error: Error)} [callback] - callback to call when all buckets have been applied\n   * @returns {Promise} - a promise to have run the function against each bucket\n   */\n  each(fn, callback) {\n    if (typeof fn !== 'function') {\n      throw new Errors.bucket.InvalidError('No function given in each');\n    }\n    return Bluebird.resolve().then(() => {\n        return Context.get().then((context) => {\n          return Promise.resolve(this._pipeline.each(context, fn));\n        });\n      })\n      .nodeify(callback);\n  }\n\n  /**\n   * save/update metadata against a bucket\n   * @param {Object} meta - the meta data to save against the bucket\n   * @param {String} [key] - the key of the bucket to save data to, applies to current bucket if not supplied\n   * @param {function(error: Error)} [callback] - callback to call when all buckets have been applied\n   * @returns {Promise} - a promise to have applied the meta data\n   */\n  saveMeta(meta, key, callback) {\n    if (!callback && typeof key === 'function') {\n      callback = key;\n      key = null;\n    }\n    return Bluebird.resolve(Context.get().then((context) => {\n        return Promise.resolve(this._pipeline.saveMeta(context, meta, key));\n      }))\n      .nodeify(callback);\n  }\n}\n\nexport default BucketAPI;\n"
   },
   {
     "__docId__": 5,
@@ -87,7 +87,7 @@
     "importPath": "@hoist/connect/src/bucket.js",
     "importStyle": "BucketAPI",
     "description": "API entry for creating buckets\nas with most API classes this acts more as a wrapper\nover the Pipeline methods in {@link BucketPipeline}",
-    "lineNumber": 11,
+    "lineNumber": 12,
     "interface": false,
     "extends": [
       "src/base_api.js~BaseAPI"
@@ -103,7 +103,7 @@
     "longname": "src/bucket.js~BucketAPI#constructor",
     "access": null,
     "description": "create a new BucketAPI",
-    "lineNumber": 15,
+    "lineNumber": 16,
     "params": [],
     "generator": false
   },
@@ -117,7 +117,7 @@
     "longname": "src/bucket.js~BucketAPI#_pipeline",
     "access": null,
     "description": null,
-    "lineNumber": 17,
+    "lineNumber": 18,
     "undocument": true,
     "type": {
       "types": [
@@ -135,7 +135,7 @@
     "longname": "src/bucket.js~BucketAPI#add",
     "access": null,
     "description": "add a new Bucket",
-    "lineNumber": 27,
+    "lineNumber": 28,
     "unknown": [
       {
         "tagName": "@returns",
@@ -194,7 +194,7 @@
     "longname": "src/bucket.js~BucketAPI#set",
     "access": null,
     "description": "set the current bucket in the Hoist context",
-    "lineNumber": 48,
+    "lineNumber": 51,
     "unknown": [
       {
         "tagName": "@returns",
@@ -255,7 +255,7 @@
     "longname": "src/bucket.js~BucketAPI#get",
     "access": null,
     "description": "get a bucket specified by the key",
-    "lineNumber": 66,
+    "lineNumber": 71,
     "unknown": [
       {
         "tagName": "@returns",
@@ -304,7 +304,7 @@
     "longname": "src/bucket.js~BucketAPI#remove",
     "access": null,
     "description": "remove/delete a bucket specified by the key",
-    "lineNumber": 81,
+    "lineNumber": 88,
     "unknown": [
       {
         "tagName": "@returns",
@@ -353,7 +353,7 @@
     "longname": "src/bucket.js~BucketAPI#getAll",
     "access": null,
     "description": "get a list of all buckets in the organisation",
-    "lineNumber": 95,
+    "lineNumber": 104,
     "unknown": [
       {
         "tagName": "@returns",
@@ -392,7 +392,7 @@
     "longname": "src/bucket.js~BucketAPI#each",
     "access": null,
     "description": "apply a function to every bucket in the current application",
-    "lineNumber": 106,
+    "lineNumber": 117,
     "unknown": [
       {
         "tagName": "@returns",
@@ -441,7 +441,7 @@
     "longname": "src/bucket.js~BucketAPI#saveMeta",
     "access": null,
     "description": "save/update metadata against a bucket",
-    "lineNumber": 123,
+    "lineNumber": 136,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2588,7 +2588,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\nimport Hoist from '../../src';\nimport {\n  expect\n}\nfrom 'chai';\nimport sinon from 'sinon';\nimport BucketPipeline from '@hoist/bucket-pipeline';\nimport Errors from '@hoist/errors';\n\n/** @test {BucketAPI} */\ndescribe('Hoist.bucket', function () {\n  it('exists', function () {\n    return expect(Hoist.bucket).to.exist;\n  });\n  /** @test {BucketAPI#remove} */\n  describe('.remove', function () {\n    before(function () {\n      sinon.stub(BucketPipeline.prototype, 'remove').returns(Promise.resolve(null));\n      return Hoist.bucket.remove('key');\n    });\n    after(function () {\n      BucketPipeline.prototype.remove.restore();\n    });\n    it('calls bucketPipeline.remove', function () {\n      return expect(BucketPipeline.prototype.remove)\n        .to.have.been.calledWith('key');\n    });\n  });\n  /** @test {BucketAPI#set} */\n  describe('.set', function () {\n    describe('with key and create', function () {\n      var fakeKey = 'key';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'set').returns(Promise.resolve());\n        return Hoist.bucket.set(fakeKey, true);\n      });\n      after(function () {\n        BucketPipeline.prototype.set.restore();\n      });\n      it('calls bucketPipeline.set with correct key', function () {\n        expect(BucketPipeline.prototype.set)\n          .to.have.been.calledWith(fakeKey, true);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.set(fakeKey, true, done);\n      });\n    });\n    describe('with key and callback', function () {\n      var fakeKey = 'key';\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'set').returns(Promise.resolve());\n        return Hoist.bucket.set(fakeKey, done);\n      });\n      after(function () {\n        BucketPipeline.prototype.set.restore();\n      });\n      it('calls bucketPipeline.set with correct key and meta', function () {\n        expect(BucketPipeline.prototype.set)\n          .to.have.been.calledWith(fakeKey, null);\n      });\n    });\n    describe('with no key specified', function () {\n      it('rejects', function () {\n        expect(function () {\n          Hoist.bucket.set();\n        }).to.throw(Errors.bucket.InvalidError);\n      });\n      it('with callback', function () {\n        expect(function () {\n          Hoist.bucket.set(function () {});\n        }).to.throw(Errors.bucket.InvalidError);\n      });\n    });\n  });\n\n  /** @test {BucketAPI#add} */\n  describe('.add', function () {\n    describe('with key and meta', function () {\n      var fakeKey = 'key';\n      var fakeMeta = 'meta';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'add').returns(Promise.resolve());\n        return Hoist.bucket.add(fakeKey, fakeMeta);\n      });\n      after(function () {\n        BucketPipeline.prototype.add.restore();\n      });\n      it('calls bucketPipeline.add with correct key and meta', function () {\n        expect(BucketPipeline.prototype.add)\n          .to.have.been.calledWith(fakeKey, fakeMeta);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.add(fakeKey, fakeMeta, done);\n      });\n    });\n    describe('with key and callback', function () {\n      var fakeKey = 'key';\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'add').returns(Promise.resolve());\n        return Hoist.bucket.add(fakeKey, done);\n      });\n      after(function () {\n        BucketPipeline.prototype.add.restore();\n      });\n      it('calls bucketPipeline.add with correct key and meta', function () {\n        expect(BucketPipeline.prototype.add)\n          .to.have.been.calledWith(fakeKey, null);\n      });\n    });\n    describe('with only callback', function () {\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'add').returns(Promise.resolve());\n        return Hoist.bucket.add(done);\n      });\n      after(function () {\n        BucketPipeline.prototype.add.restore();\n      });\n      it('calls bucketPipeline.add with correct key and meta', function () {\n        expect(BucketPipeline.prototype.add)\n          .to.have.been.calledWith(null, null);\n      });\n    });\n  });\n\n  /** @test {BucketAPI#get} */\n  describe('.get', function () {\n    describe('with key', function () {\n      var fakeKey = 'key';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'get').returns(Promise.resolve());\n        return Hoist.bucket.get(fakeKey);\n      });\n      after(function () {\n        BucketPipeline.prototype.get.restore();\n      });\n      it('calls bucketPipeline.get with correct key', function () {\n        expect(BucketPipeline.prototype.get)\n          .to.have.been.calledWith(fakeKey);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.get(fakeKey, done);\n      });\n    });\n    describe('with only callback', function () {\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'get').returns(Promise.resolve());\n        Hoist.bucket.get(done);\n      });\n      after(function () {\n        BucketPipeline.prototype.get.restore();\n      });\n      it('calls bucketPipeline.get with no key', function () {\n        expect(BucketPipeline.prototype.get)\n          .to.have.been.calledWith();\n      });\n    });\n  });\n\n  /** @test {BucketAPI#getAll} */\n  describe('.getAll', function () {\n    before(function () {\n      sinon.stub(BucketPipeline.prototype, 'getAll').returns(Promise.resolve([]));\n      return Hoist.bucket.getAll();\n    });\n    after(function () {\n      BucketPipeline.prototype.getAll.restore();\n    });\n    it('calls bucketPipeline.get with correct key', function () {\n      expect(BucketPipeline.prototype.getAll)\n        .to.have.been.calledWith();\n    });\n    it('with callback', function (done) {\n      Hoist.bucket.getAll(done);\n    });\n  });\n\n  /** @test {BucketAPI#each} */\n  describe('.each', function () {\n    describe('with a function', function () {\n      var fn = function () {};\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'each').returns(Promise.resolve());\n        return Hoist.bucket.each(fn);\n      });\n      after(function () {\n        BucketPipeline.prototype.each.restore();\n      });\n      it('calls bucketPipeline.each with correct key', function () {\n        expect(BucketPipeline.prototype.each)\n          .to.have.been.calledWith(fn);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.each(fn, done);\n      });\n    });\n    describe('without function', function () {\n      it('rejects', function () {\n        expect(function () {\n          Hoist.bucket.each();\n        }).to.throw(Errors.bucket.InvalidError);\n      });\n    });\n  });\n  describe('.saveMeta', function () {\n    describe('with meta and key', function () {\n      var fakeMeta = {\n        key: 'value'\n      };\n      var fakeKey = 'key';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'saveMeta').returns(Promise.resolve());\n        return Hoist.bucket.saveMeta(fakeMeta, fakeKey);\n      });\n      after(function () {\n        BucketPipeline.prototype.saveMeta.restore();\n      });\n      it('calls bucketPipeline.saveMeta with correct key', function () {\n        expect(BucketPipeline.prototype.saveMeta)\n          .to.have.been.calledWith(fakeMeta, fakeKey);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.saveMeta(fakeMeta, fakeKey, done);\n      });\n    });\n    describe('with meta and no key', function () {\n      var fakeMeta = {\n        key: 'value'\n      };\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'saveMeta').returns(Promise.resolve());\n        return Hoist.bucket.saveMeta(fakeMeta);\n      });\n      after(function () {\n        BucketPipeline.prototype.saveMeta.restore();\n      });\n      it('calls bucketPipeline.saveMeta with correct key', function () {\n        expect(BucketPipeline.prototype.saveMeta)\n          .to.have.been.calledWith(fakeMeta, undefined);\n      });\n    });\n    describe('with meta and no key and callback', function () {\n      var fakeMeta = {\n        key: 'value'\n      };\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'saveMeta').returns(Promise.resolve());\n        return Hoist.bucket.saveMeta(fakeMeta, done);\n      });\n      after(function () {\n        BucketPipeline.prototype.saveMeta.restore();\n      });\n      it('calls bucketPipeline.saveMeta with correct key', function () {\n        expect(BucketPipeline.prototype.saveMeta)\n          .to.have.been.calledWith(fakeMeta, null);\n      });\n    });\n  });\n});\n"
+    "content": "'use strict';\nimport Hoist from '../../src';\nimport {\n  expect\n}\nfrom 'chai';\nimport sinon from 'sinon';\nimport BucketPipeline from '@hoist/bucket-pipeline';\nimport Errors from '@hoist/errors';\nimport Context from '@hoist/context';\n\n/** @test {BucketAPI} */\ndescribe('Hoist.bucket', function () {\n  let context = {};\n  before(() => {\n    sinon.stub(Context, 'get').returns(Promise.resolve(context));\n  })\n  after(() => {\n    Context.get.restore();\n  })\n  it('exists', function () {\n    return expect(Hoist.bucket).to.exist;\n  });\n  /** @test {BucketAPI#remove} */\n  describe('.remove', function () {\n    before(function () {\n      sinon.stub(BucketPipeline.prototype, 'remove').returns(Promise.resolve(null));\n      return Hoist.bucket.remove('key');\n    });\n    after(function () {\n      BucketPipeline.prototype.remove.restore();\n    });\n    it('calls bucketPipeline.remove', function () {\n      return expect(BucketPipeline.prototype.remove)\n        .to.have.been.calledWith(context, 'key');\n    });\n  });\n  /** @test {BucketAPI#set} */\n  describe('.set', function () {\n    describe('with key and create', function () {\n      var fakeKey = 'key';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'set').returns(Promise.resolve());\n        return Hoist.bucket.set(fakeKey, true);\n      });\n      after(function () {\n        BucketPipeline.prototype.set.restore();\n      });\n      it('calls bucketPipeline.set with correct key', function () {\n        expect(BucketPipeline.prototype.set)\n          .to.have.been.calledWith(context, fakeKey, true);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.set(fakeKey, true, done);\n      });\n    });\n    describe('with key and callback', function () {\n      var fakeKey = 'key';\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'set').returns(Promise.resolve());\n        return Hoist.bucket.set(fakeKey, done);\n      });\n      after(function () {\n        BucketPipeline.prototype.set.restore();\n      });\n      it('calls bucketPipeline.set with correct key and meta', function () {\n        expect(BucketPipeline.prototype.set)\n          .to.have.been.calledWith(context, fakeKey, null);\n      });\n    });\n    describe('with no key specified', function () {\n      it('rejects', function () {\n        expect(function () {\n          Hoist.bucket.set();\n        }).to.throw(Errors.bucket.InvalidError);\n      });\n      it('with callback', function () {\n        expect(function () {\n          Hoist.bucket.set(function () {});\n        }).to.throw(Errors.bucket.InvalidError);\n      });\n    });\n  });\n\n  /** @test {BucketAPI#add} */\n  describe('.add', function () {\n    describe('with key and meta', function () {\n      var fakeKey = 'key';\n      var fakeMeta = 'meta';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'add').returns(Promise.resolve());\n        return Hoist.bucket.add(fakeKey, fakeMeta);\n      });\n      after(function () {\n        BucketPipeline.prototype.add.restore();\n      });\n      it('calls bucketPipeline.add with correct key and meta', function () {\n        expect(BucketPipeline.prototype.add)\n          .to.have.been.calledWith(context, fakeKey, fakeMeta);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.add(fakeKey, fakeMeta, done);\n      });\n    });\n    describe('with key and callback', function () {\n      var fakeKey = 'key';\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'add').returns(Promise.resolve());\n        return Hoist.bucket.add(fakeKey, done);\n      });\n      after(function () {\n        BucketPipeline.prototype.add.restore();\n      });\n      it('calls bucketPipeline.add with correct key and meta', function () {\n        expect(BucketPipeline.prototype.add)\n          .to.have.been.calledWith(context, fakeKey, null);\n      });\n    });\n    describe('with only callback', function () {\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'add').returns(Promise.resolve());\n        return Hoist.bucket.add(done);\n      });\n      after(function () {\n        BucketPipeline.prototype.add.restore();\n      });\n      it('calls bucketPipeline.add with correct key and meta', function () {\n        expect(BucketPipeline.prototype.add)\n          .to.have.been.calledWith(context, null, null);\n      });\n    });\n  });\n\n  /** @test {BucketAPI#get} */\n  describe('.get', function () {\n    describe('with key', function () {\n      var fakeKey = 'key';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'get').returns(Promise.resolve());\n        return Hoist.bucket.get(fakeKey);\n      });\n      after(function () {\n        BucketPipeline.prototype.get.restore();\n      });\n      it('calls bucketPipeline.get with correct key', function () {\n        expect(BucketPipeline.prototype.get)\n          .to.have.been.calledWith(context, fakeKey);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.get(fakeKey, done);\n      });\n    });\n    describe('with only callback', function () {\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'get').returns(Promise.resolve());\n        Hoist.bucket.get(done);\n      });\n      after(function () {\n        BucketPipeline.prototype.get.restore();\n      });\n      it('calls bucketPipeline.get with no key', function () {\n        expect(BucketPipeline.prototype.get)\n          .to.have.been.calledWith(context);\n      });\n    });\n  });\n\n  /** @test {BucketAPI#getAll} */\n  describe('.getAll', function () {\n    before(function () {\n      sinon.stub(BucketPipeline.prototype, 'getAll').returns(Promise.resolve([]));\n      return Hoist.bucket.getAll();\n    });\n    after(function () {\n      BucketPipeline.prototype.getAll.restore();\n    });\n    it('calls bucketPipeline.get with correct key', function () {\n      expect(BucketPipeline.prototype.getAll)\n        .to.have.been.calledWith(context);\n    });\n    it('with callback', function (done) {\n      Hoist.bucket.getAll(done);\n    });\n  });\n\n  /** @test {BucketAPI#each} */\n  describe('.each', function () {\n    describe('with a function', function () {\n      var fn = function () {};\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'each').returns(Promise.resolve());\n        return Hoist.bucket.each(fn);\n      });\n      after(function () {\n        BucketPipeline.prototype.each.restore();\n      });\n      it('calls bucketPipeline.each with correct key', function () {\n        expect(BucketPipeline.prototype.each)\n          .to.have.been.calledWith(context, fn);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.each(fn, done);\n      });\n    });\n    describe('without function', function () {\n      it('rejects', function () {\n        expect(function () {\n          Hoist.bucket.each();\n        }).to.throw(Errors.bucket.InvalidError);\n      });\n    });\n  });\n  describe('.saveMeta', function () {\n    describe('with meta and key', function () {\n      var fakeMeta = {\n        key: 'value'\n      };\n      var fakeKey = 'key';\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'saveMeta').returns(Promise.resolve());\n        return Hoist.bucket.saveMeta(fakeMeta, fakeKey);\n      });\n      after(function () {\n        BucketPipeline.prototype.saveMeta.restore();\n      });\n      it('calls bucketPipeline.saveMeta with correct key', function () {\n        expect(BucketPipeline.prototype.saveMeta)\n          .to.have.been.calledWith(context, fakeMeta, fakeKey);\n      });\n      it('with callback', function (done) {\n        Hoist.bucket.saveMeta(fakeMeta, fakeKey, done);\n      });\n    });\n    describe('with meta and no key', function () {\n      var fakeMeta = {\n        key: 'value'\n      };\n      before(function () {\n        sinon.stub(BucketPipeline.prototype, 'saveMeta').returns(Promise.resolve());\n        return Hoist.bucket.saveMeta(fakeMeta);\n      });\n      after(function () {\n        BucketPipeline.prototype.saveMeta.restore();\n      });\n      it('calls bucketPipeline.saveMeta with correct key', function () {\n        expect(BucketPipeline.prototype.saveMeta)\n          .to.have.been.calledWith(context, fakeMeta, undefined);\n      });\n    });\n    describe('with meta and no key and callback', function () {\n      var fakeMeta = {\n        key: 'value'\n      };\n      before(function (done) {\n        sinon.stub(BucketPipeline.prototype, 'saveMeta').returns(Promise.resolve());\n        return Hoist.bucket.saveMeta(fakeMeta, done);\n      });\n      after(function () {\n        BucketPipeline.prototype.saveMeta.restore();\n      });\n      it('calls bucketPipeline.saveMeta with correct key', function () {\n        expect(BucketPipeline.prototype.saveMeta)\n          .to.have.been.calledWith(context, fakeMeta, null);\n      });\n    });\n  });\n});\n"
   },
   {
     "__docId__": 127,
@@ -2602,7 +2602,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0",
     "access": null,
     "description": "Hoist.bucket",
-    "lineNumber": 12,
+    "lineNumber": 13,
     "unknown": [
       {
         "tagName": "@test",
@@ -2625,7 +2625,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.it1",
     "access": null,
     "description": "exists",
-    "lineNumber": 13
+    "lineNumber": 21
   },
   {
     "__docId__": 129,
@@ -2639,7 +2639,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe2",
     "access": null,
     "description": ".remove",
-    "lineNumber": 17,
+    "lineNumber": 25,
     "unknown": [
       {
         "tagName": "@test",
@@ -2662,7 +2662,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe2.it3",
     "access": null,
     "description": "calls bucketPipeline.remove",
-    "lineNumber": 25
+    "lineNumber": 33
   },
   {
     "__docId__": 131,
@@ -2676,7 +2676,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe4",
     "access": null,
     "description": ".set",
-    "lineNumber": 31,
+    "lineNumber": 39,
     "unknown": [
       {
         "tagName": "@test",
@@ -2699,7 +2699,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe4.describe5",
     "access": null,
     "description": "with key and create",
-    "lineNumber": 32
+    "lineNumber": 40
   },
   {
     "__docId__": 133,
@@ -2713,7 +2713,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe4.describe5.it6",
     "access": null,
     "description": "calls bucketPipeline.set with correct key",
-    "lineNumber": 41
+    "lineNumber": 49
   },
   {
     "__docId__": 134,
@@ -2727,7 +2727,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe4.describe5.it7",
     "access": null,
     "description": "with callback",
-    "lineNumber": 45
+    "lineNumber": 53
   },
   {
     "__docId__": 135,
@@ -2741,7 +2741,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe4.describe8",
     "access": null,
     "description": "with key and callback",
-    "lineNumber": 49
+    "lineNumber": 57
   },
   {
     "__docId__": 136,
@@ -2755,7 +2755,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe4.describe8.it9",
     "access": null,
     "description": "calls bucketPipeline.set with correct key and meta",
-    "lineNumber": 58
+    "lineNumber": 66
   },
   {
     "__docId__": 137,
@@ -2769,7 +2769,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe4.describe10",
     "access": null,
     "description": "with no key specified",
-    "lineNumber": 63
+    "lineNumber": 71
   },
   {
     "__docId__": 138,
@@ -2783,7 +2783,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe4.describe10.it11",
     "access": null,
     "description": "rejects",
-    "lineNumber": 64
+    "lineNumber": 72
   },
   {
     "__docId__": 139,
@@ -2797,7 +2797,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe4.describe10.it12",
     "access": null,
     "description": "with callback",
-    "lineNumber": 69
+    "lineNumber": 77
   },
   {
     "__docId__": 140,
@@ -2811,7 +2811,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe13",
     "access": null,
     "description": ".add",
-    "lineNumber": 78,
+    "lineNumber": 86,
     "unknown": [
       {
         "tagName": "@test",
@@ -2834,7 +2834,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe13.describe14",
     "access": null,
     "description": "with key and meta",
-    "lineNumber": 79
+    "lineNumber": 87
   },
   {
     "__docId__": 142,
@@ -2848,7 +2848,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe13.describe14.it15",
     "access": null,
     "description": "calls bucketPipeline.add with correct key and meta",
-    "lineNumber": 89
+    "lineNumber": 97
   },
   {
     "__docId__": 143,
@@ -2862,7 +2862,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe13.describe14.it16",
     "access": null,
     "description": "with callback",
-    "lineNumber": 93
+    "lineNumber": 101
   },
   {
     "__docId__": 144,
@@ -2876,7 +2876,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe13.describe17",
     "access": null,
     "description": "with key and callback",
-    "lineNumber": 97
+    "lineNumber": 105
   },
   {
     "__docId__": 145,
@@ -2890,7 +2890,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe13.describe17.it18",
     "access": null,
     "description": "calls bucketPipeline.add with correct key and meta",
-    "lineNumber": 106
+    "lineNumber": 114
   },
   {
     "__docId__": 146,
@@ -2904,7 +2904,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe13.describe19",
     "access": null,
     "description": "with only callback",
-    "lineNumber": 111
+    "lineNumber": 119
   },
   {
     "__docId__": 147,
@@ -2918,7 +2918,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe13.describe19.it20",
     "access": null,
     "description": "calls bucketPipeline.add with correct key and meta",
-    "lineNumber": 119
+    "lineNumber": 127
   },
   {
     "__docId__": 148,
@@ -2932,7 +2932,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe21",
     "access": null,
     "description": ".get",
-    "lineNumber": 127,
+    "lineNumber": 135,
     "unknown": [
       {
         "tagName": "@test",
@@ -2955,7 +2955,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe21.describe22",
     "access": null,
     "description": "with key",
-    "lineNumber": 128
+    "lineNumber": 136
   },
   {
     "__docId__": 150,
@@ -2969,7 +2969,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe21.describe22.it23",
     "access": null,
     "description": "calls bucketPipeline.get with correct key",
-    "lineNumber": 137
+    "lineNumber": 145
   },
   {
     "__docId__": 151,
@@ -2983,7 +2983,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe21.describe22.it24",
     "access": null,
     "description": "with callback",
-    "lineNumber": 141
+    "lineNumber": 149
   },
   {
     "__docId__": 152,
@@ -2997,7 +2997,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe21.describe25",
     "access": null,
     "description": "with only callback",
-    "lineNumber": 145
+    "lineNumber": 153
   },
   {
     "__docId__": 153,
@@ -3011,7 +3011,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe21.describe25.it26",
     "access": null,
     "description": "calls bucketPipeline.get with no key",
-    "lineNumber": 153
+    "lineNumber": 161
   },
   {
     "__docId__": 154,
@@ -3025,7 +3025,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe27",
     "access": null,
     "description": ".getAll",
-    "lineNumber": 161,
+    "lineNumber": 169,
     "unknown": [
       {
         "tagName": "@test",
@@ -3048,7 +3048,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe27.it28",
     "access": null,
     "description": "calls bucketPipeline.get with correct key",
-    "lineNumber": 169
+    "lineNumber": 177
   },
   {
     "__docId__": 156,
@@ -3062,7 +3062,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe27.it29",
     "access": null,
     "description": "with callback",
-    "lineNumber": 173
+    "lineNumber": 181
   },
   {
     "__docId__": 157,
@@ -3076,7 +3076,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe30",
     "access": null,
     "description": ".each",
-    "lineNumber": 179,
+    "lineNumber": 187,
     "unknown": [
       {
         "tagName": "@test",
@@ -3099,7 +3099,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe30.describe31",
     "access": null,
     "description": "with a function",
-    "lineNumber": 180
+    "lineNumber": 188
   },
   {
     "__docId__": 159,
@@ -3113,7 +3113,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe30.describe31.it32",
     "access": null,
     "description": "calls bucketPipeline.each with correct key",
-    "lineNumber": 189
+    "lineNumber": 197
   },
   {
     "__docId__": 160,
@@ -3127,7 +3127,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe30.describe31.it33",
     "access": null,
     "description": "with callback",
-    "lineNumber": 193
+    "lineNumber": 201
   },
   {
     "__docId__": 161,
@@ -3141,7 +3141,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe30.describe34",
     "access": null,
     "description": "without function",
-    "lineNumber": 197
+    "lineNumber": 205
   },
   {
     "__docId__": 162,
@@ -3155,7 +3155,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe30.describe34.it35",
     "access": null,
     "description": "rejects",
-    "lineNumber": 198
+    "lineNumber": 206
   },
   {
     "__docId__": 163,
@@ -3169,7 +3169,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe36",
     "access": null,
     "description": ".saveMeta",
-    "lineNumber": 205
+    "lineNumber": 213
   },
   {
     "__docId__": 164,
@@ -3183,7 +3183,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe36.describe37",
     "access": null,
     "description": "with meta and key",
-    "lineNumber": 206
+    "lineNumber": 214
   },
   {
     "__docId__": 165,
@@ -3197,7 +3197,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe36.describe37.it38",
     "access": null,
     "description": "calls bucketPipeline.saveMeta with correct key",
-    "lineNumber": 218
+    "lineNumber": 226
   },
   {
     "__docId__": 166,
@@ -3211,7 +3211,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe36.describe37.it39",
     "access": null,
     "description": "with callback",
-    "lineNumber": 222
+    "lineNumber": 230
   },
   {
     "__docId__": 167,
@@ -3225,7 +3225,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe36.describe40",
     "access": null,
     "description": "with meta and no key",
-    "lineNumber": 226
+    "lineNumber": 234
   },
   {
     "__docId__": 168,
@@ -3239,7 +3239,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe36.describe40.it41",
     "access": null,
     "description": "calls bucketPipeline.saveMeta with correct key",
-    "lineNumber": 237
+    "lineNumber": 245
   },
   {
     "__docId__": 169,
@@ -3253,7 +3253,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe36.describe42",
     "access": null,
     "description": "with meta and no key and callback",
-    "lineNumber": 242
+    "lineNumber": 250
   },
   {
     "__docId__": 170,
@@ -3267,7 +3267,7 @@
     "longname": "tests/unit_tests/bucket_tests.js~describe0.describe36.describe42.it43",
     "access": null,
     "description": "calls bucketPipeline.saveMeta with correct key",
-    "lineNumber": 253
+    "lineNumber": 261
   },
   {
     "__docId__": 171,

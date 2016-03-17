@@ -56,9 +56,17 @@ from &apos;chai&apos;;
 import sinon from &apos;sinon&apos;;
 import BucketPipeline from &apos;@hoist/bucket-pipeline&apos;;
 import Errors from &apos;@hoist/errors&apos;;
+import Context from &apos;@hoist/context&apos;;
 
 /** @test {BucketAPI} */
 describe(&apos;Hoist.bucket&apos;, function () {
+  let context = {};
+  before(() =&gt; {
+    sinon.stub(Context, &apos;get&apos;).returns(Promise.resolve(context));
+  })
+  after(() =&gt; {
+    Context.get.restore();
+  })
   it(&apos;exists&apos;, function () {
     return expect(Hoist.bucket).to.exist;
   });
@@ -73,7 +81,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
     });
     it(&apos;calls bucketPipeline.remove&apos;, function () {
       return expect(BucketPipeline.prototype.remove)
-        .to.have.been.calledWith(&apos;key&apos;);
+        .to.have.been.calledWith(context, &apos;key&apos;);
     });
   });
   /** @test {BucketAPI#set} */
@@ -89,7 +97,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.set with correct key&apos;, function () {
         expect(BucketPipeline.prototype.set)
-          .to.have.been.calledWith(fakeKey, true);
+          .to.have.been.calledWith(context, fakeKey, true);
       });
       it(&apos;with callback&apos;, function (done) {
         Hoist.bucket.set(fakeKey, true, done);
@@ -106,7 +114,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.set with correct key and meta&apos;, function () {
         expect(BucketPipeline.prototype.set)
-          .to.have.been.calledWith(fakeKey, null);
+          .to.have.been.calledWith(context, fakeKey, null);
       });
     });
     describe(&apos;with no key specified&apos;, function () {
@@ -137,7 +145,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.add with correct key and meta&apos;, function () {
         expect(BucketPipeline.prototype.add)
-          .to.have.been.calledWith(fakeKey, fakeMeta);
+          .to.have.been.calledWith(context, fakeKey, fakeMeta);
       });
       it(&apos;with callback&apos;, function (done) {
         Hoist.bucket.add(fakeKey, fakeMeta, done);
@@ -154,7 +162,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.add with correct key and meta&apos;, function () {
         expect(BucketPipeline.prototype.add)
-          .to.have.been.calledWith(fakeKey, null);
+          .to.have.been.calledWith(context, fakeKey, null);
       });
     });
     describe(&apos;with only callback&apos;, function () {
@@ -167,7 +175,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.add with correct key and meta&apos;, function () {
         expect(BucketPipeline.prototype.add)
-          .to.have.been.calledWith(null, null);
+          .to.have.been.calledWith(context, null, null);
       });
     });
   });
@@ -185,7 +193,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.get with correct key&apos;, function () {
         expect(BucketPipeline.prototype.get)
-          .to.have.been.calledWith(fakeKey);
+          .to.have.been.calledWith(context, fakeKey);
       });
       it(&apos;with callback&apos;, function (done) {
         Hoist.bucket.get(fakeKey, done);
@@ -201,7 +209,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.get with no key&apos;, function () {
         expect(BucketPipeline.prototype.get)
-          .to.have.been.calledWith();
+          .to.have.been.calledWith(context);
       });
     });
   });
@@ -217,7 +225,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
     });
     it(&apos;calls bucketPipeline.get with correct key&apos;, function () {
       expect(BucketPipeline.prototype.getAll)
-        .to.have.been.calledWith();
+        .to.have.been.calledWith(context);
     });
     it(&apos;with callback&apos;, function (done) {
       Hoist.bucket.getAll(done);
@@ -237,7 +245,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.each with correct key&apos;, function () {
         expect(BucketPipeline.prototype.each)
-          .to.have.been.calledWith(fn);
+          .to.have.been.calledWith(context, fn);
       });
       it(&apos;with callback&apos;, function (done) {
         Hoist.bucket.each(fn, done);
@@ -266,7 +274,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.saveMeta with correct key&apos;, function () {
         expect(BucketPipeline.prototype.saveMeta)
-          .to.have.been.calledWith(fakeMeta, fakeKey);
+          .to.have.been.calledWith(context, fakeMeta, fakeKey);
       });
       it(&apos;with callback&apos;, function (done) {
         Hoist.bucket.saveMeta(fakeMeta, fakeKey, done);
@@ -285,7 +293,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.saveMeta with correct key&apos;, function () {
         expect(BucketPipeline.prototype.saveMeta)
-          .to.have.been.calledWith(fakeMeta, undefined);
+          .to.have.been.calledWith(context, fakeMeta, undefined);
       });
     });
     describe(&apos;with meta and no key and callback&apos;, function () {
@@ -301,7 +309,7 @@ describe(&apos;Hoist.bucket&apos;, function () {
       });
       it(&apos;calls bucketPipeline.saveMeta with correct key&apos;, function () {
         expect(BucketPipeline.prototype.saveMeta)
-          .to.have.been.calledWith(fakeMeta, null);
+          .to.have.been.calledWith(context, fakeMeta, null);
       });
     });
   });

@@ -493,265 +493,265 @@ window.esdocSearchIndex = [
   ],
   [
     "bucketapi src/bucket.js~bucketapi,bucketapi",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber12",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber13",
     "Hoist.bucket",
     "test"
   ],
   [
     "bucketapi#add bucketapi#add,bucketapi#add",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber78",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber86",
     "Hoist.bucket .add",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber97",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber105",
     "Hoist.bucket .add with key and callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber106",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber114",
     "Hoist.bucket .add with key and callback calls bucketPipeline.add with correct key and meta",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber79",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber87",
     "Hoist.bucket .add with key and meta",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber89",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber97",
     "Hoist.bucket .add with key and meta calls bucketPipeline.add with correct key and meta",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber93",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber101",
     "Hoist.bucket .add with key and meta with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber111",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber119",
     "Hoist.bucket .add with only callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber119",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber127",
     "Hoist.bucket .add with only callback calls bucketPipeline.add with correct key and meta",
     "test"
   ],
   [
     "bucketapi#each bucketapi#each,bucketapi#each",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber179",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber187",
     "Hoist.bucket .each",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber180",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber188",
     "Hoist.bucket .each with a function",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber189",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber197",
     "Hoist.bucket .each with a function calls bucketPipeline.each with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber193",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber201",
     "Hoist.bucket .each with a function with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber197",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber205",
     "Hoist.bucket .each without function",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber198",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber206",
     "Hoist.bucket .each without function rejects",
     "test"
   ],
   [
     "bucketapi#get bucketapi#get,bucketapi#get",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber127",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber135",
     "Hoist.bucket .get",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber128",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber136",
     "Hoist.bucket .get with key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber137",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber145",
     "Hoist.bucket .get with key calls bucketPipeline.get with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber141",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber149",
     "Hoist.bucket .get with key with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber145",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber153",
     "Hoist.bucket .get with only callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber153",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber161",
     "Hoist.bucket .get with only callback calls bucketPipeline.get with no key",
     "test"
   ],
   [
     "bucketapi#getall bucketapi#getall,bucketapi#getall",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber161",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber169",
     "Hoist.bucket .getAll",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber169",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber177",
     "Hoist.bucket .getAll calls bucketPipeline.get with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber173",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber181",
     "Hoist.bucket .getAll with callback",
     "test"
   ],
   [
     "bucketapi#remove bucketapi#remove,bucketapi#remove",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber17",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber25",
     "Hoist.bucket .remove",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber25",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber33",
     "Hoist.bucket .remove calls bucketPipeline.remove",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber205",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber213",
     "Hoist.bucket .saveMeta",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber206",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber214",
     "Hoist.bucket .saveMeta with meta and key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber218",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber226",
     "Hoist.bucket .saveMeta with meta and key calls bucketPipeline.saveMeta with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber222",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber230",
     "Hoist.bucket .saveMeta with meta and key with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber226",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber234",
     "Hoist.bucket .saveMeta with meta and no key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber242",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber250",
     "Hoist.bucket .saveMeta with meta and no key and callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber253",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber261",
     "Hoist.bucket .saveMeta with meta and no key and callback calls bucketPipeline.saveMeta with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber237",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber245",
     "Hoist.bucket .saveMeta with meta and no key calls bucketPipeline.saveMeta with correct key",
     "test"
   ],
   [
     "bucketapi#set bucketapi#set,bucketapi#set",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber31",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber39",
     "Hoist.bucket .set",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber49",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber57",
     "Hoist.bucket .set with key and callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber58",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber66",
     "Hoist.bucket .set with key and callback calls bucketPipeline.set with correct key and meta",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber32",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber40",
     "Hoist.bucket .set with key and create",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber41",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber49",
     "Hoist.bucket .set with key and create calls bucketPipeline.set with correct key",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber45",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber53",
     "Hoist.bucket .set with key and create with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber63",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber71",
     "Hoist.bucket .set with no key specified",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber64",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber72",
     "Hoist.bucket .set with no key specified rejects",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber69",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber77",
     "Hoist.bucket .set with no key specified with callback",
     "test"
   ],
   [
     "",
-    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber13",
+    "test-file/tests/unit_tests/bucket_tests.js.html#lineNumber21",
     "Hoist.bucket exists",
     "test"
   ],
