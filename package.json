@@ -50,7 +50,7 @@
     "sinon-chai": "^2.8.0"
   },
   "dependencies": {
-    "@hoist/bucket-pipeline": "^3.0.0",
+    "@hoist/bucket-pipeline": "^3.0.1",
     "@hoist/connector-pipeline": "^2.0.1",
     "@hoist/context": "^1.0.1",
     "@hoist/data-pipeline": "^2.0.1",
