@@ -45,3 +45,5 @@ log/*
 config/runtime.json
 config/test.json
 .queues
+docs
+lib
